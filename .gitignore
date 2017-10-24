@@ -1,0 +1,30 @@
+# OS X
+.DS_Store*
+Icon?
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux
+.directory
+*~
+
+# npm
+node_modules
+package-lock.json
+*.log
+*.gz
+
+#angular
+bazel-*
+e2e_test.*
+pubspec.lock
+.c9
+*.swo
+npm-debug.log
+yarn-error.log
+.build-analytics
+
