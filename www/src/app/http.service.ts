@@ -3,6 +3,8 @@ import {Http, Headers, RequestOptions} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
+import {environment} from "../environments/environment";
+
 
 @Injectable()
 export class HttpService {
@@ -21,7 +23,7 @@ export class HttpService {
 
   send(url: string): Promise<any> {
     return this.http
-      .get(url, this.options)
+      .get(environment.API_URL + url, this.options)
       .toPromise()
       .then(response => response.json())
       .catch(this.handleError);

@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule }    from '@angular/http';
+import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
 
@@ -10,18 +11,46 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 
-import { ResourcesmenuComponent } from './resourcesmenu/resourcesmenu.component'
 import {HttpService} from "./http.service";
+
+import {environment} from "../environments/environment";
+
+import { MenuComponent } from './menu/menu.component'
+import { ResourcesComponent } from './resources/resources.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { ResourceItemComponent } from './resource-item/resource-item.component';
+
+
+const appRoutes: Routes = [
+  { path: '',
+    redirectTo: '/resources',
+    pathMatch: 'full'
+  },
+  { path: 'resources', component: ResourcesComponent },
+  { path: 'resources/:item',      component: ResourceItemComponent },
+  { path: '**', component: PageNotFoundComponent }
+];
 
 @NgModule({
   declarations: [
     AppComponent,
-    ResourcesmenuComponent
+    MenuComponent,
+    ResourcesComponent,
+    PageNotFoundComponent,
+    ResourceItemComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
+
+    RouterModule.forRoot(
+      appRoutes,
+      {
+        useHash : true,
+        enableTracing: environment.Router_enableTracing
+      }
+    ),
 
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
