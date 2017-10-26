@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import { environment } from '../../environments/environment'
+import { HttpService } from '../http.service';
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-resourcesmenu',
@@ -10,16 +10,15 @@ import { environment } from '../../environments/environment'
 export class ResourcesmenuComponent implements OnInit {
   title : string = 'OpenSchedule'
 
-  constructor(private http: HttpClient) { }
+  constructor(private httpSrv: HttpService) { }
 
-  ngOnInit() {
-
-    this.http.get(environment.API_URL + 'api/resources').subscribe(data => {
-      console.log(data)
-      // Read the result field from the JSON response.
-      //this.results = data['results'];
-    });
-
+  ngOnInit(): void {
+    this.httpSrv
+      .send(environment.API_URL + '/resources')
+      .then(result => {
+        console.log(result)
+      })
+      .catch(error => console.log(error));
   }
 
 }

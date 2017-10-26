@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import { HttpModule }    from '@angular/http';
 
 import { AppComponent } from './app.component';
 
@@ -11,6 +11,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 import { ResourcesmenuComponent } from './resourcesmenu/resourcesmenu.component'
+import {HttpService} from "./http.service";
 
 @NgModule({
   declarations: [
@@ -20,14 +21,16 @@ import { ResourcesmenuComponent } from './resourcesmenu/resourcesmenu.component'
   imports: [
     BrowserModule,
     FormsModule,
-    HttpClientModule,
+    HttpModule,
 
     BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
     AccordionModule.forRoot()
   ],
-  providers: [],
+  providers: [
+    HttpService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
