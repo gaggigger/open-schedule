@@ -3,7 +3,7 @@ import {Http, Headers, RequestOptions} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import {environment} from "../environments/environment";
+import {environment} from "../../environments/environment";
 
 
 @Injectable()

@@ -11,7 +11,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 
-import {HttpService} from "./http.service";
+import {HttpService} from "./Services/http.service";
 
 import {environment} from "../environments/environment";
 
@@ -19,6 +19,7 @@ import { MenuComponent } from './menu/menu.component'
 import { ResourcesComponent } from './resources/resources.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ResourceItemComponent } from './resource-item/resource-item.component';
+import {TitleService} from "./Services/title.service";
 
 
 const appRoutes: Routes = [
@@ -26,9 +27,24 @@ const appRoutes: Routes = [
     redirectTo: '/resources',
     pathMatch: 'full'
   },
-  { path: 'resources', component: ResourcesComponent },
-  { path: 'resources/:item',      component: ResourceItemComponent },
-  { path: '**', component: PageNotFoundComponent }
+  {
+    path: 'resources',
+    component: ResourcesComponent,
+    data: {
+      title: 'Resources'
+    }
+  },
+  {
+    path: 'resources/:item',
+    component: ResourceItemComponent,
+    data: {
+      title: 'Resources'
+    }
+  },
+  {
+    path: '**',
+    component: PageNotFoundComponent
+  }
 ];
 
 @NgModule({
@@ -58,7 +74,8 @@ const appRoutes: Routes = [
     AccordionModule.forRoot()
   ],
   providers: [
-    HttpService
+    HttpService,
+    TitleService
   ],
   bootstrap: [AppComponent]
 })

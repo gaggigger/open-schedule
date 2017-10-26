@@ -1,6 +1,24 @@
 <app-menu></app-menu>
-
 <div class="panel panel-default">
+  <div class="panel-heading">
+    <h4>
+      <button
+        type="button"
+        class="btn btn-default dropdown-toggle glyphicon glyphicon-arrow-left"
+        aria-haspopup="true"
+        aria-expanded="false"
+        (click)="back()"
+      ></button>
+      <button
+        type="button"
+        class="btn btn-default dropdown-toggle glyphicon glyphicon-arrow-right"
+        aria-haspopup="true"
+        aria-expanded="false"
+        (click)="next()"
+      ></button>
+      {{ titleSrv.title }}
+    </h4>
+  </div>
   <div class="panel-body">
     <router-outlet></router-outlet>
   </div>
