@@ -44,9 +44,9 @@ module.exports = {
                     });
                 } else {
                     req.connectedUser = decoded._doc;
-            next();
-        }
-        });
+                    next();
+                }
+            });
         } else {
             return res.status(403).send({
                 'error' : 'Operation not allowed'
