@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpService} from "../Services/http.service";
-import {TitleService} from "../Services/title.service";
+import {HttpService} from "../../Services/http.service";
+import {TitleService} from "../../Services/title.service";
 
 @Component({
   selector: 'app-resources',
@@ -19,7 +19,7 @@ export class ResourcesComponent implements OnInit {
     this.titleSrv.setTitle('Ressources');
 
     this.httpSrv
-      .send('/resources')
+      .get('/resources')
       .then(result => {
         this.resources = result;
       })

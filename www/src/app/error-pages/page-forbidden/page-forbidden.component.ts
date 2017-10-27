@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {TitleService} from "../Services/title.service";
+import {TitleService} from "../../Services/title.service";
 
 @Component({
   moduleId: module.id,

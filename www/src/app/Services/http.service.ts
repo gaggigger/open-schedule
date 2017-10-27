@@ -5,6 +5,7 @@ import 'rxjs/add/operator/toPromise';
 
 import {environment} from "../../environments/environment";
 import {Router} from "@angular/router";
+import {TokenService} from "./token.service";
 
 
 @Injectable()
@@ -14,7 +15,8 @@ export class HttpService {
 
   constructor(
     private http: Http,
-    private router : Router
+    private router: Router,
+    private token: TokenService
   ) {
     this.headers = new Headers({
       'Content-Type': 'application/json',
@@ -25,16 +27,41 @@ export class HttpService {
     });
   }
 
-  send(url: string): Promise<any> {
-    return this.http
+  private request(): Http {
+    if(! this.options.headers.has('Authorization') && this.token.get()) {
+      this.options.headers.append('Authorization', this.token.get());
+    }
+    return this.http;
+  }
+
+  post(url: string, body: object): Promise<any> {
+    return this.request()
+      .post(environment.API_URL + url, body, this.options)
+      .toPromise()
+      .then(response => this.handleSuccess(response))
+      .catch(response => this.handleError(response, url));
+  }
+
+  get(url: string): Promise<any> {
+    return this.request()
       .get(environment.API_URL + url, this.options)
       .toPromise()
-      .then(response => response.json())
+      .then(response => this.handleSuccess(response))
       .catch(response => this.handleError(response, url));
+  }
+
+  private handleSuccess(response: any) {
+    let result = response.json();
+    // TODO save to local storage
+    if(result.token) this.token.set(result.token);
+    return result;
   }
 
   private handleError(response: any, url: string): Promise<any> {
     switch (response.status) {
+      case 0:
+        this.router.navigate(['unavailable']);
+        break;
       case 404 :
         this.router.navigate([url]);
         break;

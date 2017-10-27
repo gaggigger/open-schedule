@@ -3,8 +3,8 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import {Location} from '@angular/common';
 
 import 'rxjs/add/operator/switchMap';
-import {HttpService} from "../Services/http.service";
-import {TitleService} from "../Services/title.service";
+import {HttpService} from "../../Services/http.service";
+import {TitleService} from "../../Services/title.service";
 
 @Component({
   selector: 'app-resource-item',
@@ -13,6 +13,7 @@ import {TitleService} from "../Services/title.service";
 })
 export class ResourceItemComponent implements OnInit {
   item: string = '';
+  private sub: any;
 
   constructor(
     private titleSrv: TitleService,
@@ -23,10 +24,18 @@ export class ResourceItemComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.item = this.route.snapshot.paramMap.get('item');
+    //this.item = this.route.snapshot.paramMap.get('item');
+    this.sub = this.route.params.subscribe(params => {
+      this.item = params['item'];
+      this.titleSrv.setTitle('Ressources / ' + this.item);
 
-    this.titleSrv.setTitle('Ressources / ' + this.item);
+      // In a real app: dispatch action to load the details here.
+    });
 
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
   }
 
 }

@@ -1,0 +1,42 @@
+import { Component, OnInit } from '@angular/core';
+import {TitleService} from "../../Services/title.service";
+import {HttpService} from "../../Services/http.service";
+import {Router} from "@angular/router";
+import {TokenService} from "../../Services/token.service";
+
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
+})
+export class LoginComponent implements OnInit {
+  username: string = '';
+  password: string = '';
+
+  constructor(
+    private titleSrv: TitleService,
+    private httpSrv: HttpService,
+    private router: Router,
+    private token: TokenService
+  ) { }
+
+  ngOnInit() {
+    if(this.token.logged()) {
+      this.router.navigate(['']);
+    }
+    this.titleSrv.setTitle('Login');
+  }
+
+  submit() {
+    this.httpSrv.post('/login',
+      {
+        username : this.username,
+        password : this.password
+      }
+    ).then(result => {
+      // TODO reload page
+      this.router.navigate(['']);
+    }).catch(error => console.error(error));
+  }
+
+}

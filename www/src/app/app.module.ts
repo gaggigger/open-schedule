@@ -10,30 +10,38 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { CookieService } from 'ngx-cookie-service';
 
 import {HttpService} from "./Services/http.service";
 
 import {environment} from "../environments/environment";
 
+import { PageNotFoundComponent } from './error-pages/page-not-found/page-not-found.component';
+import { PageForbiddenComponent } from './error-pages/page-forbidden/page-forbidden.component';
+import { PageUnavailableComponent } from './error-pages/page-unavailable/page-unavailable.component';
 
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-import { PageForbiddenComponent } from './page-forbidden/page-forbidden.component';
+import { LoginComponent } from './log/login/login.component';
+import { LogoutComponent } from './log/logout/logout.component';
 
-import { LoginComponent } from './login/login.component';
 import { MenuComponent } from './menu/menu.component'
-import { ResourcesComponent } from './resources/resources.component';
-import { ResourceItemComponent } from './resource-item/resource-item.component';
+import { ResourcesComponent } from './resources/resources/resources.component';
+import { ResourceItemComponent } from './resources/resource-item/resource-item.component';
 import {TitleService} from "./Services/title.service";
+import {TokenService} from "./Services/token.service";
 
 
 const appRoutes: Routes = [
   { path: '',
-    redirectTo: '/resources',
+    redirectTo: '/home',
     pathMatch: 'full'
   },
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'logout',
+    component: LogoutComponent
   },
   {
     path: 'resources',
@@ -43,6 +51,7 @@ const appRoutes: Routes = [
     path: 'resources/:item',
     component: ResourceItemComponent
   },
+  { path: 'unavailable', component: PageUnavailableComponent },
   { path: 'forbidden', component: PageForbiddenComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -55,7 +64,9 @@ const appRoutes: Routes = [
     PageNotFoundComponent,
     ResourceItemComponent,
     PageForbiddenComponent,
-    LoginComponent
+    LoginComponent,
+    PageUnavailableComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -76,8 +87,10 @@ const appRoutes: Routes = [
     AccordionModule.forRoot()
   ],
   providers: [
+    CookieService,
     HttpService,
-    TitleService
+    TitleService,
+    TokenService
   ],
   bootstrap: [AppComponent]
 })

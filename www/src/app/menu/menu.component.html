@@ -6,29 +6,51 @@
       </a>
       <span class="navbar-brand">{{ title }}</span>
     </div>
-    <!--ul class="nav navbar-nav">
-      <li class="active">
-        <a href="#">
-          Link
-          <span class="sr-only">(current)</span>
-        </a>
+    <ul class="nav navbar-nav" *ngIf="menus.length > 0">
+      <li
+        *ngFor="let menu of menus"
+        class="btn-group"
+        dropdown
+      >
+          <div
+            class="btn"
+            [routerLink]="menu.path"
+            routerLinkActive="active"
+          >
+            <i [ngClass]="menu.icon"></i>
+            &nbsp;
+            {{ menu.name }}
+          </div>
+          <div
+            class="btn dropdown-toggle dropdown-toggle-split"
+            *ngIf="menu.items && menu.items.length > 0"
+            dropdownToggle
+          >
+            <span class="caret"></span>
+            <span class="sr-only">Split button!</span>
+          </div>
+          <ul
+            class="dropdown-menu"
+            role="menu"
+            *dropdownMenu
+          >
+            <li
+              role="menuitem"
+              *ngFor="let item of menu.items"
+            >
+              <a
+                class="dropdown-item"
+                [routerLink]="item.path"
+                routerLinkActive="active"
+                href="#"
+              >
+                <i [ngClass]="item.icon"></i>
+                &nbsp;
+                {{ item.name }}
+              </a>
+            </li>
+          </ul>
       </li>
-      <li><a href="#">Link</a></li>
-      <li class="dropdown" dropdown>
-        <a dropdownToggle role="button">
-          Dropdown
-          <span class="caret"></span>
-        </a>
-        <ul *dropdownMenu class="dropdown-menu">
-          <li><a href="#">Action</a></li>
-          <li><a href="#">Another action</a></li>
-          <li><a href="#">Something else here</a></li>
-          <li role="separator" class="divider"></li>
-          <li><a href="#">Separated link</a></li>
-          <li role="separator" class="divider"></li>
-          <li><a href="#">One more separated link</a></li>
-        </ul>
-      </li>
-    </ul-->
+    </ul>
   </div>
 </nav>
