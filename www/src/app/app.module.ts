@@ -15,9 +15,13 @@ import {HttpService} from "./Services/http.service";
 
 import {environment} from "../environments/environment";
 
+
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PageForbiddenComponent } from './page-forbidden/page-forbidden.component';
+
+import { LoginComponent } from './login/login.component';
 import { MenuComponent } from './menu/menu.component'
 import { ResourcesComponent } from './resources/resources.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ResourceItemComponent } from './resource-item/resource-item.component';
 import {TitleService} from "./Services/title.service";
 
@@ -28,23 +32,19 @@ const appRoutes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'login',
+    component: LoginComponent
+  },
+  {
     path: 'resources',
-    component: ResourcesComponent,
-    data: {
-      title: 'Resources'
-    }
+    component: ResourcesComponent
   },
   {
     path: 'resources/:item',
-    component: ResourceItemComponent,
-    data: {
-      title: 'Resources'
-    }
+    component: ResourceItemComponent
   },
-  {
-    path: '**',
-    component: PageNotFoundComponent
-  }
+  { path: 'forbidden', component: PageForbiddenComponent },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
@@ -53,7 +53,9 @@ const appRoutes: Routes = [
     MenuComponent,
     ResourcesComponent,
     PageNotFoundComponent,
-    ResourceItemComponent
+    ResourceItemComponent,
+    PageForbiddenComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

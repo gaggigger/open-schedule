@@ -14,11 +14,11 @@ export class MenuComponent implements OnInit {
 
   ngOnInit(): void {
     this.httpSrv
-      .send('/resources/menu')
+      .send('/menu')
       .then(result => {
         //console.log(result)
       })
-      .catch(error => console.log(error));
+      .catch(error => console.error(error));
   }
 
 }
