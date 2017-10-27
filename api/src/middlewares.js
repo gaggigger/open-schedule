@@ -19,7 +19,7 @@ module.exports = {
         // Allowed method
         res.header('Access-Control-Allow-Methods', 'GET,PUT,PATCH,POST,DELETE,OPTIONS');
         // Set custom headers for CORS
-        res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key');
+        res.header('Access-Control-Allow-Headers', 'Content-type,Accept,X-Access-Token,X-Key,Authorization');
         if (req.method == 'OPTIONS') {
             res.status(200).end();
         } else {
@@ -43,7 +43,7 @@ module.exports = {
                         'error' : 'Operation not allowed'
                     });
                 } else {
-                    req.connectedUser = decoded._doc;
+                    //req.connectedUser = decoded._doc;
                     next();
                 }
             });
