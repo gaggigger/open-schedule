@@ -1,8 +1,34 @@
 var express = require('express');
 var router = express.Router();
+const ApiMiddlewares = require('../src/middlewares');
 
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
+});
+
+/**************************************************************
+ *********** All route below are protected by token ***********/
+router.use(ApiMiddlewares.token);
+/*************************************************************/
+
+router.get('/menu', function(req, res, next) {
+    res.send([
+        {
+            name : 'Resources',
+            path : '/resources',
+            items : [
+                {
+                    name : 'Salles',
+                    path : '/resources/rooms'
+                },
+                {
+                    name : 'Matières',
+                    path : '/resources/contents'
+                }
+            ]
+        }
+
+    ]);
 });
 
 router.get('/resources', function(req, res, next) {
@@ -27,26 +53,6 @@ router.get('/resources', function(req, res, next) {
             path : '/resources/teachers',
             icon : 'glyphicon glyphicon-user'
         }
-    ]);
-});
-
-router.get('/resources/menu', function(req, res, next) {
-    res.send([
-        {
-            name : 'Resources',
-            path : '/resources',
-            items : [
-                {
-                    name : 'Salles',
-                    path : '/resources/rooms'
-                },
-                {
-                    name : 'Matières',
-                    path : '/resources/contents'
-                }
-            ]
-        }
-
     ]);
 });
 

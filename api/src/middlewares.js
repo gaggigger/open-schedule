@@ -28,7 +28,7 @@ module.exports = {
     },
 
     /**
-     * CHeck token credentials
+     * Check token credentials
      * @param req
      * @param res
      * @param next
@@ -48,7 +48,7 @@ module.exports = {
                 }
             });
         } else {
-            return res.status(403).send({
+            return res.status(401).send({
                 'error' : 'Operation not allowed'
             });
         }
