@@ -23,11 +23,13 @@ import { PageUnavailableComponent } from './error-pages/page-unavailable/page-un
 import { LoginComponent } from './log/login/login.component';
 import { LogoutComponent } from './log/logout/logout.component';
 
+import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component'
 import { ResourcesComponent } from './resources/resources/resources.component';
 import { ResourceItemComponent } from './resources/resource-item/resource-item.component';
 import {TitleService} from "./Services/title.service";
 import {TokenService} from "./Services/token.service";
+import { PageGeneralErrorComponent } from './error-pages/page-general-error/page-general-error.component';
 
 
 const appRoutes: Routes = [
@@ -44,6 +46,10 @@ const appRoutes: Routes = [
     component: LogoutComponent
   },
   {
+    path: 'home',
+    component: HomeComponent
+  },
+  {
     path: 'resources',
     component: ResourcesComponent
   },
@@ -53,6 +59,7 @@ const appRoutes: Routes = [
   },
   { path: 'unavailable', component: PageUnavailableComponent },
   { path: 'forbidden', component: PageForbiddenComponent },
+  { path: 'general-error', component: PageGeneralErrorComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -66,7 +73,9 @@ const appRoutes: Routes = [
     PageForbiddenComponent,
     LoginComponent,
     PageUnavailableComponent,
-    LogoutComponent
+    LogoutComponent,
+    HomeComponent,
+    PageGeneralErrorComponent
   ],
   imports: [
     BrowserModule,

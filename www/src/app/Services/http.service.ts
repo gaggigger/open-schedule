@@ -28,6 +28,7 @@ export class HttpService {
   }
 
   private request(): Http {
+    // TODO set var
     if(! this.options.headers.has('Authorization') && this.token.get()) {
       this.options.headers.append('Authorization', this.token.get());
     }
@@ -52,7 +53,6 @@ export class HttpService {
 
   private handleSuccess(response: any) {
     let result = response.json();
-    // TODO save to local storage
     if(result.token) this.token.set(result.token);
     return result;
   }
@@ -70,6 +70,9 @@ export class HttpService {
         break;
       case 403 :
         this.router.navigate(['forbidden']);
+        break;
+      default:
+        this.router.navigate(['general-error']);
         break;
     }
     return Promise.reject(response.message || response);
