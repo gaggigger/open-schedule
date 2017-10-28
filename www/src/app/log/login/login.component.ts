@@ -34,8 +34,7 @@ export class LoginComponent implements OnInit {
         password : this.password
       }
     ).then(result => {
-      // TODO reload page
-      this.router.navigate(['']);
+      window.location.reload();
     }).catch(error => console.error(error));
   }
 

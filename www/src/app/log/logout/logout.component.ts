@@ -15,9 +15,11 @@ export class LogoutComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.token.logOff();
-    // TODO reload page
     this.router.navigate(['']);
+    if(this.token.logged()) {
+      this.token.logOff();
+      window.location.reload();
+    }
   }
 
 }
