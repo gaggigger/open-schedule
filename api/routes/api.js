@@ -5,6 +5,10 @@ const jwt    = require('jsonwebtoken');
 const config = require('../config');
 const ApiMiddlewares = require('../src/middlewares');
 
+
+router.use(ApiMiddlewares.token);
+
+
 router.get('/', function(req, res, next) {
   res.send('');
 });
@@ -23,14 +27,9 @@ router.post('/login', function(req, res, next) {
     })
 });
 
-/**************************************************************
- *********** All route below are protected by token ***********/
-router.use(ApiMiddlewares.token);
-/*************************************************************/
-
 router.get('/menu', function(req, res, next) {
     // TODO get from database
-    res.send([
+    let menu = [
         {
             name : 'Resources',
             path : '/resources',
@@ -57,14 +56,29 @@ router.get('/menu', function(req, res, next) {
                     icon : 'glyphicon glyphicon-user'
                 }
             ]
-        },
-        {
+        }
+    ];
+    if(req.connectedUser) {
+        menu.push({
             name : 'Logout',
             path : '/logout',
             icon : 'glyphicon glyphicon-log-out'
-        }
-    ]);
+        });
+    }else {
+        menu.push({
+            name : 'Login',
+            path : '/login',
+            icon : 'glyphicon glyphicon-log-in'
+        });
+    }
+
+    res.send(menu);
 });
+
+/**************************************************************
+ *********** All route below are protected by token ***********/
+router.use(ApiMiddlewares.protect);
+/*************************************************************/
 
 router.get('/resources', function(req, res, next) {
     // TODO get from database

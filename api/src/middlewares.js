@@ -28,7 +28,7 @@ module.exports = {
     },
 
     /**
-     * Check token credentials
+     * Set token credentials to request
      * @param req
      * @param res
      * @param next
@@ -38,19 +38,34 @@ module.exports = {
         let token = (req.body && req.body.access_token) || (req.query && req.query.access_token) || req.headers['x-access-token'] || req.headers['authorization'];
         if (token) {
             jwt.verify(token, config.apisecret, (err, decoded) => {
-                if (err) {
+                if (! err) {
+                    // TODO iat and exp
+                    req.connectedUser = decoded;
+                } else {
+                    /*
                     return res.status(403).send({
                         'error' : 'Operation not allowed'
                     });
-                } else {
-                    //req.connectedUser = decoded._doc;
-                    next();
+                    */
                 }
             });
-        } else {
+        }
+        next();
+    },
+
+    /**
+     * Check token credentials
+     * @param req
+     * @param res
+     * @param next
+     * @returns {*}
+     */
+    protect : function(req, res, next) {
+        if(! req.connectedUser) {
             return res.status(401).send({
                 'error' : 'Operation not allowed'
             });
         }
+        next();
     }
 };
