@@ -16,7 +16,7 @@ export class ResourcesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.titleSrv.setTitle('Ressources');
+    this.titleSrv.set('Resources');
 
     this.httpSrv
       .get('/resources')

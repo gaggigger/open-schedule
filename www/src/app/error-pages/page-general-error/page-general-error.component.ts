@@ -20,7 +20,7 @@ export class PageGeneralErrorComponent implements OnInit {
 
   ngOnInit() {
     this.i18n.translate('Error').then(text => {
-      this.titleSrv.setTitle('500 - ' + text);
+      this.titleSrv.set('500 - ' + text);
     });
   }
 

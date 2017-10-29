@@ -16,6 +16,9 @@ router.get('/', function(req, res, next) {
 router.get('/i18n', function(req, res, next) {
     res.send({
         'OpenSchedule' : 'OpenSchedule',
+        // Title
+        'Home' : 'Accueil',
+        'Resources' : 'Ressources',
         // Error Pages
         'Forbidden' : 'Interdit',
         'Error' : 'Erreur',

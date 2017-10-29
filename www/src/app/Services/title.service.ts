@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {I18nService} from "./i18n.service";
 
 
 @Injectable()
@@ -6,9 +7,18 @@ export class TitleService {
   title : string = '';
 
   constructor(
+    private i18n: I18nService
   ) { }
 
-  setTitle(title:string): void {
-    this.title = title;
+  set(title: string): void {
+    this.i18n.translate(title).then(text => {
+      this.title = text;
+    });
+  }
+
+  append(title:string, join: string=' / '): void {
+    this.i18n.translate(title).then(text => {
+      this.title += join + text;
+    });
   }
 }

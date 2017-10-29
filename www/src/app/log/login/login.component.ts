@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     if(this.token.logged()) {
       this.router.navigate(['']);
     }
-    this.titleSrv.setTitle('Login');
+    this.titleSrv.set('Login');
   }
 
   submit(f: NgForm) {

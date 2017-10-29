@@ -24,12 +24,13 @@ export class ResourceItemComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    //this.item = this.route.snapshot.paramMap.get('item');
     this.sub = this.route.params.subscribe(params => {
       this.item = params['item'];
-      this.titleSrv.setTitle('Ressources / ' + this.item);
+      this.titleSrv.append(this.item);
 
-      // In a real app: dispatch action to load the details here.
+
+
+
     });
 
   }
