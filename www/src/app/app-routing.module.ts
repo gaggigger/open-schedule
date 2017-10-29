@@ -32,7 +32,7 @@ const appRoutes: Routes = [
       appRoutes,
       {
         useHash : true,
-        enableTracing: !environment.production
+        enableTracing: false //!environment.production
       }
     ),
   ],

@@ -3,6 +3,8 @@ import {TitleService} from "../../Services/title.service";
 import {HttpService} from "../../Services/http.service";
 import {Router} from "@angular/router";
 import {TokenService} from "../../Services/token.service";
+import {NgFor} from "@angular/common";
+import {NgForm} from "@angular/forms";
 
 @Component({
   selector: 'app-login',
@@ -27,13 +29,9 @@ export class LoginComponent implements OnInit {
     this.titleSrv.setTitle('Login');
   }
 
-  submit() {
-    this.httpSrv.post('/login',
-      {
-        username : this.username,
-        password : this.password
-      }
-    ).then(result => {
+  submit(f: NgForm) {
+    if(! f.valid) return false;
+    this.httpSrv.post('/login', f.value).then(result => {
       window.location.reload();
     }).catch(error => console.error(error));
   }

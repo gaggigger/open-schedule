@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TitleService} from "../../Services/title.service";
+import {I18nService} from "../../Services/i18n.service";
 
 @Component({
   moduleId: module.id,
@@ -13,11 +14,13 @@ import {TitleService} from "../../Services/title.service";
 
 export class PageUnavailableComponent implements OnInit {
   constructor(
-    private titleSrv: TitleService
+    private titleSrv: TitleService,
+    private i18n: I18nService
   ) { }
 
   ngOnInit() {
-    this.titleSrv.setTitle('503 - Service Unavailable');
-
+    this.i18n.translate('Service Unavailable').then(text => {
+      this.titleSrv.setTitle('503 - ' + text);
+    });
   }
 }

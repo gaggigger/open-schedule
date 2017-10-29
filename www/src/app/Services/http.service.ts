@@ -6,6 +6,7 @@ import 'rxjs/add/operator/toPromise';
 import {environment} from "../../environments/environment";
 import {Router} from "@angular/router";
 import {TokenService} from "./token.service";
+import {Observable} from "rxjs/Observable";
 
 
 @Injectable()
@@ -28,27 +29,18 @@ export class HttpService {
   }
 
   private request(): Http {
-    // TODO set var
+    // TODO send lang
     if(! this.options.headers.has('Authorization') && this.token.get()) {
       this.options.headers.append('Authorization', this.token.get());
     }
     return this.http;
   }
 
-  post(url: string, body: object): Promise<any> {
-    return this.request()
-      .post(environment.API_URL + url, body, this.options)
+  private send(obs: Observable<any>): Promise<any> {
+    return obs
       .toPromise()
       .then(response => this.handleSuccess(response))
-      .catch(response => this.handleError(response, url));
-  }
-
-  get(url: string): Promise<any> {
-    return this.request()
-      .get(environment.API_URL + url, this.options)
-      .toPromise()
-      .then(response => this.handleSuccess(response))
-      .catch(response => this.handleError(response, url));
+      .catch(response => this.handleError(response, ''));
   }
 
   private handleSuccess(response: any) {
@@ -77,4 +69,21 @@ export class HttpService {
     }
     return Promise.reject(response.message || response);
   }
+
+  post(url: string, body: object): Promise<any> {
+    return this.send(
+      this.request().post(environment.API_URL + url, body, this.options)
+    );
+  }
+
+  get(url: string, parameters: object={}): Promise<any> {
+    return this.send(
+      this.request().get(
+        environment.API_URL + url + '?' + Object.keys(parameters)
+          .map(p => p + '=' + encodeURIComponent(parameters[p]))
+          .join('&'),
+        this.options)
+    );
+  }
+
 }

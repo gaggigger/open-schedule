@@ -11,10 +11,11 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { CookieService } from 'ngx-cookie-service';
+import { Latinize }	from 'angular2latinize';
 
 import {HttpService} from "./Services/http.service";
 
-import { MenuComponent } from './menu/menu.component'
+import {MenuComponent, MenuModule} from './menu/menu.component'
 
 import {TitleService} from "./Services/title.service";
 import {TokenService} from "./Services/token.service";
@@ -28,6 +29,8 @@ import {LogoutModule} from "./log/logout/logout.module";
 import {LoginModule} from "./log/login/login.module";
 import {ResourcesModule} from "./resources/resources/resources.module";
 import {ResourceItemModule} from "./resources/resource-item/resource-item.module";
+import {CacheService} from "./Services/cache.service";
+import {I18nService} from "./Services/i18n.service";
 
 
 @NgModule({
@@ -47,6 +50,8 @@ import {ResourceItemModule} from "./resources/resource-item/resource-item.module
 
     HomeModule,
 
+    MenuModule,
+
     LoginModule,
     LogoutModule,
 
@@ -65,7 +70,10 @@ import {ResourceItemModule} from "./resources/resource-item/resource-item.module
     CookieService,
     HttpService,
     TitleService,
-    TokenService
+    TokenService,
+    CacheService,
+    Latinize,
+    I18nService,
   ],
   bootstrap: [AppComponent]
 })
