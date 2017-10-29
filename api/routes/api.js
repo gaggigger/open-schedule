@@ -14,7 +14,19 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/i18n', function(req, res, next) {
-    res.send([]);
+    res.send({
+        'OpenSchedule' : 'OpenSchedule',
+        // Error Pages
+        'Forbidden' : 'Interdit',
+        'Error' : 'Erreur',
+        'Page not found' : 'Page non trouvée',
+        'Service Unavailable' : 'Service indisponible',
+        // Login
+        'Login' : 'Connexion',
+        'Username' : 'Identifiant',
+        'Password' : 'Mot de passe'
+
+    });
 });
 
 router.post('/login', function(req, res, next) {
