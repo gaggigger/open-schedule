@@ -15,7 +15,7 @@ export class TitleService {
       this.title = text;
     });
   }
-
+// TODO breadcrumbs
   append(title:string, join: string=' / '): void {
     this.i18n.translate(title).then(text => {
       this.title += join + text;
