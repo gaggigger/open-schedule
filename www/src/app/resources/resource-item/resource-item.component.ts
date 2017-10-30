@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 
 import 'rxjs/add/operator/switchMap';
 import {TitleService} from "../../Services/title.service";
+import {Observable} from "rxjs/Observable";
+import 'rxjs/add/observable/combineLatest'
 
 
 @Component({
@@ -11,23 +13,30 @@ import {TitleService} from "../../Services/title.service";
   styleUrls: ['./resource-item.component.css']
 })
 export class ResourceItemComponent implements OnInit {
-  private resource: string = '';
+  private params: object = {};
   private sub: any;
 
   constructor(
     private titleSrv: TitleService,
     private route: ActivatedRoute,
-  ) {
-
-
-  }
+  ) { }
 
   ngOnInit() {
+    // TODO erreur subscribe
     this.sub = this.route.params.subscribe(params => {
-      this.resource = params['item'];
-      this.titleSrv.append(this.resource);
-
+      this.titleSrv.append(params['item']);
+      this.params = this.route.snapshot.queryParams;
     });
+
+    /*
+    Observable.combineLatest(this.route.params, this.route.queryParams,(params, qparams) => ({ params, qparams }))
+      .subscribe( ap => {
+        this.params = ap.qparams;
+      });
+     */
   }
 
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
 }

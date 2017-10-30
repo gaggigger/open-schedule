@@ -1,6 +1,8 @@
-import {Component, ViewEncapsulation} from "@angular/core";
+import {Component, Input, OnInit, ViewEncapsulation} from "@angular/core";
 
 import {GridOptions} from "ag-grid/main";
+import {I18nService} from "../../Services/i18n.service";
+import {HttpService} from "../../Services/http.service";
 
 @Component({
   selector: 'app-resource-grid',
@@ -18,24 +20,38 @@ import {GridOptions} from "ag-grid/main";
     '../../../../node_modules/ag-grid/dist/styles/theme-bootstrap.css',
   ],
 })
-export class ResourceGirdComponent {
+export class ResourceGirdComponent implements OnInit {
+  @Input() params: object = {};
+
   gridOptions: GridOptions;
   columnDefs: any[];
   rowData: any[];
 
-  constructor() {
-    this.gridOptions = <GridOptions>{};
+  constructor(
+    private httpSrv: HttpService,
+    private i18n: I18nService
+  ) {
+  }
 
-    this.columnDefs = [
-      {headerName: "Model", field: "model"},
-      {headerName: "Price", field: "price"}
-    ];
-
-    this.rowData = [
-      {make: "Toyota", model: "Celica", price: 35000},
-      {make: "Ford", model: "Mondeo", price: 32000},
-      {make: "Porsche", model: "Boxter", price: 72000}
-    ]
+  ngOnInit(): void {
+    this.gridOptions = <GridOptions>{
+      enableFilter: true,
+      rowSelection: 'multiple',
+    };
+    // Get column defs
+    this.httpSrv
+      .get(this.params['path'])
+      .then(result => {
+        this.columnDefs = result;
+      })
+      .catch(error => console.error(error));
+    // Get data
+    this.httpSrv
+      .get(this.params['path'] + '/data')
+      .then(result => {
+        this.rowData = result;
+      })
+      .catch(error => console.error(error));
   }
 
   onGridReady(params) {
@@ -44,6 +60,13 @@ export class ResourceGirdComponent {
 
   selectAllRows() {
     this.gridOptions.api.selectAll();
+  }
+
+  onRowSelected(event: any) {
+    if(event.node.selected) {
+
+      console.log(event.data);
+    }
   }
 }
 
