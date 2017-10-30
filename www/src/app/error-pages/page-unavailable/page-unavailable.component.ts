@@ -19,8 +19,7 @@ export class PageUnavailableComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.i18n.translate('Service Unavailable').then(text => {
-      this.titleSrv.set('503 - ' + text);
-    });
+    this.titleSrv.set('503 - ' + this.i18n.trans('Service Unavailable'));
+
   }
 }

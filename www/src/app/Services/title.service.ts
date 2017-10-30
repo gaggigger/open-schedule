@@ -11,14 +11,10 @@ export class TitleService {
   ) { }
 
   set(title: string): void {
-    this.i18n.translate(title).then(text => {
-      this.title = text;
-    });
+    this.title = this.i18n.trans(title);
   }
 // TODO breadcrumbs
   append(title:string, join: string=' / '): void {
-    this.i18n.translate(title).then(text => {
-      this.title += join + text;
-    });
+    this.title += join + this.i18n.trans(title);
   }
 }

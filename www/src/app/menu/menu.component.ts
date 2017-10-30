@@ -22,9 +22,7 @@ export class MenuComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.i18n.translate('OpenSchedule').then(text => {
-      this.title = text;
-    });
+    this.title = this.i18n.trans('OpenSchedule');
 
     this.httpSrv
       .get('/menu')

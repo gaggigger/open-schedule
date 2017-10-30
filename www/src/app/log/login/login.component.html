@@ -4,9 +4,9 @@
     <div class="avatar"></div>
     <div class="form-box">
       <form #f="ngForm" (ngSubmit)="submit(f)">
-        <input type="text"     name="user"     placeholder="{{ 'Username' | i18n | async }}" [(ngModel)]="username" required />
-        <input type="password" name="password" placeholder="{{ 'Password' | i18n | async }}" [(ngModel)]="password" required />
-        <button class="btn btn-info btn-block login" type="submit">{{ 'Login' | i18n | async }}</button>
+        <input type="text"     name="user"     placeholder="{{ 'Username' | trans }}" [(ngModel)]="username" required />
+        <input type="password" name="password" placeholder="{{ 'Password' | trans }}" [(ngModel)]="password" required />
+        <button class="btn btn-info btn-block login" type="submit">{{ 'Login' | trans }}</button>
       </form>
     </div>
   </div>

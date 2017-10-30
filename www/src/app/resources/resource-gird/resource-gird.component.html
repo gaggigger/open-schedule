@@ -1,9 +1,11 @@
 <ag-grid-angular
-  style="width: 250px; height: 50vh;"
+  style="width: 30%; height: 50vh;"
   class="ag-bootstrap"
   [rowData]="rowData"
   [columnDefs]="columnDefs"
   [gridOptions]="gridOptions"
   (gridReady)="onGridReady($event)"
-  (rowSelected)='onRowSelected($event)'
+  (rowSelected)="onRowSelected($event)"
+  (cellValueChanged)="onCellValueChanged($event)"
+
 ></ag-grid-angular>

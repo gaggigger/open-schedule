@@ -42,7 +42,16 @@ export class ResourceGirdComponent implements OnInit {
     this.httpSrv
       .get(this.params['path'])
       .then(result => {
-        this.columnDefs = result;
+        this.columnDefs = [
+          {
+            headerName: '#',
+            width: 30,
+            checkboxSelection: true,
+            suppressSorting: true,
+            suppressMenu: true,
+            pinned: true
+          }
+        ].concat(result);
       })
       .catch(error => console.error(error));
     // Get data
@@ -64,9 +73,15 @@ export class ResourceGirdComponent implements OnInit {
 
   onRowSelected(event: any) {
     if(event.node.selected) {
-
       console.log(event.data);
     }
   }
+
+  onCellValueChanged(event: any) {
+    if(event.oldValue != event.value) {
+      console.log(event.data);
+    }
+  }
+
 }
 

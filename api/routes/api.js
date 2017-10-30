@@ -140,11 +140,13 @@ router.get('/resources/:item', function(req, res, next) {
                 {
                     headerName: "Code",
                     field: "code",
-                    width: 50
+                    width: 50,
+                    editable: true
                 },
                 {
                     headerName: "Name",
                     field: "name",
+                    editable: true
                 }
             ]);
             break;
@@ -153,11 +155,13 @@ router.get('/resources/:item', function(req, res, next) {
                 {
                     headerName: "Code",
                     field: "code",
-                    width: 50
+                    width: 50,
+                    editable: true
                 },
                 {
                     headerName: "Name",
                     field: "name",
+                    editable: true
                 }
             ]);
             break;
@@ -166,11 +170,13 @@ router.get('/resources/:item', function(req, res, next) {
                 {
                     headerName: "Matricule",
                     field: "matricule",
-                    width: 70
+                    width: 70,
+                    editable: true
                 },
                 {
                     headerName: "Name",
                     field: "name",
+                    editable: true
                 }
             ]);
             break;
@@ -179,6 +185,7 @@ router.get('/resources/:item', function(req, res, next) {
                 {
                     headerName: "Name",
                     field: "name",
+                    editable: true
                 }
             ]);
             break;

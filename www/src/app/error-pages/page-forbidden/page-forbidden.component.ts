@@ -19,9 +19,7 @@ export class PageForbiddenComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.i18n.translate('Forbidden').then(text => {
-      this.titleSrv.set('401 - ' + text);
-    });
+      this.titleSrv.set('401 - ' + this.i18n.trans('Forbidden'));
   }
 
 }

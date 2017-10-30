@@ -13,14 +13,6 @@ export class I18nService {
     private latinize: Latinize
   ) { }
 
-  private trans(key: string): string {
-    let k = this.latinize.convert(key);
-    if(! this.items[k]) {
-      console.warn('Translation error : ' + k);
-    }
-    return this.items[k] || key;
-  }
-
   /**
    * Translation is in async mode
    * @param key
@@ -47,12 +39,20 @@ export class I18nService {
         resolve(this.trans(key));
       }
     });
-
   }
+
+  public trans(key: string): string {
+    let k = this.latinize.convert(key);
+    if(! this.items[k]) {
+      console.warn('Translation error : ' + k);
+    }
+    return this.items[k] || key;
+  }
+
 }
 
 @Pipe({
-  name: 'i18n'
+  name: 'trans'
 })
 export class I18nPipe implements PipeTransform {
   constructor(
@@ -65,7 +65,7 @@ export class I18nPipe implements PipeTransform {
    * @returns {Promise<string>}
    */
   transform(value: any): any {
-    return this.i18n.translate(value) ;
+    return this.i18n.trans(value) ;
   }
 }
 

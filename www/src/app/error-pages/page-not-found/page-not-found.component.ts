@@ -19,8 +19,7 @@ export class PageNotFoundComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.i18n.translate('Page not found').then(text => {
-      this.titleSrv.set('404 - ' + text);
-    });
+    this.titleSrv.set('404 - ' + this.i18n.trans('Page not found'));
+
   }
 }
