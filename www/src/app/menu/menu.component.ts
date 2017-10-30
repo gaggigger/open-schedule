@@ -3,6 +3,7 @@ import { HttpService } from '../Services/http.service';
 import {I18nModule, I18nService} from "../Services/i18n.service";
 import {CommonModule} from "@angular/common";
 import {LogoutRoutingModule} from "../log/logout/logout-routing.module";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -16,6 +17,7 @@ export class MenuComponent implements OnInit {
 
   constructor(
     private httpSrv: HttpService,
+    private router: Router,
     private i18n: I18nService
   ) { }
 

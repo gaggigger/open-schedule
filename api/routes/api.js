@@ -75,9 +75,21 @@ router.get('/menu', function(req, res, next) {
     ];
     if(req.connectedUser) {
         menu.push({
-            name : 'Logout',
-            path : '/logout',
-            icon : 'glyphicon glyphicon-log-out'
+            name : req.connectedUser.user,
+            path : '',
+            icon : 'glyphicon glyphicon-user',
+            items : [
+                {
+                    name : 'Profil',
+                    path : '/user/profil',
+                    icon : 'glyphicon glyphicon-cog'
+                },
+                {
+                    name : 'Logout',
+                    path : '/logout',
+                    icon : 'glyphicon glyphicon-log-out'
+                }
+            ]
         });
     }else {
         menu.push({
