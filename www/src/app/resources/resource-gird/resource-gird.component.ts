@@ -1,11 +1,22 @@
-import {Component} from "@angular/core";
-//import {RedComponentComponent} from "../red-component/red-component.component";
+import {Component, ViewEncapsulation} from "@angular/core";
 
 import {GridOptions} from "ag-grid/main";
 
 @Component({
   selector: 'app-resource-grid',
-  templateUrl: './resource-gird.component.html'
+  templateUrl: './resource-gird.component.html',
+  encapsulation : ViewEncapsulation.None,
+  styleUrls: [
+    // TODO ???????
+    '../../../../node_modules/ag-grid/dist/styles/ag-grid.css',
+    '../../../../node_modules/ag-grid/dist/styles/compiled-icons.css',
+    '../../../../node_modules/ag-grid/dist/styles/ag-theme-material.css',
+    '../../../../node_modules/ag-grid/dist/styles/theme-blue.css',
+    '../../../../node_modules/ag-grid/dist/styles/theme-dark.css',
+    '../../../../node_modules/ag-grid/dist/styles/theme-material.css',
+    '../../../../node_modules/ag-grid/dist/styles/theme-fresh.css',
+    '../../../../node_modules/ag-grid/dist/styles/theme-bootstrap.css',
+  ],
 })
 export class ResourceGirdComponent {
   gridOptions: GridOptions;
@@ -16,7 +27,6 @@ export class ResourceGirdComponent {
     this.gridOptions = <GridOptions>{};
 
     this.columnDefs = [
-      {headerName: "Make", field: "make"},
       {headerName: "Model", field: "model"},
       {headerName: "Price", field: "price"}
     ];
