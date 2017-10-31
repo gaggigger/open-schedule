@@ -134,9 +134,43 @@ router.get('/resources', function(req, res, next) {
 });
 
 router.get('/resources/:item', function(req, res, next) {
+    let ret = {};
+
+    ret.information = {
+        name : req.params.item.toUpperCase()
+    };
+
+    ret.features = [
+        {
+            name : 'View',
+            path : '/resources/' + req.params.item + '/information',
+            icon : 'glyphicon glyphicon-info-sign'
+        },
+        {
+            name : 'Calendar',
+            path : '/resources/' + req.params.item + '/calendar',
+            icon : 'glyphicon glyphicon-calendar'
+        },
+        {
+            name : 'Print',
+            path : '/resources/' + req.params.item + '/print',
+            icon : 'glyphicon glyphicon-print'
+        }
+    ];
+    ret.grid = {
+        columns : '/resources/' + req.params.item + '/columns',
+        data : '/resources/' + req.params.item + '/data'
+    };
+
+    res.send(ret);
+
+});
+
+router.get('/resources/:item/columns', function(req, res, next) {
+    let ret = {};
     switch (req.params.item) {
         case 'rooms':
-            res.send([
+            ret = [
                 {
                     headerName: "Code",
                     field: "code",
@@ -148,10 +182,10 @@ router.get('/resources/:item', function(req, res, next) {
                     field: "name",
                     editable: true
                 }
-            ]);
+            ];
             break;
         case 'contents':
-            res.send([
+            ret = [
                 {
                     headerName: "Code",
                     field: "code",
@@ -163,10 +197,10 @@ router.get('/resources/:item', function(req, res, next) {
                     field: "name",
                     editable: true
                 }
-            ]);
+            ];
             break;
         case 'students':
-            res.send([
+            ret = [
                 {
                     headerName: "Matricule",
                     field: "matricule",
@@ -178,21 +212,20 @@ router.get('/resources/:item', function(req, res, next) {
                     field: "name",
                     editable: true
                 }
-            ]);
+            ];
             break;
         case 'teachers':
-            res.send([
+            ret = [
                 {
                     headerName: "Name",
                     field: "name",
                     editable: true
                 }
-            ]);
+            ];
             break;
-
     }
+    res.send(ret);
 });
-
 router.get('/resources/:item/data', function(req, res, next) {
     switch (req.params.item) {
         case 'rooms':

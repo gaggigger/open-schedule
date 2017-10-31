@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import {fakeAsync} from "@angular/core/testing";
 
 @Injectable()
 export class TokenService {

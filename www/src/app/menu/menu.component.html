@@ -15,7 +15,6 @@
           <div
             class="btn"
             [routerLink]="menu.path? menu.path : router.url"
-            [queryParams]="{ path: menu.path }"
             routerLinkActive="active"
           >
             <i [ngClass]="menu.icon"></i>
@@ -42,7 +41,6 @@
               <a
                 class="dropdown-item"
                 [routerLink]="item.path"
-                [queryParams]="{ path: item.path }"
                 routerLinkActive="active"
                 href="#"
               >

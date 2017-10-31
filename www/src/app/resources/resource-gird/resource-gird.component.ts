@@ -21,7 +21,8 @@ import {HttpService} from "../../Services/http.service";
   ],
 })
 export class ResourceGirdComponent implements OnInit {
-  @Input() params: object = {};
+  @Input() gridColumn: string = '';
+  @Input() gridData: string = '';
 
   gridOptions: GridOptions;
   columnDefs: any[];
@@ -30,19 +31,37 @@ export class ResourceGirdComponent implements OnInit {
   constructor(
     private httpSrv: HttpService,
     private i18n: I18nService
-  ) {
+  ) { }
+
+  ngOnChanges() {
+    // Force component refre
+    if(this.gridOptions) {
+      this.ngOnInit();
+    }
   }
 
   ngOnInit(): void {
     this.gridOptions = <GridOptions>{
       enableFilter: true,
-      rowSelection: 'multiple',
+      rowSelection: 'single',
     };
-    // Get column defs
-    this.httpSrv
-      .get(this.params['path'])
+    this.getConfiguration()
+      .then(result => {
+        return this.getData();
+      })
+      .catch(error => console.error(error));
+  }
+
+  /**
+   * Get item configuraiton : column defs, ...
+   * @returns {Promise<void|TResult2|TResult1>}
+   */
+  private getConfiguration(): Promise<any> {
+    return this.httpSrv
+      .get(this.gridColumn)
       .then(result => {
         this.columnDefs = [
+          // Add checkbox column
           {
             headerName: '#',
             width: 30,
@@ -54,14 +73,21 @@ export class ResourceGirdComponent implements OnInit {
         ].concat(result);
       })
       .catch(error => console.error(error));
-    // Get data
-    this.httpSrv
-      .get(this.params['path'] + '/data')
+  }
+
+  /**
+   * Get grid data
+   * @returns {Promise<void|TResult2|TResult1>}
+   */
+  private getData(): Promise<any> {
+    return this.httpSrv
+      .get(this.gridData)
       .then(result => {
         this.rowData = result;
       })
       .catch(error => console.error(error));
   }
+
 
   onGridReady(params) {
     params.api.sizeColumnsToFit();
@@ -74,6 +100,7 @@ export class ResourceGirdComponent implements OnInit {
   onRowSelected(event: any) {
     if(event.node.selected) {
       console.log(event.data);
+
     }
   }
 

@@ -1,3 +1,14 @@
-<app-resource-grid
-  [params]="params"
-></app-resource-grid>
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+        <app-resource-grid
+          *ngIf="gridColumn && gridData"
+          [gridColumn]="gridColumn"
+          [gridData]="gridData"
+        ></app-resource-grid>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-8 col-lg-9">
+
+      </div>
+    </div>
+</div>

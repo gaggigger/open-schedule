@@ -2,7 +2,6 @@
   <button
     *ngFor="let resource of resources"
     [routerLink]="resource.path"
-    [queryParams]="{ path: resource.path }"
     routerLinkActive="active"
     type="button"
     class="btn btn-default"

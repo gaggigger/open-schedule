@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {Location} from '@angular/common';
 import {TitleService} from "./Services/title.service";
-import {HttpService} from "./Services/http.service";
 import {I18nService} from "./Services/i18n.service";
 
 
