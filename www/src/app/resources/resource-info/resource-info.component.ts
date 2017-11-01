@@ -1,4 +1,5 @@
 import {Component, Input, OnChanges} from '@angular/core';
+import {HttpService} from "../../Services/http.service";
 
 @Component({
   selector: '[app-resource-info]',
@@ -8,12 +9,33 @@ import {Component, Input, OnChanges} from '@angular/core';
 export class ResourceInfoComponent implements OnChanges {
   @Input() path: string = '';
   @Input() items: Array<object> = [];
+  private resources: Array<object> = [];
 
-  constructor() { }
+  constructor(
+    private httpSrv: HttpService
+  ) { }
+
+  // TODO move to a filter
+  toarray(obj): Array<object> {
+    return Object.keys(obj).map((key) => {
+      return {
+        key : key,
+        value : obj[key]
+      }
+    });
+  }
 
   ngOnChanges() {
-    console.log(this.path);
-    console.log(this.items);
+    this.resources = [];
+    this.items.map((item: object) => {
+      this.httpSrv
+        .get(this.path.replace(/:id/, item['id']))
+        .then(result => {
+          this.resources.push(result);
+        })
+        .catch(error => console.error(error));
+
+    });
   }
 
 

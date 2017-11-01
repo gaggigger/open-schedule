@@ -1,3 +1,23 @@
-<p>
-  resource-info works!
-</p>
+<tabset *ngIf="resources.length > 0">
+  <tab
+    *ngFor="let resource of resources"
+  >
+    <ng-template tabHeading>
+      {{ resource.general.name }}
+    </ng-template>
+    <section class="container">
+      <article
+        class="card"
+        *ngFor="let card of toarray(resource)"
+      >
+        <div
+          *ngFor="let item of card.value.items"
+        >
+          {{ item.value }}
+        </div>
+      </article>
+    </section>
+
+  </tab>
+</tabset>
+

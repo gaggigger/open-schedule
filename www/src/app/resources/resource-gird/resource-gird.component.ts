@@ -102,6 +102,7 @@ export class ResourceGirdComponent implements OnInit {
   }
 
   onRowSelected(event: any) {
+    // TODO error here on resource change
     this.onGridSelection.emit(this.gridOptions.api.getSelectedRows());
   }
 

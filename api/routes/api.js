@@ -270,17 +270,52 @@ router.get('/resources/:item/data', function(req, res, next) {
 router.get('/resources/:item/:id/info', function(req, res, next) {
     res.send({
         general : {
-            name : 'Rakoto',
-            type : 'card',
-            items : {
-                picture : 'http://lorempixel.com/100/100/people/9/',
-                name : 'Solo',
-                lastname : 'Rakoto',
-                birth : '2000-09-12',
-            }
+            name: 'Rakoto',
+            type: 'card',
+            items: [
+                {
+                    label: 'photo',
+                    value: 'http://lorempixel.com/100/100/people/9/',
+                    type : 'picture'
+                },
+                {
+                    label: 'nom',
+                    value: 'Rakoto',
+                    type : 'text'
+                },
+                {
+                    label: 'prénom',
+                    value: 'Solofo',
+                    type : 'text'
+                },
+                {
+                    label: 'naissance',
+                    value: '2000-09-12',
+                    type : 'date'
+                }
 
+            ]
+        },
+        parents : {
+            name: 'Parents',
+            type: 'card',
+            items: [
+                {
+                    label: 'nom du père',
+                    value: 'Rakoto rainy'
+                }, {
+                    label: 'profession',
+                    value: 'Miasa mafy'
+                }, {
+                    label: 'nom de la mère',
+                    value: 'Rakoto reniny'
+                }, {
+                    label: 'profession',
+                    value: 'Miasa mafy koa ny reniny'
+                }
+
+            ]
         }
-
     });
 
 });
