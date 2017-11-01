@@ -267,5 +267,22 @@ router.get('/resources/:item/data', function(req, res, next) {
 
     }
 });
+router.get('/resources/:item/:id/info', function(req, res, next) {
+    res.send({
+        general : {
+            name : 'Rakoto',
+            type : 'card',
+            items : {
+                picture : 'http://lorempixel.com/100/100/people/9/',
+                name : 'Solo',
+                lastname : 'Rakoto',
+                birth : '2000-09-12',
+            }
+
+        }
+
+    });
+
+});
 
 module.exports = router;
