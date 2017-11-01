@@ -11,6 +11,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { CookieService } from 'ngx-cookie-service';
+
 import { Latinize }	from 'angular2latinize';
 
 import {HttpService} from "./Services/http.service";

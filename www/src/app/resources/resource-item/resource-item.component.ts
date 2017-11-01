@@ -3,7 +3,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 
 import 'rxjs/add/operator/switchMap';
 import {TitleService} from "../../Services/title.service";
-import {Observable} from "rxjs/Observable";
 import 'rxjs/add/observable/combineLatest'
 import {HttpService} from "../../Services/http.service";
 
@@ -16,6 +15,8 @@ import {HttpService} from "../../Services/http.service";
 export class ResourceItemComponent implements OnInit {
   private gridColumn: string = '';
   private gridData: string = '';
+  private panelFeatures: Array<object> = [];
+  private selectedItems: Array<object> = [];
   private sub: any;
 
   constructor(
@@ -31,12 +32,17 @@ export class ResourceItemComponent implements OnInit {
       this.httpSrv
         .get(this.router.url)
         .then(result => {
+          this.panelFeatures = result.features;
           this.titleSrv.append(result.information.name);
           this.gridColumn = result.grid.columns;
           this.gridData = result.grid.data;
         })
         .catch(error => console.error(error));
     });
+  }
+
+  gridSelection(sel) {
+    this.selectedItems = sel;
   }
 
   ngOnDestroy() {

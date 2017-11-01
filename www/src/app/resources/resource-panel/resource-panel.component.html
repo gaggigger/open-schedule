@@ -1,0 +1,32 @@
+<tabset *ngIf="panelFeatures.length > 0">
+  <tab
+    *ngFor="let feature of panelFeatures"
+  >
+    <ng-template tabHeading>
+      <i [ngClass]="feature.icon"></i>
+      &nbsp;
+      {{ feature.name }}
+    </ng-template>
+    <section>
+      <article
+        class="panel-body"
+        *ngIf="feature.component == 'app-resource-info'"
+        [path]="feature.path"
+        [items]="selectedItems"
+        app-resource-info
+      ></article>
+      <article
+        class="panel-body"
+        *ngIf="feature.component == 'app-resource-calendar'"
+        [path]="feature.path"
+        app-resource-calendar
+      ></article>
+      <article
+        class="panel-body"
+        *ngIf="feature.component == 'app-resource-print'"
+        [path]="feature.path"
+        app-resource-print
+      ></article>
+    </section>
+  </tab>
+</tabset>

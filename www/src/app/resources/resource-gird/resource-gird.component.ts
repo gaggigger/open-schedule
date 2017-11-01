@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewEncapsulation} from "@angular/core";
+import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from "@angular/core";
 
 import {GridOptions} from "ag-grid/main";
 import {I18nService} from "../../Services/i18n.service";
@@ -23,6 +23,7 @@ import {HttpService} from "../../Services/http.service";
 export class ResourceGirdComponent implements OnInit {
   @Input() gridColumn: string = '';
   @Input() gridData: string = '';
+  @Output() onGridSelection = new EventEmitter<Array<object>>();
 
   gridOptions: GridOptions;
   columnDefs: any[];
@@ -43,8 +44,11 @@ export class ResourceGirdComponent implements OnInit {
   ngOnInit(): void {
     this.gridOptions = <GridOptions>{
       enableFilter: true,
-      rowSelection: 'single',
+      rowSelection: 'multiple',
     };
+
+    if(! this.gridColumn && ! this.gridData) return;
+
     this.getConfiguration()
       .then(result => {
         return this.getData();
@@ -98,10 +102,7 @@ export class ResourceGirdComponent implements OnInit {
   }
 
   onRowSelected(event: any) {
-    if(event.node.selected) {
-      console.log(event.data);
-
-    }
+    this.onGridSelection.emit(this.gridOptions.api.getSelectedRows());
   }
 
   onCellValueChanged(event: any) {
