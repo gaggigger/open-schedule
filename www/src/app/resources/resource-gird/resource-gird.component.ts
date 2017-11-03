@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output, ViewEncapsulation} from "@angular/core";
+import {Component, EventEmitter, Input, OnChanges, Output, ViewEncapsulation} from "@angular/core";
 
 import {GridOptions} from "ag-grid/main";
 import {I18nService} from "../../Services/i18n.service";
@@ -20,7 +20,7 @@ import {HttpService} from "../../Services/http.service";
     '../../../../node_modules/ag-grid/dist/styles/theme-bootstrap.css',
   ],
 })
-export class ResourceGirdComponent implements OnInit {
+export class ResourceGirdComponent implements OnChanges {
   @Input() gridColumn: string = '';
   @Input() gridData: string = '';
   @Output() onGridSelection = new EventEmitter<Array<object>>();
@@ -34,14 +34,7 @@ export class ResourceGirdComponent implements OnInit {
     private i18n: I18nService
   ) { }
 
-  ngOnChanges() {
-    // Force component refre
-    if(this.gridOptions) {
-      this.ngOnInit();
-    }
-  }
-
-  ngOnInit(): void {
+  ngOnChanges(): void {
     this.gridOptions = <GridOptions>{
       enableFilter: true,
       rowSelection: 'multiple',
@@ -110,6 +103,11 @@ export class ResourceGirdComponent implements OnInit {
     if(event.oldValue != event.value) {
       console.log(event.data);
     }
+  }
+
+  onModelUpdated(event: any) {
+    // !!! needed after grid content update
+    if(event.newData) this.gridOptions.api = event.api;
   }
 
 }

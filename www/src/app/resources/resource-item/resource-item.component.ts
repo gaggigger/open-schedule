@@ -27,13 +27,15 @@ export class ResourceItemComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // TODO erreur subscribe
     this.sub = this.route.params.subscribe(params => {
       this.httpSrv
         .get(this.router.url)
         .then(result => {
-          this.panelFeatures = result.features;
           this.titleSrv.append(result.information.name);
+
+          this.panelFeatures = result.features;
+          this.selectedItems = [];
+
           this.gridColumn = result.grid.columns;
           this.gridData = result.grid.data;
         })

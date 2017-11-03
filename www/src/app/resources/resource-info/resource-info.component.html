@@ -10,14 +10,18 @@
         class="card"
         *ngFor="let card of toarray(resource)"
       >
-        <div
-          *ngFor="let item of card.value.items"
-        >
-          {{ item.value }}
+        <div *ngFor="let item of card.value.items">
+          <div [ngSwitch]="item.type">
+            <div *ngSwitchCase="'picture'">
+              <img [src]="item.value" />
+            </div>
+            <div *ngSwitchDefault>
+              <label>{{ item.label }}</label> : <span>{{ item.value }}</span>
+            </div>
+          </div>
         </div>
       </article>
     </section>
-
   </tab>
 </tabset>
 
