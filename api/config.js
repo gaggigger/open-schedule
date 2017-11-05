@@ -1,7 +1,12 @@
-/**
- * Created by popolos on 26/10/2017.
- */
 module.exports = {
     'apisecret': 'cledelamortquituebeaucouphuhuhu',
-    'publicRoles' : ["PUBLIC", "ROLE_PUBLIC"]
+    'publicRoles' : ["PUBLIC", "ROLE_PUBLIC"],
+    'database' : {
+        'dirver' : 'mysql',
+        'host' : 'localhost',
+        'database' : 'openschedule',
+        'user' : 'solofo',
+        'password' : 'solofo',
+        'port' : 3306
+    }
 };

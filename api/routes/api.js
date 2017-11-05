@@ -1,9 +1,11 @@
+
 var express = require('express');
 var router = express.Router();
 
 const jwt    = require('jsonwebtoken');
 const config = require('../config');
 const ApiMiddlewares = require('../src/middlewares');
+const Recources = require('../src/resources/resources');
 
 
 router.use(ApiMiddlewares.token);
@@ -110,29 +112,13 @@ router.use(ApiMiddlewares.protect);
 // TODO store configuration into json field
 //      resource    path    json
 router.get('/resources', function(req, res, next) {
-    // TODO get from database
-    res.send([
-        {
-            name : 'Salles',
-            path : '/resources/rooms',
-            icon : 'glyphicon glyphicon-home'
-        },
-        {
-            name : 'Matières',
-            path : '/resources/contents',
-            icon : 'glyphicon glyphicon-book'
-        },
-        {
-            name : 'Elèves',
-            path : '/resources/students',
-            icon : 'glyphicon glyphicon-user'
-        },
-        {
-            name : 'Enseignants',
-            path : '/resources/teachers',
-            icon : 'glyphicon glyphicon-user'
-        }
-    ]);
+    Recources.getAll().then(rows => {
+        res.send(rows.map(row => {
+            return JSON.parse(row.params);
+        }));
+    }).catch(err => {
+        res.status(500).json({ error : err.message });
+    });
 });
 
 router.get('/resources/:item', function(req, res, next) {

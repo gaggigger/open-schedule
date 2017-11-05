@@ -12,4 +12,7 @@ Then deploy the dist
 `#cd api`
 `#npm start`
 
+## Database procedures
+`get_resources(): ind<int>, name<string>, params<json string: icon<string>, name<string>, path<string>>, position<int>`
+
 
