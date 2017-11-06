@@ -44,9 +44,10 @@ class Mysql {
     }
 
     select(sql, params) {
+        if(typeof params === 'undefined') params = {};
         // TODO params
         return new Promise((resolve, reject) => {
-            this.pool.query('CALL ' + sql + '()', function(err, rows, fields) {
+            this.pool.query('CALL os_' + sql + '(\''+ JSON.stringify(params) +'\')', function(err, rows, fields) {
                 if (err) reject(err.message);
                 // TODO OkPacket in results ?
                 resolve(rows[0]);

@@ -36,7 +36,7 @@ router.get('/i18n', function(req, res, next) {
 
 router.post('/login', function(req, res, next) {
     // TODO check from database
-    jwt.sign({ user : 'admin' }, config.apisecret, {expiresIn: 60*60*24 }, (err, token) => {
+    jwt.sign({ user : 'admin', roles : ['ROLE_ADMIN', 'ROLE_USER'] }, config.apisecret, {expiresIn: 60*60*24 }, (err, token) => {
         if(err) res.status(500).json({});
         res.status(200).json({
             'token' : token
@@ -112,7 +112,7 @@ router.use(ApiMiddlewares.protect);
 // TODO store configuration into json field
 //      resource    path    json
 router.get('/resources', function(req, res, next) {
-    Recources.getAll().then(rows => {
+    Recources.getAll(req.connectedUser.roles).then(rows => {
         res.send(rows.map(row => {
             return JSON.parse(row.params);
         }));

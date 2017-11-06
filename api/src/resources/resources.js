@@ -9,13 +9,9 @@ class Recources {
 
     }
 
-    getAll() {
-        return new Promise((resolve, reject) => {
-            Db.select('get_resources').then(res => {
-                resolve(res);
-            }).catch(err => {
-                reject(err);
-            });
+    getAll(roles) {
+        return Db.select('get_resources', {
+            roles: roles
         });
     }
 
