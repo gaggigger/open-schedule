@@ -121,6 +121,25 @@ router.get('/resources', function(req, res, next) {
     });
 });
 
+router.get('/resources/:item/columns', function(req, res, next) {
+    Recources.getGridColumns(req.connectedUser.roles, req.params.item).then(rows => {
+        res.send(JSON.parse(rows[0].columns));
+    }).catch(err => {
+        res.status(500).json({ error : err.message });
+    });
+});
+
+router.get('/resources/:item/data', function(req, res, next) {
+    Recources.getData(req.connectedUser.roles, req.params.item).then(rows => {
+        res.send(rows.map(row => {
+            return JSON.parse(row.data);
+        }));
+    }).catch(err => {
+        res.status(500).json({ error : err.message });
+    });
+});
+
+
 router.get('/resources/:item', function(req, res, next) {
     let ret = {};
 
@@ -157,102 +176,7 @@ router.get('/resources/:item', function(req, res, next) {
 
 });
 
-router.get('/resources/:item/columns', function(req, res, next) {
-    let ret = {};
-    switch (req.params.item) {
-        case 'rooms':
-            ret = [
-                {
-                    headerName: "Code",
-                    field: "code",
-                    width: 50,
-                    editable: true
-                },
-                {
-                    headerName: "Name",
-                    field: "name",
-                    editable: true
-                }
-            ];
-            break;
-        case 'contents':
-            ret = [
-                {
-                    headerName: "Code",
-                    field: "code",
-                    width: 50,
-                    editable: true
-                },
-                {
-                    headerName: "Name",
-                    field: "name",
-                    editable: true
-                }
-            ];
-            break;
-        case 'students':
-            ret = [
-                {
-                    headerName: "Matricule",
-                    field: "matricule",
-                    width: 70,
-                    editable: true
-                },
-                {
-                    headerName: "Name",
-                    field: "name",
-                    editable: true
-                }
-            ];
-            break;
-        case 'teachers':
-            ret = [
-                {
-                    headerName: "Name",
-                    field: "name",
-                    editable: true
-                }
-            ];
-            break;
-    }
-    res.send(ret);
-});
-router.get('/resources/:item/data', function(req, res, next) {
-    switch (req.params.item) {
-        case 'rooms':
-            res.send([
-                { id: 'rooms:1', code: "S1", name: "Salle 1" },
-                { id: 'rooms:2', code: "S2", name: "Salle 2" },
-                { id: 'rooms:3', code: "S3", name: "Salle 3" },
-                { id: 'rooms:4', code: "S4", name: "Salle 4" },
-                { id: 'rooms:5', code: "S5", name: "Salle 5" },
-                { id: 'rooms:6', code: "S6", name: "Salle 6" }
-            ]);
-            break;
-        case 'contents':
-            res.send([
-                { id: 'contents:1', code: "C1", name: "Math" },
-                { id: 'contents:2', code: "C2", name: "Philo" },
-                { id: 'contents:3', code: "C3", name: "Histo" },
-            ]);
-            break;
-        case 'students':
-            res.send([
-                { id: 'students:1', matricule: "ST1", name: "Rakoto Be" },
-                { id: 'students:2', matricule: "ST2", name: "Rasoa Kinin" },
-                { id: 'students:3', matricule: "ST3", name: "Toto Mwan" }
-            ]);
-            break;
-        case 'teachers':
-            res.send([
-                { id: 'teachers:1', matricule: "TT1", name: "M. Be" },
-                { id: 'teachers:2', matricule: "TT2", name: "Mlle Bal" },
-                { id: 'teachers:3', matricule: "TT3", name: "Mme Bozy" }
-            ]);
-            break;
 
-    }
-});
 router.get('/resources/:item/:id/info', function(req, res, next) {
     res.send({
         general : {

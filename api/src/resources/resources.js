@@ -15,6 +15,20 @@ class Recources {
         });
     }
 
+    getGridColumns(roles, resource) {
+        return Db.select('get_resources_grid_columns', {
+            roles: roles,
+            resource: resource
+        });
+    }
+
+    getData(roles, resource) {
+        return Db.select('get_resources_data', {
+            roles: roles,
+            resource: resource
+        });
+    }
+
 
 }
 
