@@ -32,6 +32,7 @@ import {ResourcesModule} from "./resources/resources/resources.module";
 import {ResourceItemModule} from "./resources/resource-item/resource-item.module";
 import {CacheService} from "./Services/cache.service";
 import {I18nService} from "./Services/i18n.service";
+import {CreditModule} from "./credit/credit.module";
 
 
 @NgModule({
@@ -50,7 +51,7 @@ import {I18nService} from "./Services/i18n.service";
     AccordionModule.forRoot(),
 
     HomeModule,
-
+    CreditModule,
     MenuModule,
 
     LoginModule,

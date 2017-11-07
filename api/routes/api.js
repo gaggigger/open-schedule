@@ -75,6 +75,19 @@ router.get('/menu', function(req, res, next) {
             ]
         }
     ];
+
+    menu.push({
+        name : 'Help',
+        icon : 'glyphicon glyphicon-question-sign',
+        items : [
+            {
+                name : 'Credit',
+                path : '/credit',
+                icon : 'glyphicon glyphicon-thumbs-up'
+            }
+        ]
+    });
+
     if(req.connectedUser) {
         menu.push({
             name : req.connectedUser.user,

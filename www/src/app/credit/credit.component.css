@@ -1,0 +1,12 @@
+article {
+  text-align: center;
+}
+div.partner {
+  margin: 10px;
+}
+div.partner img,
+div.partner svg
+{
+  max-height: 50px;
+  max-width: 100px;
+}
