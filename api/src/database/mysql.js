@@ -31,9 +31,15 @@ class Mysql {
                     reject(err.message);
                     return false;
                 }
+
+                //console.log("\n\n");
+                //console.log(query)
+                //console.log(rows)
+                //console.log("\n\n");
+
                 // TODO OkPacket in results ?
                 if(typeof rows !== 'undefined' && 0 in rows) resolve(rows[0]);
-                else reject(rows);
+                else resolve(rows);
             });
         });
 
