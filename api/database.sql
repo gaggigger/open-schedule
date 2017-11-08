@@ -137,7 +137,7 @@ CREATE TABLE `os_users` (
   `date_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_connection` datetime DEFAULT NULL,
   `username` varchar(100) NOT NULL,
-  `passwrod` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `os_users_username_IDX` (`username`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -405,4 +405,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-08 23:54:54
+-- Dump completed on 2017-11-09  0:01:10
