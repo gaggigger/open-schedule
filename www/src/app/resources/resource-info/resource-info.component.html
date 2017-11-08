@@ -8,20 +8,20 @@
     <section class="info-container">
       <article
         class="card"
-
+        *ngFor="let group of utils.toarray(form)"
       >
+        <h3>{{ group.key | trans }}</h3>
         <div
-          *ngFor="let card of toarray(item)"
+          *ngFor="let i of group.value"
         >
-          <label>{{ card.key }}</label> : <span>{{ card.value }}</span>
-          <!--div [ngSwitch]="item.type">
+          <div [ngSwitch]="i.type">
             <div *ngSwitchCase="'picture'">
-              <img [src]="item.value" />
+              <img *ngIf="item[i.name]" [src]="item[i.name]" />
             </div>
             <div *ngSwitchDefault>
-              <label>{{ item.label }}</label> : <span>{{ item.value }}</span>
+              <label>{{ i.label | trans }}</label> : <span>{{ item[i.name] }}</span>
             </div>
-          </div-->
+          </div>
         </div>
       </article>
     </section>

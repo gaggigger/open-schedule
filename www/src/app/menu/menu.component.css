@@ -4,3 +4,9 @@ nav.navbar {
 ul.nav.navbar-nav {
   margin-top: 8px;
 }
+.btn.no-padding-right {
+  padding-right: 0;
+}
+.btn.no-padding-left {
+  padding-left: 0;
+}

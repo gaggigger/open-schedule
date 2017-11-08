@@ -1,6 +1,5 @@
 import {Injectable, NgModule, Pipe, PipeTransform} from '@angular/core';
 import {HttpService} from "./http.service";
-import { Latinize }	from 'angular2latinize';
 
 @Injectable()
 export class I18nService {
@@ -10,7 +9,6 @@ export class I18nService {
 
   constructor(
     private http: HttpService,
-    private latinize: Latinize
   ) { }
 
   /**
@@ -26,7 +24,8 @@ export class I18nService {
           .then(result => {
             this.loaded = true;
             Object.keys(result).map(k => {
-              this.items[this.latinize.convert(k)] = result[k];
+              // TODO latinize
+              this.items[k] = result[k];
             });
             resolve(this.trans(key));
           })
@@ -42,11 +41,11 @@ export class I18nService {
   }
 
   public trans(key: string): string {
-    let k = this.latinize.convert(key);
-    if(! this.items[k]) {
-      console.warn('Translation error : ' + k);
+    // TODO latinize
+    if(! this.items[key]) {
+      console.warn('Translation error : ' + key);
     }
-    return this.items[k] || key;
+    return this.items[key] || key;
   }
 
 }

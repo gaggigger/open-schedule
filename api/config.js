@@ -3,10 +3,10 @@ module.exports = {
     'publicRoles' : ["PUBLIC", "ROLE_PUBLIC"],
     'database' : {
         'dirver' : 'mysql',
-        'host' : '192.168.88.8',
-        'database' : 'test',
-        'user' : 'root',
-        'password' : 'prec_dev',
+        'host' : 'localhost',
+        'database' : 'openschedule',
+        'user' : 'solofo',
+        'password' : 'solofo',
         'port' : 3306
     }
 };

@@ -1,5 +1,6 @@
 import {Component, Input, OnChanges} from '@angular/core';
 import {HttpService} from "../../Services/http.service";
+import {UtilsService} from "../../Services/utils";
 
 @Component({
   selector: '[app-resource-info]',
@@ -10,35 +11,26 @@ export class ResourceInfoComponent implements OnChanges {
   @Input() path: string = '';
   @Input() items: Array<object> = [];
   private resources: Array<object> = [];
+  private cacheForm: Array<object> = [];
+  private form: object = {};
 
   constructor(
-    private httpSrv: HttpService
+    private httpSrv: HttpService,
+    private utils: UtilsService,
   ) { }
 
-  // TODO move to a filter
-  toarray(obj): Array<object> {
-    return Object.keys(obj).map((key) => {
-      return {
-        key : key,
-        value : obj[key]
-      }
-    });
-  }
-
   ngOnChanges() {
-    // TODo get resources fields
-    /*
-    this.resources = [];
-    this.items.map((item: object) => {
+    if(! this.cacheForm[this.path]) {
       this.httpSrv
-        .get(this.path.replace(/:id/, item['id']))
+        .get(this.path)
         .then(result => {
-          this.resources.push(result);
+          this.cacheForm[this.path] = this.form = result;
         })
         .catch(error => console.error(error));
-
-    });
-    */
+    }
+    else {
+      this.form = this.cacheForm[this.path];
+    }
   }
 
 

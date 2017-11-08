@@ -12,8 +12,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { CookieService } from 'ngx-cookie-service';
 
-import { Latinize }	from 'angular2latinize';
-
 import {HttpService} from "./Services/http.service";
 
 import {MenuComponent, MenuModule} from './menu/menu.component'
@@ -33,6 +31,7 @@ import {ResourceItemModule} from "./resources/resource-item/resource-item.module
 import {CacheService} from "./Services/cache.service";
 import {I18nService} from "./Services/i18n.service";
 import {CreditModule} from "./credit/credit.module";
+import {UtilsService} from "./Services/utils";
 
 
 @NgModule({
@@ -74,8 +73,8 @@ import {CreditModule} from "./credit/credit.module";
     TitleService,
     TokenService,
     CacheService,
-    Latinize,
     I18nService,
+    UtilsService,
   ],
   bootstrap: [AppComponent]
 })

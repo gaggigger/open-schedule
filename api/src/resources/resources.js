@@ -1,13 +1,10 @@
 'use strict';
 
-const Db = require('../database/mysql');
+const config = require('../../config');
+const Db = require('../database/' + config.database.dirver);
 
 
 class Recources {
-
-    constructor() {
-
-    }
 
     getAll(roles) {
         return Db.select('get_resources', {
@@ -22,9 +19,7 @@ class Recources {
         }).then(rows => {
             if(! rows[0]) throw new Error('No rows found');
             if(rows[0].columns === null) return [];
-            return JSON.parse(rows[0].columns).filter(row => {
-                return row.grid_column;
-            }).map(row => {
+            return JSON.parse(rows[0].columns).filter(row => row.grid_column).map(row => {
                 return {
                     field: row.name,
                     width: row.length? row.length * 8 : null,
@@ -41,6 +36,28 @@ class Recources {
         });
     }
 
+    getFeatures(roles, resource) {
+        return Db.select('get_resources_features', {
+            roles: roles,
+            resource: resource
+        });
+    }
+
+    getFeaturesInfo(roles, resource) {
+        return Db.select('get_resources_columns', {
+            roles: roles,
+            resource: resource
+        }).then(rows => {
+            if(! rows[0]) throw new Error('No rows found');
+            if(rows[0].columns === null) return [];
+            let features = {};
+            JSON.parse(rows[0].columns).map(row => {
+                if(! features[row.group]) features[row.group] = [];
+                features[row.group].push(row);
+            });
+            return features;
+        });
+    }
 
 }
 

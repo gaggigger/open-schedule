@@ -1,6 +1,6 @@
 
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
 const jwt    = require('jsonwebtoken');
 const config = require('../config');
@@ -11,11 +11,11 @@ const Recources = require('../src/resources/resources');
 router.use(ApiMiddlewares.token);
 
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   res.send('');
 });
 
-router.get('/i18n', function(req, res, next) {
+router.get('/i18n', function(req, res) {
     res.send({
         'OpenSchedule' : 'OpenSchedule',
         // Title
@@ -34,7 +34,7 @@ router.get('/i18n', function(req, res, next) {
     });
 });
 
-router.post('/login', function(req, res, next) {
+router.post('/login', function(req, res) {
     // TODO check from database
     jwt.sign({ user : 'admin', roles : ['ROLE_ADMIN', 'ROLE_USER'] }, config.apisecret, {expiresIn: 60*60*24 }, (err, token) => {
         if(err) res.status(500).json({});
@@ -44,7 +44,7 @@ router.post('/login', function(req, res, next) {
     })
 });
 
-router.get('/menu', function(req, res, next) {
+router.get('/menu', function(req, res) {
     // TODO get from database
     let menu = [
         {
@@ -122,19 +122,17 @@ router.get('/menu', function(req, res, next) {
 router.use(ApiMiddlewares.protect);
 /*************************************************************/
 
-// TODO store configuration into json field
-//      resource    path    json
-router.get('/resources', function(req, res, next) {
+router.get('/resources', function(req, res) {
     Recources.getAll(req.connectedUser.roles).then(rows => {
-        res.send(rows.map(row => {
-            return JSON.parse(row.params);
-        }));
+        res.send(
+            rows.map(row => JSON.parse(row.params))
+        );
     }).catch(err => {
         res.status(500).json({ error : err.message });
     });
 });
 
-router.get('/resources/:item/columns', function(req, res, next) {
+router.get('/resources/:item/columns', function(req, res) {
     Recources.getGridColumns(req.connectedUser.roles, req.params.item).then(columns => {
         res.send(columns);
     }).catch(err => {
@@ -142,105 +140,36 @@ router.get('/resources/:item/columns', function(req, res, next) {
     });
 });
 
-router.get('/resources/:item/data', function(req, res, next) {
+router.get('/resources/:item/data', function(req, res) {
     Recources.getData(req.connectedUser.roles, req.params.item).then(rows => {
-        res.send(rows.map(row => {
-            return JSON.parse(row.data);
-        }));
+        res.send(
+            rows.map(row => JSON.parse(row.data))
+        );
     }).catch(err => {
         res.status(500).json({ error : err.message });
     });
 });
 
-
-router.get('/resources/:item', function(req, res, next) {
-    let ret = {};
-
-    ret.information = {
-        name : req.params.item.toUpperCase()
-    };
-
-    ret.features = [
-        {
-            name : 'View',
-            path : '/resources/' + req.params.item + '/:id/info',
-            icon : 'glyphicon glyphicon-info-sign',
-            component : 'app-resource-info'
-        },
-        {
-            name : 'Calendar',
-            path : '/resources/' + req.params.item + '/:id/calendar',
-            icon : 'glyphicon glyphicon-calendar',
-            component : 'app-resource-calendar'
-        },
-        {
-            name : 'Print',
-            path : '/resources/' + req.params.item + '/:id/print',
-            icon : 'glyphicon glyphicon-print',
-            component : 'app-resource-print'
-        }
-    ];
-    ret.grid = {
-        columns : '/resources/' + req.params.item + '/columns',
-        data : '/resources/' + req.params.item + '/data'
-    };
-
-    res.send(ret);
-
+router.get('/resources/:item', function(req, res) {
+    Recources.getFeatures(req.connectedUser.roles, req.params.item).then(rows => {
+        res.send({
+            features : rows.map(row => JSON.parse(row.params)),
+            grid : {
+                columns : '/resources/' + req.params.item + '/columns',
+                data : '/resources/' + req.params.item + '/data'
+            }
+        });
+    }).catch(err => {
+        res.status(500).json({ error : err.message });
+    });
 });
 
-
-router.get('/resources/:item/:id/info', function(req, res, next) {
-    res.send({
-        general : {
-            name: 'Rakoto',
-            type: 'card',
-            items: [
-                {
-                    label: 'photo',
-                    value: 'http://lorempixel.com/100/100/people/9/',
-                    type : 'picture'
-                },
-                {
-                    label: 'nom',
-                    value: 'Rakoto',
-                    type : 'text'
-                },
-                {
-                    label: 'prénom',
-                    value: 'Solofo',
-                    type : 'text'
-                },
-                {
-                    label: 'naissance',
-                    value: '2000-09-12',
-                    type : 'date'
-                }
-
-            ]
-        },
-        parents : {
-            name: 'Parents',
-            type: 'card',
-            items: [
-                {
-                    label: 'nom du père',
-                    value: 'Rakoto rainy'
-                }, {
-                    label: 'profession',
-                    value: 'Miasa mafy'
-                }, {
-                    label: 'nom de la mère',
-                    value: 'Rakoto reniny'
-                }, {
-                    label: 'profession',
-                    value: 'Miasa mafy koa ny reniny'
-                }
-
-            ]
-        }
+router.get('/resources/:item/features/info', function(req, res) {
+    Recources.getFeaturesInfo(req.connectedUser.roles, req.params.item).then(rows => {
+        res.send(rows);
+    }).catch(err => {
+        res.status(500).json({ error : err.message });
     });
-
 });
 
 module.exports = router;

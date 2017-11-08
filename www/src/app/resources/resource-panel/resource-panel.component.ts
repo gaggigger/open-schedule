@@ -12,7 +12,7 @@ export class ResourcePanelComponent implements OnChanges {
   constructor() { }
 
   ngOnChanges() {
-    console.log(this.selectedItems);
+
   }
 
 }

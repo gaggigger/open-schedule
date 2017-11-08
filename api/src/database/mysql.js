@@ -2,11 +2,13 @@
 
 const mysql = require('mysql');
 const config = require('../../config');
+const IDb = require('./interface');
 
 
-class Mysql {
+class Mysql extends IDb {
 
     constructor() {
+        super();
         this.pool = mysql.createPool({
             connectionLimit : 100,
             host     : config.database.host,
@@ -42,7 +44,6 @@ class Mysql {
                 else resolve(rows);
             });
         });
-
     }
 
 

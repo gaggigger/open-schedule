@@ -15,12 +15,14 @@
           <div
             class="btn"
             [routerLink]="menu.path? menu.path : router.url"
+            [ngClass]="{'no-padding-right':menu.name === ''}"
           >
             <i [ngClass]="menu.icon"></i>            &nbsp;
             {{ menu.name }}
           </div>
           <div
             class="btn dropdown-toggle dropdown-toggle-split"
+            [ngClass]="{'no-padding-left':menu.name === ''}"
             *ngIf="menu.items && menu.items.length > 0"
             dropdownToggle
           >

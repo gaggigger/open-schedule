@@ -13,10 +13,10 @@ import {HttpService} from "../../Services/http.service";
   styleUrls: ['./resource-item.component.css']
 })
 export class ResourceItemComponent implements OnInit {
-  private gridColumn: string = '';
-  private gridData: string = '';
-  private panelFeatures: Array<object> = [];
-  private selectedItems: Array<object> = [];
+  public gridColumn: string = '';
+  public gridData: string = '';
+  public panelFeatures: Array<object> = [];
+  public selectedItems: Array<object> = [];
   private sub: any;
 
   constructor(
@@ -31,7 +31,7 @@ export class ResourceItemComponent implements OnInit {
       this.httpSrv
         .get(this.router.url)
         .then(result => {
-          this.titleSrv.append(result.information.name);
+          //this.titleSrv.append(result.information.name);
 
           this.panelFeatures = result.features;
           this.selectedItems = [];

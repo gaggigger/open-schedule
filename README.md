@@ -4,7 +4,8 @@
 `#ng serve --open`
 
 ## Deploy www
-`#ng build --base-href`
+`#cd www`
+`#ng build --prod --aot --no-sourcemap`
 Then deploy the dist
 
 # Api
