@@ -1,24 +1,27 @@
-<tabset *ngIf="resources.length > 0">
+<tabset *ngIf="items.length > 0">
   <tab
-    *ngFor="let resource of resources"
+    *ngFor="let item of items"
   >
     <ng-template tabHeading>
-      {{ resource.general.name }}
+      {{ item.name }}
     </ng-template>
     <section class="info-container">
       <article
         class="card"
-        *ngFor="let card of toarray(resource)"
+
       >
-        <div *ngFor="let item of card.value.items">
-          <div [ngSwitch]="item.type">
+        <div
+          *ngFor="let card of toarray(item)"
+        >
+          <label>{{ card.key }}</label> : <span>{{ card.value }}</span>
+          <!--div [ngSwitch]="item.type">
             <div *ngSwitchCase="'picture'">
               <img [src]="item.value" />
             </div>
             <div *ngSwitchDefault>
               <label>{{ item.label }}</label> : <span>{{ item.value }}</span>
             </div>
-          </div>
+          </div-->
         </div>
       </article>
     </section>

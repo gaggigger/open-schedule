@@ -77,7 +77,7 @@ router.get('/menu', function(req, res, next) {
     ];
 
     menu.push({
-        name : 'Help',
+        name : '',
         icon : 'glyphicon glyphicon-question-sign',
         items : [
             {
@@ -135,8 +135,8 @@ router.get('/resources', function(req, res, next) {
 });
 
 router.get('/resources/:item/columns', function(req, res, next) {
-    Recources.getGridColumns(req.connectedUser.roles, req.params.item).then(rows => {
-        res.send(JSON.parse(rows[0].columns === null? '[]' : rows[0].columns));
+    Recources.getGridColumns(req.connectedUser.roles, req.params.item).then(columns => {
+        res.send(columns);
     }).catch(err => {
         res.status(500).json({ error : err.message });
     });

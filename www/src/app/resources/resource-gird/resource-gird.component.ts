@@ -96,7 +96,7 @@ export class ResourceGirdComponent implements OnChanges {
 
   onRowSelected(event: any) {
     // TODO error here on resource change
-    this.onGridSelection.emit(this.gridOptions.api.getSelectedRows());
+    this.onGridSelection.emit([event.data, event.node.selected]);
   }
 
   onCellValueChanged(event: any) {

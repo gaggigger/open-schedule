@@ -26,8 +26,9 @@ export class ResourceInfoComponent implements OnChanges {
   }
 
   ngOnChanges() {
+    // TODo get resources fields
+    /*
     this.resources = [];
-    // TODO only push added or pop removed
     this.items.map((item: object) => {
       this.httpSrv
         .get(this.path.replace(/:id/, item['id']))
@@ -37,6 +38,7 @@ export class ResourceInfoComponent implements OnChanges {
         .catch(error => console.error(error));
 
     });
+    */
   }
 
 

@@ -43,8 +43,14 @@ export class ResourceItemComponent implements OnInit {
     });
   }
 
-  gridSelection(sel) {
-    this.selectedItems = sel;
+  gridSelection([data, selected]) {
+    //console.log(data);
+    //console.log(selected);
+    if(selected) this.selectedItems.push(data);
+    else this.selectedItems = this.selectedItems.filter(item => {
+      return item['id'] !== data.id;
+    });
+    this.selectedItems = this.selectedItems.slice();
   }
 
   ngOnDestroy() {
