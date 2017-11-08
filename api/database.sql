@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.20, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.14, for Win32 (AMD64)
 --
--- Host: localhost    Database: openschedule
+-- Host: 192.168.88.8    Database: test
 -- ------------------------------------------------------
--- Server version	5.7.20-0ubuntu0.17.10.1
+-- Server version	5.7.20
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -66,12 +66,12 @@ CREATE TABLE `os_resources` (
 
 LOCK TABLES `os_resources` WRITE;
 /*!40000 ALTER TABLE `os_resources` DISABLE KEYS */;
-INSERT INTO `os_resources` VALUES (1,'rooms','{\"icon\": \"glyphicon glyphicon-home\", \"name\": \"Rooms\", \"path\": \"/resources/rooms\", \"roles\": {\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}, \"grid_columns\": [{\"field\": \"code\", \"width\": 50, \"headerName\": \"Code\"}, {\"field\": \"name\", \"headerName\": \"Name\"}]}',1),(2,'contents','{\"icon\": \"glyphicon glyphicon-book\", \"name\": \"Contents\", \"path\": \"/resources/contents\", \"roles\": {\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}}',2),(3,'students','{\"icon\": \"glyphicon glyphicon-user\", \"name\": \"Students\", \"path\": \"/resources/students\", \"roles\": {\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}}',3),(4,'teachers','{\"icon\": \"glyphicon glyphicon-user\", \"name\": \"Enseignants\", \"path\": \"/resources/teachers\", \"roles\": {\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}}',4),(5,'groups','{\"icon\": \"glyphicon glyphicon-inbox\", \"name\": \"Groups\", \"path\": \"/resources/groups\", \"roles\": {\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}}',5),(6,'promotions','{\"icon\": \"glyphicon glyphicon-education\", \"name\": \"Promotions\", \"path\": \"/resources/promotions\", \"roles\": {\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}}',6),(7,'lectures','{\"icon\": \"glyphicon glyphicon-book\", \"name\": \"Lectures\", \"path\": \"/resources/lectures\", \"roles\": {\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}}',7);
+INSERT INTO `os_resources` VALUES (1,'rooms','{\"icon\": \"glyphicon glyphicon-home\", \"name\": \"Rooms\", \"path\": \"/resources/rooms\", \"roles\": {\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}, \"fields\": [{\"name\": \"code\", \"type\": \"text\", \"group\": \"Information\", \"label\": \"Number\", \"length\": \"10\", \"grid_column\": true}, {\"name\": \"name\", \"type\": \"text\", \"group\": \"Information\", \"label\": \"Name\", \"length\": \"100\", \"grid_column\": true}, {\"name\": \"capacity\", \"type\": \"number\", \"group\": \"Information\", \"label\": \"Capacity\", \"grid_column\": false}]}',1),(2,'contents','{\"icon\": \"glyphicon glyphicon-book\", \"name\": \"Contents\", \"path\": \"/resources/contents\", \"roles\": {\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}}',2),(3,'students','{\"icon\": \"glyphicon glyphicon-user\", \"name\": \"Students\", \"path\": \"/resources/students\", \"roles\": {\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}}',3),(4,'teachers','{\"icon\": \"glyphicon glyphicon-user\", \"name\": \"Enseignants\", \"path\": \"/resources/teachers\", \"roles\": {\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}}',4),(5,'groups','{\"icon\": \"glyphicon glyphicon-inbox\", \"name\": \"Groups\", \"path\": \"/resources/groups\", \"roles\": {\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}}',5),(6,'promotions','{\"icon\": \"glyphicon glyphicon-education\", \"name\": \"Promotions\", \"path\": \"/resources/promotions\", \"roles\": {\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}}',6),(7,'lectures','{\"icon\": \"glyphicon glyphicon-book\", \"name\": \"Lectures\", \"path\": \"/resources/lectures\", \"roles\": {\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}}',7);
 /*!40000 ALTER TABLE `os_resources` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Dumping routines for database 'openschedule'
+-- Dumping routines for database 'test'
 --
 /*!50003 DROP FUNCTION IF EXISTS `os_allowed_reading_roles` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -90,7 +90,7 @@ BEGIN
     DECLARE i SMALLINT UNSIGNED DEFAULT 0; 
 	set @query = '';
 
-	/* Loop through roles to have a query like SELECT * FROM os_resources WHERE (JSON_CONTAINS(params -> '$.roles', '["ROLE_ADMIN"]') OR JSON_CONTAINS(params -> '$.roles', '["ROLE_DE"]')) */
+	
 	WHILE i < j_length DO
 		set @query = CONCAT(
 			@query,
@@ -108,7 +108,7 @@ BEGIN
 	set @query = CONCAT(
 		'( ',
 			@query,
-			' 1=2 ', /* 1=2 because swhere ends with ' OR ' */
+			' 1=2 ', 
 		' )'
 	);
 	
@@ -138,7 +138,7 @@ BEGIN
  		SET MESSAGE_TEXT = 'no_roles_provided';
     end if; 
 	
-    /* Get roles sent in paramters */
+    
 	set @swhere = os_allowed_reading_roles(roles, 'params');
 	set @query = CONCAT(
 		'SELECT * FROM os_resources WHERE ',
@@ -147,6 +147,40 @@ BEGIN
 	);
 	PREPARE stmt FROM @query;
 	EXECUTE stmt;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `os_get_resources_columns` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE  PROCEDURE `os_get_resources_columns`(query JSON)
+BEGIN
+	DECLARE roles JSON default '[]';
+	
+	SET roles = query -> '$.roles';
+    if (roles is null) then
+    	SIGNAL SQLSTATE '45000'
+ 		SET MESSAGE_TEXT = 'no_roles_provided';
+    end if; 
+	
+	SET @resource = JSON_UNQUOTE(query -> '$.resource');
+    if (@resource is null) then
+    	SIGNAL SQLSTATE '45000'
+ 		SET MESSAGE_TEXT = 'no_resource_provided';
+    end if;
+    
+    PREPARE stmt FROM 'SELECT JSON_EXTRACT(params, ''$.fields'') as columns FROM os_resources WHERE name = ?';
+    EXECUTE stmt USING @resource;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -194,40 +228,6 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `os_get_resources_grid_columns` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-DELIMITER ;;
-CREATE  PROCEDURE `os_get_resources_grid_columns`(query JSON)
-BEGIN
-	DECLARE roles JSON default '[]';
-	
-	SET roles = query -> '$.roles';
-    if (roles is null) then
-    	SIGNAL SQLSTATE '45000'
- 		SET MESSAGE_TEXT = 'no_roles_provided';
-    end if; 
-	
-	SET @resource = JSON_UNQUOTE(query -> '$.resource');
-    if (@resource is null) then
-    	SIGNAL SQLSTATE '45000'
- 		SET MESSAGE_TEXT = 'no_resource_provided';
-    end if;
-    
-    PREPARE stmt FROM 'SELECT params -> ''$.grid_columns'' as columns FROM os_resources WHERE name = ?';
-    EXECUTE stmt USING @resource;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -238,4 +238,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-07 21:40:52
+-- Dump completed on 2017-11-08 19:10:27
