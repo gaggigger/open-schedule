@@ -27,7 +27,7 @@ class Mysql extends IDb {
         if(typeof params === 'undefined') params = {};
         // TODO params
         return new Promise((resolve, reject) => {
-            let query = 'CALL os_' + sql + '(\''+ JSON.stringify(params) +'\')';
+            let query = 'CALL os_' + sql + '('+ this.escape(JSON.stringify(params)) +')';
             this.pool.query(query, function(err, rows, fields) {
                 if (err) {
                     reject(err.message);
@@ -43,6 +43,13 @@ class Mysql extends IDb {
                 if(typeof rows !== 'undefined' && 0 in rows) resolve(rows[0]);
                 else resolve(rows);
             });
+        });
+    }
+
+    query(sql, params) {
+        return this.select(sql, params).then(row => {
+            if(row[0]) return row[0];
+            else return row;
         });
     }
 

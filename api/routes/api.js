@@ -6,6 +6,9 @@ const jwt    = require('jsonwebtoken');
 const config = require('../config');
 const ApiMiddlewares = require('../src/middlewares');
 const Recources = require('../src/resources/resources');
+const RecourcesFeatures = require('../src/resources/features');
+const User = require('../src/user/user');
+const UHandlers = require('../src/utils/handlers');
 
 
 router.use(ApiMiddlewares.token);
@@ -36,21 +39,19 @@ router.get('/i18n', function(req, res) {
 
 router.post('/login', function(req, res) {
 
-    Recources.connect(req.body.user, req.body.password).then(user => {
+    User.connect(req.body.user, req.body.password).then(user => {
         // Transform RowDataPacket to simple Json
         user = JSON.parse(JSON.stringify(user));
         jwt.sign(user, config.apisecret, {expiresIn: 60*60*24 }, (err, token) => {
             if(err) {
-                res.status(401).json({ error : err.message });
+                UHandlers.handleError(res, 401, err);
                 return false;
             }
             res.status(200).json({
                 'token' : token
             });
         });
-    }).catch(err => {
-        res.status(401).json({ error : err.message });
-    });
+    }).catch(err => UHandlers.handleError(res, 401, err));
 });
 
 router.get('/menu', function(req, res) {
@@ -99,7 +100,7 @@ router.get('/menu', function(req, res) {
 
     if(req.connectedUser) {
         menu.push({
-            name : req.connectedUser.user,
+            name : req.connectedUser.username,
             path : '',
             icon : 'glyphicon glyphicon-user',
             items : [
@@ -136,17 +137,13 @@ router.get('/resources', function(req, res) {
         res.send(
             rows.map(row => JSON.parse(row.params))
         );
-    }).catch(err => {
-        res.status(500).json({ error : err.message });
-    });
+    }).catch(err => UHandlers.handleError(res, 500, err));
 });
 
 router.get('/resources/:item/columns', function(req, res) {
     Recources.getGridColumns(req.connectedUser.roles, req.params.item).then(columns => {
         res.send(columns);
-    }).catch(err => {
-        res.status(500).json({ error : err.message });
-    });
+    }).catch(err => UHandlers.handleError(res, 500, err));
 });
 
 router.get('/resources/:item/data', function(req, res) {
@@ -154,13 +151,11 @@ router.get('/resources/:item/data', function(req, res) {
         res.send(
             rows.map(row => JSON.parse(row.data))
         );
-    }).catch(err => {
-        res.status(500).json({ error : err.message });
-    });
+    }).catch(err => UHandlers.handleError(res, 500, err));
 });
 
 router.get('/resources/:item', function(req, res) {
-    Recources.getFeatures(req.connectedUser.roles, req.params.item).then(rows => {
+    RecourcesFeatures.getFeatures(req.connectedUser.roles, req.params.item).then(rows => {
         res.send({
             features : rows.map(row => JSON.parse(row.params)),
             grid : {
@@ -168,17 +163,19 @@ router.get('/resources/:item', function(req, res) {
                 data : '/resources/' + req.params.item + '/data'
             }
         });
-    }).catch(err => {
-        res.status(500).json({ error : err.message });
-    });
+    }).catch(err => UHandlers.handleError(res, 500, err));
 });
 
 router.get('/resources/:item/features/info', function(req, res) {
-    Recources.getFeaturesInfo(req.connectedUser.roles, req.params.item).then(rows => {
+    RecourcesFeatures.getFeaturesInfo(req.connectedUser.roles, req.params.item).then(rows => {
         res.send(rows);
-    }).catch(err => {
-        res.status(500).json({ error : err.message });
-    });
+    }).catch(err => UHandlers.handleError(res, 500, err));
+});
+
+router.put('/resources/:item/features/info', function(req, res) {
+    RecourcesFeatures.createItems(req.connectedUser.roles, req.params.item, req.body.data).then(rows => {
+        res.send(rows);
+    }).catch(err => UHandlers.handleError(res, 500, err));
 });
 
 module.exports = router;

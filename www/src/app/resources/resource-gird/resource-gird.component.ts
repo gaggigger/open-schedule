@@ -110,5 +110,9 @@ export class ResourceGirdComponent implements OnChanges {
     if(event.newData) this.gridOptions.api = event.api;
   }
 
+  addResource() {
+    this.onGridSelection.emit([{}, true]);
+  }
+
 }
 

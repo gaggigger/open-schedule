@@ -43,7 +43,7 @@ export class I18nService {
   public trans(key: string): string {
     // TODO latinize
     if(! this.items[key]) {
-      console.warn('Translation error : ' + key);
+      //console.warn('Translation error : ' + key);
     }
     return this.items[key] || key;
   }

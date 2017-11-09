@@ -1,6 +1,8 @@
 import {Component, Input, OnChanges} from '@angular/core';
 import {HttpService} from "../../Services/http.service";
 import {UtilsService} from "../../Services/utils";
+import {NgForm} from "@angular/forms";
+
 
 @Component({
   selector: '[app-resource-info]',
@@ -31,7 +33,21 @@ export class ResourceInfoComponent implements OnChanges {
     else {
       this.form = this.cacheForm[this.path];
     }
+    console.log(Math.random());
   }
 
+  trackByFn(index: any, item: any) {
+    return index;
+  }
 
+  saveResource(item) {
+    console.log(this.path);
+    console.log(item);
+    this.httpSrv
+      .put(this.path, item)
+      .then(result => {
+        console.log(result);
+      })
+      .catch(error => console.error(error));
+  }
 }

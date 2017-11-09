@@ -3,25 +3,34 @@
     *ngFor="let item of items"
   >
     <ng-template tabHeading>
-      {{ item.name }}
+      {{ item.data.name }}
     </ng-template>
     <section class="info-container">
       <article
         class="card"
-        *ngFor="let group of utils.toarray(form)"
+        *ngFor="let group of utils.toarray(form); let i=index; trackBy:trackByFn"
       >
         <h3>{{ group.key | trans }}</h3>
         <div
-          *ngFor="let i of group.value"
+          *ngFor="let it of group.value"
         >
-          <div [ngSwitch]="i.type">
+          <div [ngSwitch]="it.type">
             <div *ngSwitchCase="'picture'">
-              <img *ngIf="item[i.name]" [src]="item[i.name]" />
+              <img *ngIf="item.data[it.name]" [src]="item.data[it.name]" />
             </div>
             <div *ngSwitchDefault>
-              <label>{{ i.label | trans }}</label> : <span>{{ item[i.name] }}</span>
+              <div *ngIf="item.data.id !== undefined">
+                <label>{{ it.label | trans }}</label> : <span>{{ item.data[it.name] }}</span>
+              </div>
+              <div *ngIf="item.data.id === undefined">
+                <label>{{ it.label | trans }}</label> :
+                <input type="text" [(ngModel)]="item.data[it.name]" />
+              </div>
             </div>
           </div>
+        </div>
+        <div *ngIf="item.data.id === undefined" class="btn-group" role="group">
+          <button type="button" class="btn btn-default" (click)="saveResource(item);">Save</button>
         </div>
       </article>
     </section>

@@ -70,9 +70,15 @@ export class HttpService {
     return Promise.reject(response.message || response);
   }
 
-  post(url: string, body: object): Promise<any> {
+  post(url: string, body: any): Promise<any> {
     return this.send(
       this.request().post(environment.API_URL + url, body, this.options)
+    );
+  }
+
+  put(url: string, body: any): Promise<any> {
+    return this.send(
+      this.request().put(environment.API_URL + url, body, this.options)
     );
   }
 

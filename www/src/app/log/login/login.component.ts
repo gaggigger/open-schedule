@@ -12,8 +12,9 @@ import {NgForm} from "@angular/forms";
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  username: string = '';
-  password: string = '';
+  private username: string = '';
+  private password: string = '';
+  private error: boolean = false;
 
   constructor(
     private titleSrv: TitleService,
@@ -33,7 +34,10 @@ export class LoginComponent implements OnInit {
     if(! f.valid) return false;
     this.httpSrv.post('/login', f.value).then(result => {
       window.location.reload();
-    }).catch(error => console.error(error));
+    }).catch(error => {
+      console.error(error);
+      this.error = true;
+    });
   }
 
 }

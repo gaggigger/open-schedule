@@ -11,6 +11,7 @@ import {TabsModule} from "ngx-bootstrap";
 import {ResourceInfoComponent} from "../resource-info/resource-info.component";
 import {ResourceCalendarComponent} from "../resource-calendar/resource-calendar.component";
 import {ResourcePrintComponent} from "../resource-print/resource-print.component";
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import {ResourcePrintComponent} from "../resource-print/resource-print.component
     ResourceItemRoutingModule,
     AgGridModule.withComponents([]),
     TabsModule.forRoot(),
+    FormsModule,
   ],
   declarations: [
     ResourceItemComponent,
