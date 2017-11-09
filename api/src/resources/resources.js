@@ -6,6 +6,17 @@ const Db = require('../database/' + config.database.dirver);
 
 class Recources {
 
+    connect(user, pwd) {
+        return Db.select('get_user_by_name_password', {
+            username: user,
+            password: pwd
+        }).then(rows => {
+            if(!rows || ! rows[0]) throw new Error('Bad credentials');
+            console.log(rows[0]);
+            return rows[0];
+        });
+    }
+
     getAll(roles) {
         return Db.select('get_resources', {
             roles: roles

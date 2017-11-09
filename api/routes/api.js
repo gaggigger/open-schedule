@@ -35,13 +35,22 @@ router.get('/i18n', function(req, res) {
 });
 
 router.post('/login', function(req, res) {
-    // TODO check from database
-    jwt.sign({ user : 'admin', roles : ['ROLE_ADMIN', 'ROLE_USER'] }, config.apisecret, {expiresIn: 60*60*24 }, (err, token) => {
-        if(err) res.status(500).json({});
-        res.status(200).json({
-            'token' : token
+
+    Recources.connect(req.body.user, req.body.password).then(user => {
+        // Transform RowDataPacket to simple Json
+        user = JSON.parse(JSON.stringify(user));
+        jwt.sign(user, config.apisecret, {expiresIn: 60*60*24 }, (err, token) => {
+            if(err) {
+                res.status(401).json({ error : err.message });
+                return false;
+            }
+            res.status(200).json({
+                'token' : token
+            });
         });
-    })
+    }).catch(err => {
+        res.status(401).json({ error : err.message });
+    });
 });
 
 router.get('/menu', function(req, res) {
