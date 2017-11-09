@@ -140,7 +140,8 @@ CREATE TABLE `os_users` (
   `password` varchar(255) NOT NULL,
   `roles` json DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `os_users_username_IDX` (`username`) USING BTREE
+  KEY `os_users_username_IDX` (`username`) USING BTREE,
+  KEY `os_users_active_IDX` (`active`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -150,7 +151,7 @@ CREATE TABLE `os_users` (
 
 LOCK TABLES `os_users` WRITE;
 /*!40000 ALTER TABLE `os_users` DISABLE KEYS */;
-INSERT INTO `os_users` VALUES (1,NULL,1,'2017-11-09 04:29:40','2017-11-09 06:33:22',NULL,'admin','$6$a734ed77a9b58df0$m/IEXn4FYVALZKsdhl8Lx96./NU1Hi4avuSrxRtfo0pNZdG7V5g4vVfKGi4HmHX6ORNSMufyL6uS2geXuiU0z.',NULL);
+INSERT INTO `os_users` VALUES (1,NULL,1,'2017-11-09 04:29:40','2017-11-09 11:09:46',NULL,'admin','$6$a734ed77a9b58df0$m/IEXn4FYVALZKsdhl8Lx96./NU1Hi4avuSrxRtfo0pNZdG7V5g4vVfKGi4HmHX6ORNSMufyL6uS2geXuiU0z.','[\"ROLE_ADMIN\"]');
 /*!40000 ALTER TABLE `os_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -250,20 +251,29 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE  FUNCTION `os_get_json_roles`(query JSON) RETURNS json
 BEGIN
 	DECLARE roles JSON default '[]';
+	DECLARE user_id INT default 0;
+	
 	SET roles = query -> '$.roles'; 
     if (roles is null) then
+    	/* If user sent, get role from table */
+    	SET user_id = JSON_UNQUOTE(query -> '$.user');
+		SELECT u.roles INTO roles FROM os_users u WHERE u.active = 1 AND u.id = user_id;
+    end if; 
+    
+	if (roles is null) then
     	SIGNAL SQLSTATE '45000'
  		SET MESSAGE_TEXT = 'no_roles_provided';
-    end if; 
+    end if;
+    
     return roles;
 END ;;
 DELIMITER ;
@@ -465,4 +475,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-09 16:13:29
+-- Dump completed on 2017-11-09 19:14:18
