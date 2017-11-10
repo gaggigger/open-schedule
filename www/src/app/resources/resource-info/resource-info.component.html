@@ -10,28 +10,42 @@
         class="card"
         *ngFor="let group of utils.toarray(form); let i=index; trackBy:trackByFn"
       >
-        <h3>{{ group.key | trans }}</h3>
+        <header>
+          <h3 class="label label-primary">{{ group.key | trans }}</h3>
+        </header>
         <div
           *ngFor="let it of group.value"
         >
           <div [ngSwitch]="it.type">
+            <!-- Type picture -->
             <div *ngSwitchCase="'picture'">
-              <img *ngIf="item.data[it.name]" [src]="item.data[it.name]" />
-            </div>
-            <div *ngSwitchDefault>
-              <div *ngIf="item.data.id !== undefined">
-                <label>{{ it.label | trans }}</label> : <span>{{ item.data[it.name] }}</span>
-              </div>
               <div *ngIf="item.data.id === undefined">
-                <label>{{ it.label | trans }}</label> :
-                <input type="text" [(ngModel)]="item.data[it.name]" />
+                <file-drop
+                    class="upload-picture"
+                    headertext="Drop files here"
+                    (onFileDrop)="fileDrop($event)"
+                >
+                  <span>optional content (don't set headertext then)</span>
+                </file-drop>
+              </div>
+              <div *ngIf="item.data.id !== undefined">
+                <img *ngIf="item.data[it.name]" [src]="item.data[it.name]" />
+              </div>
+            </div>
+            <!-- Type text -->
+            <div *ngSwitchDefault>
+              <div>
+                <div class="input-group">
+                  <span class="input-group-addon">{{ it.label | trans }}</span>
+                  <input type="text" class="form-control" [(ngModel)]="item.data[it.name]" [readonly]="item.data.id !== undefined" />
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div *ngIf="item.data.id === undefined" class="btn-group" role="group">
-          <button type="button" class="btn btn-default" (click)="saveResource(item);">Save</button>
-        </div>
+        <footer *ngIf="item.data.id === undefined" class="btn-group" role="group">
+          <button type="button" class="btn btn-success" (click)="saveResource(item);">Save</button>
+        </footer>
       </article>
     </section>
   </tab>
