@@ -35,7 +35,7 @@ CREATE TABLE `os_items` (
   KEY `os_items_os_users_FK` (`user_id`),
   CONSTRAINT `os_items_os_resources_FK` FOREIGN KEY (`resource`) REFERENCES `os_resources` (`name`) ON UPDATE CASCADE,
   CONSTRAINT `os_items_os_users_FK` FOREIGN KEY (`user_id`) REFERENCES `os_users` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,6 @@ CREATE TABLE `os_items` (
 
 LOCK TABLES `os_items` WRITE;
 /*!40000 ALTER TABLE `os_items` DISABLE KEYS */;
-INSERT INTO `os_items` VALUES (1,'rooms','{\"code\": \"S1\", \"name\": \"Salle 1\", \"picture\": \"http://static.cotemaison.fr/medias_11550/w_1329,h_1996,c_crop,x_0,y_51/w_450,h_600,c_fill,g_north/salle-de-douche-sous-combles-avec-verriere-et-sol-imitation-carreaux-de-ciment_5913850.jpg\", \"capacity\": \"51\"}','2017-11-08 20:26:25','2017-11-08 23:19:48','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_DE\"]}',NULL),(2,'rooms','{\"code\": \"S2\", \"name\": \"Salle 2\", \"capacity\": \"30\"}','2017-11-08 20:26:25','2017-11-08 20:26:55','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_DE\"]}',NULL),(3,'rooms','{\"code\": \"eazeaze\", \"name\": \"New *\", \"capacity\": \"azeaze&é\\\"&é\"}','2017-11-09 23:33:55','2017-11-09 23:33:55','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_create\": [\"ROLE_ADMIN\"]}',NULL),(4,'rooms','{\"code\": \"qsdqsd\", \"name\": \"qdsqsd\", \"capacity\": \"qdq qsdqds \"}','2017-11-09 23:35:10','2017-11-09 23:35:10','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_create\": [\"ROLE_ADMIN\"]}',NULL),(5,'rooms','{\"code\": \"eazeaze\", \"name\": \"New *\", \"capacity\": \"azeaze&é\\\"&é\"}','2017-11-09 23:38:53','2017-11-09 23:38:53','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_create\": [\"ROLE_ADMIN\"]}',NULL),(6,'rooms','{\"code\": \"eazeaze\", \"name\": \"New *\", \"capacity\": \"azeaze&é\\\"&é\"}','2017-11-09 23:39:00','2017-11-09 23:39:00','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_create\": [\"ROLE_ADMIN\"]}',NULL),(7,'rooms','{\"code\": \"eazeaze\", \"name\": \"New *\", \"capacity\": \"azeaze&é\\\"&é\"}','2017-11-09 23:39:00','2017-11-09 23:39:00','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_create\": [\"ROLE_ADMIN\"]}',NULL),(8,'rooms','{\"code\": \"eazeaze\", \"name\": \"New *\", \"capacity\": \"azeaze&é\\\"&é\"}','2017-11-09 23:39:59','2017-11-09 23:39:59','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_create\": [\"ROLE_ADMIN\"]}',NULL),(9,'rooms','{\"code\": \"qsdqsd\", \"name\": \"qdsqsd\", \"capacity\": \"qdq qsdqds \"}','2017-11-09 23:40:10','2017-11-09 23:40:10','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_create\": [\"ROLE_ADMIN\"]}',NULL),(10,'rooms','{\"code\": \"qsdqsd\", \"name\": \"qdsqsd\", \"capacity\": \"qdq qsdqds \"}','2017-11-09 23:41:19','2017-11-09 23:41:19','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_create\": [\"ROLE_ADMIN\"]}',NULL),(11,'rooms','{\"code\": \"qsdq\", \"name\": \"123456\", \"capacity\": \"qsdqsdqsdq qs dqsd123\"}','2017-11-09 23:42:17','2017-11-09 23:42:17','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_create\": [\"ROLE_ADMIN\"]}',NULL);
 /*!40000 ALTER TABLE `os_items` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -89,7 +88,7 @@ CREATE TABLE `os_resources` (
 
 LOCK TABLES `os_resources` WRITE;
 /*!40000 ALTER TABLE `os_resources` DISABLE KEYS */;
-INSERT INTO `os_resources` VALUES (1,'rooms','{\"icon\": \"glyphicon glyphicon-home\", \"name\": \"Rooms\", \"path\": \"/resources/rooms\"}',1,'{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_create\": [\"ROLE_ADMIN\"]}','[{\"name\": \"code\", \"type\": \"text\", \"group\": \"Information\", \"label\": \"Number\", \"length\": \"10\", \"grid_column\": true}, {\"name\": \"name\", \"type\": \"text\", \"group\": \"Information\", \"label\": \"Name\", \"length\": \"100\", \"grid_column\": true}, {\"name\": \"capacity\", \"type\": \"number\", \"group\": \"Information\", \"label\": \"Capacity\", \"grid_column\": false}, {\"name\": \"picture\", \"type\": \"picture\", \"group\": \"Pictures\", \"label\": \"Picture\"}]'),(3,'students','{\"icon\": \"glyphicon glyphicon-user\", \"name\": \"Students\", \"path\": \"/resources/students\"}',3,'{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}',NULL),(4,'teachers','{\"icon\": \"glyphicon glyphicon-briefcase\", \"name\": \"Enseignants\", \"path\": \"/resources/teachers\"}',4,'{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}',NULL),(5,'groups','{\"icon\": \"glyphicon glyphicon-inbox\", \"name\": \"Groups\", \"path\": \"/resources/groups\"}',5,'{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}',NULL),(6,'promotions','{\"icon\": \"glyphicon glyphicon-education\", \"name\": \"Promotions\", \"path\": \"/resources/promotions\"}',6,'{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}',NULL),(7,'lectures','{\"icon\": \"glyphicon glyphicon-book\", \"name\": \"Lectures\", \"path\": \"/resources/lectures\"}',7,'{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}',NULL),(8,'staff','{\"icon\": \"glyphicon glyphicon-sunglasses\", \"name\": \"Staff\", \"path\": \"/resources/students\"}',8,'{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}',NULL);
+INSERT INTO `os_resources` VALUES (1,'rooms','{\"icon\": \"glyphicon glyphicon-home\", \"name\": \"Rooms\", \"path\": \"/resources/rooms\"}',1,'{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_create\": [\"ROLE_ADMIN\"]}','[{\"name\": \"code\", \"type\": \"text\", \"group\": \"Information\", \"label\": \"Number\", \"length\": \"10\", \"unique\": true, \"mandatory\": true, \"grid_column\": true}, {\"name\": \"name\", \"type\": \"text\", \"group\": \"Information\", \"label\": \"Name\", \"length\": \"100\", \"mandatory\": true, \"grid_column\": true}, {\"name\": \"capacity\", \"type\": \"number\", \"group\": \"Information\", \"label\": \"Capacity\", \"grid_column\": false}, {\"name\": \"picture\", \"type\": \"picture\", \"group\": \"Pictures\", \"label\": \"Picture\"}]'),(3,'students','{\"icon\": \"glyphicon glyphicon-user\", \"name\": \"Students\", \"path\": \"/resources/students\"}',3,'{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}',NULL),(4,'teachers','{\"icon\": \"glyphicon glyphicon-briefcase\", \"name\": \"Enseignants\", \"path\": \"/resources/teachers\"}',4,'{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}',NULL),(5,'groups','{\"icon\": \"glyphicon glyphicon-inbox\", \"name\": \"Groups\", \"path\": \"/resources/groups\"}',5,'{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}',NULL),(6,'promotions','{\"icon\": \"glyphicon glyphicon-education\", \"name\": \"Promotions\", \"path\": \"/resources/promotions\"}',6,'{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}',NULL),(7,'lectures','{\"icon\": \"glyphicon glyphicon-book\", \"name\": \"Lectures\", \"path\": \"/resources/lectures\"}',7,'{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_create\": [\"ROLE_ADMIN\"]}','[{\"name\": \"color\", \"type\": \"color\", \"group\": \"Information\", \"label\": \"Color\", \"grid_column\": true}, {\"name\": \"code\", \"type\": \"text\", \"group\": \"Information\", \"label\": \"Code\", \"length\": \"10\", \"unique\": true, \"mandatory\": true, \"grid_column\": true}, {\"name\": \"name\", \"type\": \"text\", \"group\": \"Information\", \"label\": \"Name\", \"length\": \"100\", \"mandatory\": true, \"grid_column\": true}]'),(8,'staff','{\"icon\": \"glyphicon glyphicon-sunglasses\", \"name\": \"Staff\", \"path\": \"/resources/students\"}',8,'{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}',NULL);
 /*!40000 ALTER TABLE `os_resources` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -109,7 +108,7 @@ CREATE TABLE `os_resources_features` (
   PRIMARY KEY (`id`),
   KEY `os_resources_features_resources_name_IDX` (`resources_name`) USING HASH,
   CONSTRAINT `os_resources_features_os_resources_FK` FOREIGN KEY (`resources_name`) REFERENCES `os_resources` (`name`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -118,7 +117,7 @@ CREATE TABLE `os_resources_features` (
 
 LOCK TABLES `os_resources_features` WRITE;
 /*!40000 ALTER TABLE `os_resources_features` DISABLE KEYS */;
-INSERT INTO `os_resources_features` VALUES (1,'rooms',1,'{\"icon\": \"glyphicon glyphicon-info-sign\", \"name\": \"Informations\", \"path\": \"/resources/rooms/features/info\", \"component\": \"app-resource-info\"}','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}'),(2,'rooms',1,'{\"icon\": \"glyphicon glyphicon-calendar\", \"name\": \"Calendar\", \"path\": \"/resources/rooms/features/calendar\", \"component\": \"app-resource-calendar\"}','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}'),(3,'rooms',1,'{\"icon\": \"glyphicon glyphicon-print\", \"name\": \"Print\", \"path\": \"/resources/rooms/features/print\", \"component\": \"app-resource-print\"}','{\"can_read\": [\"ROLE_ADMIN\"]}');
+INSERT INTO `os_resources_features` VALUES (1,'rooms',1,'{\"icon\": \"glyphicon glyphicon-info-sign\", \"name\": \"Informations\", \"path\": \"/resources/rooms/features/info\", \"component\": \"app-resource-info\"}','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}'),(2,'rooms',1,'{\"icon\": \"glyphicon glyphicon-calendar\", \"name\": \"Calendar\", \"path\": \"/resources/rooms/features/calendar\", \"component\": \"app-resource-calendar\"}','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}'),(3,'rooms',1,'{\"icon\": \"glyphicon glyphicon-print\", \"name\": \"Print\", \"path\": \"/resources/rooms/features/print\", \"component\": \"app-resource-print\"}','{\"can_read\": [\"ROLE_ADMIN\"]}'),(4,'lectures',1,'{\"icon\": \"glyphicon glyphicon-info-sign\", \"name\": \"Informations\", \"path\": \"/resources/lectures/features/info\", \"component\": \"app-resource-info\"}','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}'),(5,'lectures',1,'{\"icon\": \"glyphicon glyphicon-calendar\", \"name\": \"Calendar\", \"path\": \"/resources/lectures/features/calendar\", \"component\": \"app-resource-calendar\"}','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}'),(6,'lectures',1,'{\"icon\": \"glyphicon glyphicon-print\", \"name\": \"Print\", \"path\": \"/resources/lectures/features/print\", \"component\": \"app-resource-print\"}','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"]}');
 /*!40000 ALTER TABLE `os_resources_features` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -234,35 +233,7 @@ CREATE  FUNCTION `os_allowed_reading_roles`(roles JSON, search_field VARCHAR(20)
     DETERMINISTIC
 BEGIN
     return os_allowed_roles(roles, search_field, '$.can_read');
-	/*
-	DECLARE j_length SMALLINT UNSIGNED DEFAULT JSON_LENGTH(roles); 
-    DECLARE i SMALLINT UNSIGNED DEFAULT 0; 
-	set @query = '';
-
 	
-	WHILE i < j_length DO
-		set @query = CONCAT(
-			@query,
-			'JSON_CONTAINS(', search_field, ' -> ''$.can_read'', ',
-			'''[',
-					REPLACE(
-						JSON_EXTRACT(roles, CONCAT('$[',i,']')),
-						"'", ""
-					) ,
-			  ']''',
-			 ')', ' OR ');
-		set i = i + 1;
-	END WHILE;
-	
-	set @query = CONCAT(
-		'( ',
-			@query,
-			' 1=2 ', 
-		' )'
-	);
-	
- 	RETURN (@query);
- 	*/
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -287,6 +258,7 @@ BEGIN
 	set @query = '';
 	
 	WHILE i < j_length DO
+		/* TODO if ROLE_ADMIN : allow all */
 		set @query = CONCAT(
 			@query,
 			'JSON_CONTAINS(', search_field, ' -> ''', jfield ,''', ',
@@ -308,6 +280,25 @@ BEGIN
 	);
 	
  	RETURN (@query);
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP FUNCTION IF EXISTS `os_allowed_writing_roles` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE  FUNCTION `os_allowed_writing_roles`(roles JSON, search_field VARCHAR(20)) RETURNS text CHARSET utf8
+BEGIN
+    return os_allowed_roles(roles, search_field, '$.can_write');
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -544,41 +535,101 @@ DELIMITER ;
 DELIMITER ;;
 CREATE  PROCEDURE `os_set_items`(query JSON)
 BEGIN
-	DECLARE roles JSON default '[]';
+	DECLARE parent_fields JSON default '[]';
+	DECLARE parent_fields_item JSON default '[]';
+	DECLARE j_length SMALLINT UNSIGNED default 0;
+    DECLARE i SMALLINT UNSIGNED DEFAULT 0; 
+    DECLARE i_count SMALLINT UNSIGNED DEFAULT 0; 
+	DECLARE roles JSON default null;
 	DECLARE resource VARCHAR(20) default '';
-	DECLARE data JSON default '[]';
+	DECLARE data JSON default null;
 	
 	SET roles = os_get_json_roles(query);	
 	SET resource = os_get_json_string(query , 'resource');
 	SET data = CAST(os_get_json_string(query , 'data') as JSON);
-
-	/* Creation */
+	
+	SET @parent_roles = null;
 	if (data->'$.id' is null) then
-		set @swhere = os_allowed_creating_roles(roles, 'roles');
-		
-		SET @parent_roles = '[]';
+		/* get parent resource roles if creation */
 		set @query = CONCAT(
 			'SELECT roles INTO @parent_roles FROM os_resources WHERE name = ', QUOTE(resource) ,' AND ',
-			' (', @swhere, ' )'
+			' (', os_allowed_creating_roles(roles, 'roles'), ' )'
 		);
-		PREPARE stmt FROM @query;
-		EXECUTE stmt;
+	else
+		/* get resources roles if update */
+		set @query = CONCAT(
+			'SELECT roles INTO @parent_roles FROM os_items WHERE id = ', data->'$.id' ,' AND ',
+			' (', os_allowed_writing_roles(roles, 'roles'), ' )'
+		);
+	end if;
+	
+	PREPARE stmt FROM @query;
+	EXECUTE stmt;
+	
+	/* If not authorised */
+	if (@parent_roles is null) then
+    	SIGNAL SQLSTATE '45000'
+ 		SET MESSAGE_TEXT = 'no_role_allowed';			
+	end if;
+	
+	/* Get resources fields for cheking constraints */
+	SELECT fields INTO parent_fields FROM os_resources WHERE name = resource;
+    SET j_length = JSON_LENGTH(parent_fields);
+	WHILE i < j_length DO
+		SET parent_fields_item = JSON_EXTRACT(parent_fields, CONCAT('$[',i,']'));
+		SET i = i + 1;
 		
-		if (@parent_roles is null) then
-	    	SIGNAL SQLSTATE '45000'
-	 		SET MESSAGE_TEXT = 'no_role_allowed';			
+		SET @pf_name = CONCAT('$.', JSON_UNQUOTE(parent_fields_item -> '$.name'));
+		
+		/* Check mandatory */
+		if (parent_fields_item -> '$.mandatory') then
+			if (JSON_EXTRACT(data, @pf_name) is null OR JSON_EXTRACT(data, @pf_name) = '') then
+				SIGNAL SQLSTATE '45000'
+ 				SET MESSAGE_TEXT = 'mandatory_data_not_sent';
+			end if;
 		end if;
 		
+		/* Check unique => check if there's item with the same attrib */
+		if (parent_fields_item -> '$.unique') then
+			if data->'$.id' is null then
+				SELECT count(*) INTO i_count  FROM os_items oi WHERE oi.resource = resource AND JSON_EXTRACT(oi.params, @pf_name) = JSON_EXTRACT(data, @pf_name);
+			else
+				/* If update, don't compare with himself (id <> id) */
+				SELECT count(*) INTO i_count  FROM os_items oi WHERE oi.resource = resource AND JSON_EXTRACT(oi.params, @pf_name) = JSON_EXTRACT(data, @pf_name) AND id <> data->'$.id';
+			end if;
+				
+			if i_count > 0 then
+				SIGNAL SQLSTATE '45000'
+ 				SET MESSAGE_TEXT = 'duplicated_value';
+			end if;
+		end if;
+		
+	END WHILE;
+	
+	SET @d = data;
+	
+	if (data->'$.id' is null) then
+		/* build roles for the created items => copie parents 'can_reate' rule to the created item as 'can_write', then remove 'can_create' */
+		SET @parent_roles = JSON_REMOVE(
+			JSON_INSERT(@parent_roles, '$.can_write', JSON_EXTRACT(@parent_roles, '$.can_create')),
+			'$.can_create'
+		);
 		SET @r = resource;
-		SET @d = data;
+		
 		PREPARE stmt FROM 'INSERT INTO os_items (resource, params, roles) values (?, ?, ?)';
 		EXECUTE stmt USING @r, @d, @parent_roles;
-		
+		/* Return the created row */
 		SET @lid = last_insert_id();
 		SELECT * FROM os_items WHERE id = @lid;
-		
-	end if; 
-	/* TODO UPDATE */
+	else
+		SET @did = JSON_UNQUOTE(data->'$.id');
+		/* Remove id from data */
+		SET @d = JSON_REMOVE(@d, '$.id');
+		PREPARE stmt FROM 'UPDATE os_items SET params = ? WHERE id = ?';
+		EXECUTE stmt USING @d, @did;
+		/* Return the updated row */
+		SELECT * FROM os_items WHERE id = @did;
+	end if;
     
 END ;;
 DELIMITER ;
@@ -596,4 +647,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-09 23:43:30
+-- Dump completed on 2017-11-10 22:56:21

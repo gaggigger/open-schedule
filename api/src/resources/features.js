@@ -35,8 +35,7 @@ class ResourcesFeatures {
             resource: resource,
             data: data
         }).then(rows => {
-            console.log(rows);
-            return rows;
+            return Object.assign({id : rows.id}, JSON.parse(rows.params));
         });
     }
 

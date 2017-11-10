@@ -8,7 +8,7 @@
 }
 .info-container .card {
   border: 1px solid #808080;
-  min-width: 200px;
+  width: 400px;
   margin : 1em;
   padding: 1em;
   flex-grow: 1;
@@ -23,12 +23,9 @@
 }
 
 .upload-picture {
-  border : 1px dashed #808080;
   width: 100px;
   height: 100px;
-}
-.upload-picture:hover {
-  border : 1px dashed chocolate;
+  margin: 10px;
 }
 
 footer {

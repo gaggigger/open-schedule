@@ -1,6 +1,7 @@
-<tabset *ngIf="items.length > 0">
+<tabset *ngIf="items.length > 0" [justified]="true">
   <tab
     *ngFor="let item of items"
+    [removable]="true"
   >
     <ng-template tabHeading>
       {{ item.data.name }}
@@ -12,6 +13,7 @@
       >
         <header>
           <h3 class="label label-primary">{{ group.key | trans }}</h3>
+          <span class="glyphicon glyphicon-edit" style="float:right;" *ngIf="! item.enableEdition" (click)="activeResourceEdition(item);"></span>
         </header>
         <div
           *ngFor="let it of group.value"
@@ -19,17 +21,30 @@
           <div [ngSwitch]="it.type">
             <!-- Type picture -->
             <div *ngSwitchCase="'picture'">
-              <div *ngIf="item.data.id === undefined">
+              <div *ngIf="item.enableEdition">
                 <file-drop
                     class="upload-picture"
                     headertext="Drop files here"
                     (onFileDrop)="fileDrop($event)"
                 >
-                  <span>optional content (don't set headertext then)</span>
                 </file-drop>
               </div>
-              <div *ngIf="item.data.id !== undefined">
+              <div *ngIf="! item.enableEdition">
                 <img *ngIf="item.data[it.name]" [src]="item.data[it.name]" />
+              </div>
+            </div>
+            <!-- Type colorpicker -->
+            <div *ngSwitchCase="'color'">
+              <div>
+                <div class="input-group">
+                  <span class="input-group-addon">{{ it.label | trans }}</span>
+                  <input type="button" class="form-control" style="width:100px;"
+                         [colorPicker]="item.data[it.name]"
+                         (colorPickerChange)="item.data[it.name]=$event"
+                         [style.background]="item.data[it.name]"
+                         [disabled]="! item.enableEdition"
+                  />
+                </div>
               </div>
             </div>
             <!-- Type text -->
@@ -37,14 +52,21 @@
               <div>
                 <div class="input-group">
                   <span class="input-group-addon">{{ it.label | trans }}</span>
-                  <input type="text" class="form-control" [(ngModel)]="item.data[it.name]" [readonly]="item.data.id !== undefined" />
+                  <input type="text" class="form-control" [(ngModel)]="item.data[it.name]" [readonly]="! item.enableEdition" />
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <footer *ngIf="item.data.id === undefined" class="btn-group" role="group">
-          <button type="button" class="btn btn-success" (click)="saveResource(item);">Save</button>
+        <footer *ngIf="item.enableEdition" class="btn-group" role="group">
+          <button type="button" class="btn btn-success" (click)="saveResource(item);">
+            <span class="glyphicon" [ngClass]="{
+              'glyphicon-floppy-disk': !item.saved,
+              'glyphicon-floppy-saved': item.saved,
+              'glyphicon-floppy-remove': item.savedError
+            }"></span>
+            Save
+          </button>
         </footer>
       </article>
     </section>

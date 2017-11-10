@@ -46,18 +46,25 @@ export class ResourceItemComponent implements OnInit {
   }
 
   gridSelection([data, selected]) {
-    //console.log(data);
-    //console.log(selected);
-
+    let enableEdition = false;
     // New item
-    if(! data.id) data.name = this.i18n.trans('New *');
+    if(! data.id) {
+      // New data already in progress
+      if(this.selectedItems.filter(item => ! item['data']['id']).length > 0) {
+        //return;
+      }
+      data.name = this.i18n.trans('New *');
+      enableEdition = true;
+    }
+
 
     if(selected) this.selectedItems.push({
+      enableEdition : enableEdition,
       data: data
     });
-    else this.selectedItems = this.selectedItems.filter(item => {
-      return item['data']['id'] !== data.id;
-    });
+    else this.selectedItems = this.selectedItems.filter(
+      item => item['data']['id'] !== data.id
+    );
     this.selectedItems = this.selectedItems.slice();
   }
 

@@ -114,5 +114,9 @@ export class ResourceGirdComponent implements OnChanges {
     this.onGridSelection.emit([{}, true]);
   }
 
+  removeResource() {
+    //TODO
+  }
+
 }
 

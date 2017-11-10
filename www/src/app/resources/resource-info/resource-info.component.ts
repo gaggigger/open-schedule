@@ -44,14 +44,21 @@ export class ResourceInfoComponent implements OnChanges {
     console.log(event);
   }
 
+  activeResourceEdition(item) {
+    item.enableEdition = true;
+  }
+
   saveResource(item) {
-    console.log(this.path);
-    console.log(item);
     this.httpSrv
       .put(this.path, item)
       .then(result => {
-        console.log(result);
+        if(result.id) item.data.id = result.id;
+        item.saved = true;
       })
-      .catch(error => console.error(error));
+      .catch(error => {
+        item.saved = false;
+        item.savedError = false;
+        console.error(error)
+      });
   }
 }

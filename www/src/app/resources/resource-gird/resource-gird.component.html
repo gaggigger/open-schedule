@@ -1,17 +1,17 @@
-<nav class="navbar navbar-default">
-  <div class="container-fluid">
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li>
-          <a (click)="addResource()">{{'Add' | trans}}</a>
-        </li>
-        <li>
-          <a >{{'Delete' | trans}}</a>
-        </li>
-      </ul>
-    </div>
+<div class="btn-group btn-group-justified" role="group" aria-label="...">
+  <div class="btn-group" role="group">
+    <button (click)="addResource()" type="button" class="btn btn-success" aria-haspopup="true" aria-expanded="false">
+      <span class="glyphicon glyphicon-plus-sign"></span>
+      {{'Add' | trans}}
+    </button>
   </div>
-</nav>
+  <div class="btn-group" role="group">
+    <button (click)="removeResource()" type="button" class="btn btn-danger" aria-haspopup="true" aria-expanded="false">
+      <span class="glyphicon glyphicon-remove-sign"></span>
+      {{'Delete' | trans}}
+    </button>
+  </div>
+</div>
 
 <ag-grid-angular
   style="width: 100%; height: 50vh;"

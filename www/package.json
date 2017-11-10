@@ -23,6 +23,7 @@
     "@angular/router": "^4.2.4",
     "ag-grid": "^13.3.1",
     "ag-grid-angular": "^13.3.0",
+    "angular4-color-picker": "^1.4.2",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
     "ngx-bootstrap": "^1.9.3",

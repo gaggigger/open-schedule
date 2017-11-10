@@ -13,6 +13,7 @@ import {ResourceCalendarComponent} from "../resource-calendar/resource-calendar.
 import {ResourcePrintComponent} from "../resource-print/resource-print.component";
 import {FormsModule} from "@angular/forms";
 import { FileDropModule } from 'ngx-file-drop/lib/ngx-drop';
+import {ColorPickerModule} from 'angular4-color-picker';
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import { FileDropModule } from 'ngx-file-drop/lib/ngx-drop';
     TabsModule.forRoot(),
     FormsModule,
     FileDropModule,
+    ColorPickerModule,
   ],
   declarations: [
     ResourceItemComponent,
