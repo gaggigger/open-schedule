@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `os_items`
+-- Table structure for table `os_resources_items`
 --
 
-DROP TABLE IF EXISTS `os_items`;
+DROP TABLE IF EXISTS `os_resources_items`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `os_items` (
+CREATE TABLE `os_resources_items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `resource` varchar(20) NOT NULL,
   `params` json DEFAULT NULL,
@@ -31,20 +31,20 @@ CREATE TABLE `os_items` (
   `roles` json DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `os_items_resource_IDX` (`resource`) USING BTREE,
-  KEY `os_items_os_users_FK` (`user_id`),
-  CONSTRAINT `os_items_os_resources_FK` FOREIGN KEY (`resource`) REFERENCES `os_resources` (`name`) ON UPDATE CASCADE,
-  CONSTRAINT `os_items_os_users_FK` FOREIGN KEY (`user_id`) REFERENCES `os_users` (`id`) ON UPDATE CASCADE
+  KEY `os_resources_items_resource_IDX` (`resource`) USING BTREE,
+  KEY `os_resources_items_os_users_FK` (`user_id`),
+  CONSTRAINT `os_resources_items_os_resources_FK` FOREIGN KEY (`resource`) REFERENCES `os_resources` (`name`) ON UPDATE CASCADE,
+  CONSTRAINT `os_resources_items_os_users_FK` FOREIGN KEY (`user_id`) REFERENCES `os_users` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `os_items`
+-- Dumping data for table `os_resources_items`
 --
 
-LOCK TABLES `os_items` WRITE;
-/*!40000 ALTER TABLE `os_items` DISABLE KEYS */;
-/*!40000 ALTER TABLE `os_items` ENABLE KEYS */;
+LOCK TABLES `os_resources_items` WRITE;
+/*!40000 ALTER TABLE `os_resources_items` DISABLE KEYS */;
+/*!40000 ALTER TABLE `os_resources_items` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -55,7 +55,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER os_items_update BEFORE UPDATE ON os_items FOR EACH ROW BEGIN SET NEW.date_modified = now(); END */;;
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER os_resources_items_update BEFORE UPDATE ON os_resources_items FOR EACH ROW BEGIN SET NEW.date_modified = now(); END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
@@ -448,7 +448,7 @@ BEGIN
 	set @swhere = os_allowed_reading_roles(roles, 'roles');
 
     set @query = CONCAT(
-		'SELECT  JSON_INSERT(params, ''$.id'', id) as data FROM os_items WHERE resource = ?',
+		'SELECT  JSON_INSERT(params, ''$.id'', id) as data FROM os_resources_items WHERE resource = ?',
 		' AND (', @swhere, ' )'
 	);
     
@@ -558,7 +558,7 @@ BEGIN
 	else
 		/* get resources roles if update */
 		set @query = CONCAT(
-			'SELECT roles INTO @parent_roles FROM os_items WHERE id = ', data->'$.id' ,' AND ',
+			'SELECT roles INTO @parent_roles FROM os_resources_items WHERE id = ', data->'$.id' ,' AND ',
 			' (', os_allowed_writing_roles(roles, 'roles'), ' )'
 		);
 	end if;
@@ -592,10 +592,10 @@ BEGIN
 		/* Check unique => check if there's item with the same attrib */
 		if (parent_fields_item -> '$.unique') then
 			if data->'$.id' is null then
-				SELECT count(*) INTO i_count  FROM os_items oi WHERE oi.resource = resource AND JSON_EXTRACT(oi.params, @pf_name) = JSON_EXTRACT(data, @pf_name);
+				SELECT count(*) INTO i_count  FROM os_resources_items oi WHERE oi.resource = resource AND JSON_EXTRACT(oi.params, @pf_name) = JSON_EXTRACT(data, @pf_name);
 			else
 				/* If update, don't compare with himself (id <> id) */
-				SELECT count(*) INTO i_count  FROM os_items oi WHERE oi.resource = resource AND JSON_EXTRACT(oi.params, @pf_name) = JSON_EXTRACT(data, @pf_name) AND id <> data->'$.id';
+				SELECT count(*) INTO i_count  FROM os_resources_items oi WHERE oi.resource = resource AND JSON_EXTRACT(oi.params, @pf_name) = JSON_EXTRACT(data, @pf_name) AND id <> data->'$.id';
 			end if;
 				
 			if i_count > 0 then
@@ -616,19 +616,19 @@ BEGIN
 		);
 		SET @r = resource;
 		
-		PREPARE stmt FROM 'INSERT INTO os_items (resource, params, roles) values (?, ?, ?)';
+		PREPARE stmt FROM 'INSERT INTO os_resources_items (resource, params, roles) values (?, ?, ?)';
 		EXECUTE stmt USING @r, @d, @parent_roles;
 		/* Return the created row */
 		SET @lid = last_insert_id();
-		SELECT * FROM os_items WHERE id = @lid;
+		SELECT * FROM os_resources_items WHERE id = @lid;
 	else
 		SET @did = JSON_UNQUOTE(data->'$.id');
 		/* Remove id from data */
 		SET @d = JSON_REMOVE(@d, '$.id');
-		PREPARE stmt FROM 'UPDATE os_items SET params = ? WHERE id = ?';
+		PREPARE stmt FROM 'UPDATE os_resources_items SET params = ? WHERE id = ?';
 		EXECUTE stmt USING @d, @did;
 		/* Return the updated row */
-		SELECT * FROM os_items WHERE id = @did;
+		SELECT * FROM os_resources_items WHERE id = @did;
 	end if;
     
 END ;;
