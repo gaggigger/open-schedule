@@ -53,12 +53,13 @@ export class ResourceInfoComponent implements OnChanges {
       .put(this.path, item)
       .then(result => {
         if(result.id) item.data.id = result.id;
+        item.savedError = false;
         item.saved = true;
       })
       .catch(error => {
         item.saved = false;
-        item.savedError = false;
-        console.error(error)
+        item.savedError = true;
+        console.error(error);
       });
   }
 }

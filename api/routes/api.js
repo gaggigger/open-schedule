@@ -175,7 +175,7 @@ router.get('/resources/:item/features/info', function(req, res) {
 router.put('/resources/:item/features/info', function(req, res) {
     RecourcesFeatures.createItems(req.connectedUser.roles, req.params.item, req.body.data).then(rows => {
         res.send(rows);
-    }).catch(err => UHandlers.handleError(res, 500, err));
+    }).catch(err => UHandlers.handleError(res, 403, err));
 });
 
 module.exports = router;

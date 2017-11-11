@@ -59,7 +59,10 @@
           </div>
         </div>
         <footer *ngIf="item.enableEdition" class="btn-group" role="group">
-          <button type="button" class="btn btn-success" (click)="saveResource(item);">
+          <button type="button" class="btn"
+              [ngClass]="{'btn-success': item.saved,'btn-danger': item.savedError}"
+              (click)="saveResource(item);"
+          >
             <span class="glyphicon" [ngClass]="{
               'glyphicon-floppy-disk': !item.saved,
               'glyphicon-floppy-saved': item.saved,

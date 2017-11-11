@@ -44,7 +44,7 @@ export class HttpService {
   }
 
   private handleSuccess(response: any) {
-    let result = response.json();
+    const result = response.json();
     if(result.token) this.token.set(result.token);
     return result;
   }
@@ -61,9 +61,9 @@ export class HttpService {
         this.router.navigate(['login']);
         break;
       case 403 :
-        this.router.navigate(['forbidden']);
+        //this.router.navigate(['forbidden']);
         break;
-      default:
+      case 500:
         this.router.navigate(['general-error']);
         break;
     }
