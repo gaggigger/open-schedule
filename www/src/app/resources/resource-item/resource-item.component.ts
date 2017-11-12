@@ -11,7 +11,9 @@ import {I18nService} from "../../Services/i18n.service";
 @Component({
   selector: 'app-resource-item',
   templateUrl: './resource-item.component.html',
-  styleUrls: ['./resource-item.component.css']
+  styleUrls: [
+    './resource-item.component.css'
+  ]
 })
 export class ResourceItemComponent implements OnInit {
   public gridColumn: string = '';

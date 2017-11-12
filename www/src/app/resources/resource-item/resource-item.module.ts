@@ -7,13 +7,14 @@ import {I18nModule} from "../../Services/i18n.service";
 import {AgGridModule} from "ag-grid-angular/main";
 import {ResourceGirdComponent} from "../resource-gird/resource-gird.component";
 import {ResourcePanelComponent} from "../resource-panel/resource-panel.component";
-import {TabsModule} from "ngx-bootstrap";
+import {BsDatepickerModule, TabsModule} from "ngx-bootstrap";
 import {ResourceInfoComponent} from "../resource-info/resource-info.component";
 import {ResourceCalendarComponent} from "../resource-calendar/resource-calendar.component";
 import {ResourcePrintComponent} from "../resource-print/resource-print.component";
 import {FormsModule} from "@angular/forms";
 import { FileDropModule } from 'ngx-file-drop/lib/ngx-drop';
 import {ColorPickerModule} from 'angular4-color-picker';
+
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import {ColorPickerModule} from 'angular4-color-picker';
     ResourceItemRoutingModule,
     AgGridModule.withComponents([]),
     TabsModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     FormsModule,
     FileDropModule,
     ColorPickerModule,

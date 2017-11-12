@@ -93,7 +93,7 @@ CREATE TABLE `os_resources_items` (
   KEY `os_resources_items_resource_IDX` (`resource`) USING BTREE,
   KEY `os_resources_items_os_users_FK` (`user_id`),
   CONSTRAINT `os_resources_items_os_resources_FK` FOREIGN KEY (`resource`) REFERENCES `os_resources` (`name`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -102,7 +102,7 @@ CREATE TABLE `os_resources_items` (
 
 LOCK TABLES `os_resources_items` WRITE;
 /*!40000 ALTER TABLE `os_resources_items` DISABLE KEYS */;
-INSERT INTO `os_resources_items` VALUES (1,'students','{\"name\": \"Ralitera\", \"birth\": \"0000-00-00\", \"email\": \"solofo.ralitera@gmail.com\", \"lastname\": \"Solofo\", \"matricule\": \"007\"}','2017-11-11 23:31:45','2017-11-11 23:31:45','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',32);
+INSERT INTO `os_resources_items` VALUES (1,'students','{\"name\": \"Ralitera\", \"birth\": \"1983-12-22T00:00:00.000Z\", \"email\": \"solofo.ralitera@gmail.com\", \"lastname\": \"Solofo\", \"matricule\": \"007\"}','2017-11-11 23:31:45','2017-11-11 23:31:45','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',32),(2,'students','{\"name\": \"aeaeazea\", \"birth\": \"azeaze\", \"email\": \"azeaeaz@gmqil.com\", \"lastname\": \"zeaze\", \"matricule\": \"TEST\"}','2017-11-12 10:43:02','2017-11-12 10:43:02','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',35);
 /*!40000 ALTER TABLE `os_resources_items` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -187,6 +187,78 @@ DELIMITER ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
+-- Table structure for table `os_roles`
+--
+
+DROP TABLE IF EXISTS `os_roles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `os_roles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `params` json DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `os_roles_UN` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `os_roles`
+--
+
+LOCK TABLES `os_roles` WRITE;
+/*!40000 ALTER TABLE `os_roles` DISABLE KEYS */;
+INSERT INTO `os_roles` VALUES (1,'ROLE_ADMIN','{}'),(2,'ROLE_STUDENTS',NULL),(3,'ROLE_SP','{\"name\": \"Secrétariat Pédagogique\"}'),(4,'ROLE_TEACHERS',NULL);
+/*!40000 ALTER TABLE `os_roles` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_roles_update
+BEFORE UPDATE
+ON openschedule.os_roles FOR EACH ROW
+BEGIN
+	IF OLD.name = 'ROLE_ADMIN' AND NEW.name <> 'ROLE_ADMIN' THEN
+		SIGNAL SQLSTATE '40000'
+		SET MESSAGE_TEXT = 'readonly_role_name';	
+	END IF;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_roles_delete
+BEFORE DELETE
+ON openschedule.os_roles FOR EACH ROW
+BEGIN
+	IF OLD.name = 'ROLE_ADMIN' THEN
+		SIGNAL SQLSTATE '40000'
+		SET MESSAGE_TEXT = 'undeletable_role';	
+	END IF;
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+
+--
 -- Table structure for table `os_users`
 --
 
@@ -206,7 +278,7 @@ CREATE TABLE `os_users` (
   PRIMARY KEY (`id`),
   KEY `os_users_username_IDX` (`username`) USING BTREE,
   KEY `os_users_active_IDX` (`active`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -215,7 +287,7 @@ CREATE TABLE `os_users` (
 
 LOCK TABLES `os_users` WRITE;
 /*!40000 ALTER TABLE `os_users` DISABLE KEYS */;
-INSERT INTO `os_users` VALUES (32,'{}',0,'2017-11-11 23:31:45','2017-11-11 23:32:32',NULL,'solofo.ralitera@gmail.com','$6$42420241db0a6270$7kLWAU1bWPOysPEGDL9VzE2EMfTTX7P7SHGARNJ4/kmyaTxMKotb0FrUoqQkuUvn./HbpcIxXr2rLDQU3.5gf1','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]');
+INSERT INTO `os_users` VALUES (32,'{}',1,'2017-11-11 23:31:45','2017-11-12 10:42:18','2017-11-12 10:42:18','admin','$6$c6a942da8c2ccbcd$1EGU2dzvZnu0qutafZib3swbC1HQL8MY1pBKfxMu0QV.jHHJQ7weluzyXVs1/R77yjPqosobSMelswpoY8unk1','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]'),(35,'{}',0,'2017-11-12 10:43:02','2017-11-12 10:43:02',NULL,'azeaeaz@gmqil.com','$6$d981633f3a1a864a$SX2tQTG0zXnwVgB/v0jFFaqnuGcYXex1ZiBh3UU7ERwHtOcB3UsJrIRsAjZi1rWJFG6LZmh3QT86BoxCGYHC61','[\"ROLE_USER\", \"ROLE_STUDENTS\"]');
 /*!40000 ALTER TABLE `os_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -241,9 +313,9 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -255,6 +327,42 @@ BEGIN
 		SET NEW.password = ENCRYPT(NEW.password, CONCAT('$6$', SHA2(RANDOM_BYTES(64), '256')));  
 	END IF;
 	SET NEW.date_modified = now(); 
+	
+	/* Check if there's still an admin */
+	IF ((NEW.roles <=> OLD.roles) = 0)  THEN
+		SET @admin_count = null;
+		SELECT count(*) into @admin_count FROM os_users WHERE JSON_CONTAINS(roles, '["ROLE_ADMIN"]') AND id <> NEW.id;
+		IF @admin_count < 1 THEN
+			SIGNAL SQLSTATE '40000'
+			SET MESSAGE_TEXT = 'no_more_admin';	 	
+		END IF;	
+	END IF;	
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_users_delete
+BEFORE DELETE
+ON openschedule.os_users FOR EACH ROW
+BEGIN 
+	/* Check if there's still an admin */
+	SET @admin_count = null;
+	SELECT count(*) into @admin_count FROM os_users WHERE JSON_CONTAINS(roles, '["ROLE_ADMIN"]') AND id <> OLD.id;
+	IF @admin_count < 1 THEN
+		SIGNAL SQLSTATE '40000'
+		SET MESSAGE_TEXT = 'no_more_admin';	 	
+	END IF;
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -289,7 +397,7 @@ CREATE TABLE `os_users_pending` (
 
 LOCK TABLES `os_users_pending` WRITE;
 /*!40000 ALTER TABLE `os_users_pending` DISABLE KEYS */;
-INSERT INTO `os_users_pending` VALUES (32,'solofo.ralitera@gmail.com','2017-11-11 23:31:45','55aba69e','1e5b2d504842f0b244d98800a8841d452f9427a16c3d2ee6be71b0ff4d0fe59b',0,NULL);
+INSERT INTO `os_users_pending` VALUES (35,'azeaeaz@gmqil.com','2017-11-12 10:43:02','1c791c4e','b4bb9b7cf5191abed5aa24b2564ff135fcac9042ec1c66a8bee273f75b25fdcb',0,NULL);
 /*!40000 ALTER TABLE `os_users_pending` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -305,8 +413,10 @@ DELIMITER ;;
 BEFORE INSERT
 ON openschedule.os_users_pending FOR EACH ROW
 BEGIN
-	SET @r = null;
-	SELECT os_check_email(NEW.email) INTO @r;
+	IF NOT os_check_email(NEW.email) THEN
+		SIGNAL SQLSTATE '40000'
+		SET MESSAGE_TEXT = 'email_error';
+	END IF;
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -326,8 +436,10 @@ DELIMITER ;;
 BEFORE UPDATE
 ON openschedule.os_users_pending FOR EACH ROW
 BEGIN
-	SET @r = null;
-	SELECT os_check_email(NEW.email) INTO @r;
+	IF NOT os_check_email(NEW.email) THEN
+		SIGNAL SQLSTATE '40000'
+		SET MESSAGE_TEXT = 'email_error';
+	END IF;
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -456,11 +568,9 @@ DELIMITER ;;
 CREATE  FUNCTION `os_check_email`(email VARCHAR(255)) RETURNS tinyint(1)
 BEGIN
 	IF NOT (SELECT email REGEXP '^[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$') THEN
-		SIGNAL SQLSTATE '40000'
-		SET MESSAGE_TEXT = 'email_error';
-		RETURN false;
+		RETURN 0;
     END IF;
-    RETURN true;
+	RETURN 1;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -567,8 +677,7 @@ BEGIN
 			end if;
 		end if;
 		
-		if (fields_item -> '$.unique') then
-			
+		if (fields_item -> '$.unique') then			
 			if (item_id) then
 				SELECT count(*) INTO i_count  
 					FROM os_resources_items oi
@@ -721,9 +830,9 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -744,6 +853,8 @@ BEGIN
 
     PREPARE stmt FROM 'SELECT id,params as attributes,username,roles FROM os_users WHERE username = ? AND password = ENCRYPT(?, password) AND active = 1';
     EXECUTE stmt USING @u, @p;
+    
+    UPDATE os_users SET last_connection = now() WHERE username = @u;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -844,4 +955,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-11 23:33:54
+-- Dump completed on 2017-11-12 22:14:23

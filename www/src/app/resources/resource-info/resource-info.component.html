@@ -47,6 +47,26 @@
                 </div>
               </div>
             </div>
+            <!-- Date picker -->
+            <div *ngSwitchCase="'date'">
+              <div>
+                <div class="input-group">
+                  <span class="input-group-addon">{{ it.label | trans }}</span>
+                  <input type="text"
+                         *ngIf="item.enableEdition"
+                         class="form-control"
+                         #dp="bsDatepicker"
+                         bsDatepicker
+                         [(bsValue)]="item.data[it.name]"
+                  />
+                  <input type="text" class="form-control"
+                         [(ngModel)]="item.data[it.name]"
+                         *ngIf="! item.enableEdition"
+                         [readonly]="! item.enableEdition"
+                  />
+                </div>
+              </div>
+            </div>
             <!-- Type text -->
             <div *ngSwitchDefault>
               <div>

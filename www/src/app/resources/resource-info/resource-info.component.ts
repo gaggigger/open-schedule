@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import {Component, Input, OnChanges, ViewEncapsulation} from '@angular/core';
 import {HttpService} from "../../Services/http.service";
 import {UtilsService} from "../../Services/utils";
 import {NgForm} from "@angular/forms";
@@ -8,8 +8,13 @@ import { FileDropModule, UploadFile, UploadEvent } from 'ngx-file-drop/lib/ngx-d
 @Component({
   selector: '[app-resource-info]',
   templateUrl: './resource-info.component.html',
-  styleUrls: ['./resource-info.component.css']
+  encapsulation : ViewEncapsulation.None,
+  styleUrls: [
+    './resource-info.component.css',
+    '../../../../node_modules/ngx-bootstrap/datepicker/bs-datepicker.css',
+  ]
 })
+
 export class ResourceInfoComponent implements OnChanges {
   @Input() path: string = '';
   @Input() items: Array<object> = [];
@@ -28,12 +33,33 @@ export class ResourceInfoComponent implements OnChanges {
         .get(this.path)
         .then(result => {
           this.cacheForm[this.path] = this.form = result;
+          this.formatData();
         })
         .catch(error => console.error(error));
     }
     else {
       this.form = this.cacheForm[this.path];
+      this.formatData();
     }
+  }
+
+  formatData() {
+    console.log(this.form);
+    console.log(this.items);
+    Object.keys(this.form).map(key => {
+      this.form[key].map(item => {
+        if(item.type == 'date') {
+          console.log(this.items);
+          this.items.map((data, k) => {
+            //console.log(this.items[k], item.name);
+            if(this.items[k]['data'][item.name]) {
+              this.items[k]['data'][item.name] = new Date(this.items[k]['data'][item.name]);
+            }
+          });
+        }
+      });
+    });
+
   }
 
   trackByFn(index: any, item: any) {
