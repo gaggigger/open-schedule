@@ -18,6 +18,7 @@
         class="panel-body"
         *ngIf="feature.component == 'app-resource-calendar'"
         [path]="feature.path"
+        [items]="selectedItems"
         app-resource-calendar
       ></article>
       <article

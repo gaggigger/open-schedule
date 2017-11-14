@@ -38,7 +38,6 @@ router.get('/i18n', function(req, res) {
 });
 
 router.post('/login', function(req, res) {
-
     User.connect(req.body.user, req.body.password).then(user => {
         // Transform RowDataPacket to simple Json
         user = JSON.parse(JSON.stringify(user));
@@ -55,8 +54,9 @@ router.post('/login', function(req, res) {
 });
 
 router.get('/menu', function(req, res) {
-    let menuResources = Recources.getAll(req.connectedUser.roles);
-    Promise.all([menuResources]).then(values => {
+    Promise.all([
+        Recources.getAll(req.connectedUser? req.connectedUser.roles : []),
+    ]).then(values => {
         // Resources menu
         let menu = [{
             name : 'Resources',
@@ -71,19 +71,6 @@ router.get('/menu', function(req, res) {
                 path : param.path,
                 icon : param.icon
             });
-        });
-
-        // Help menu
-        menu.push({
-            name : '',
-            icon : 'glyphicon glyphicon-question-sign',
-            items : [
-                {
-                    name : 'Credit',
-                    path : '/credit',
-                    icon : 'glyphicon glyphicon-thumbs-up'
-                }
-            ]
         });
 
         // Login menu
@@ -113,8 +100,21 @@ router.get('/menu', function(req, res) {
             });
         }
 
+        // Help menu
+        menu.push({
+            name : '',
+            icon : 'glyphicon glyphicon-question-sign',
+            items : [
+                {
+                    name : 'Credit',
+                    path : '/credit',
+                    icon : 'glyphicon glyphicon-thumbs-up'
+                }
+            ]
+        });
 
         res.send(menu);
+
     }).catch(err => {
         console.log(err);
     });

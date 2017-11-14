@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import {Injectable, Pipe, PipeTransform} from '@angular/core';
+import {DomSanitizer} from "@angular/platform-browser";
 
 
 @Injectable()
@@ -14,4 +15,12 @@ export class UtilsService {
     });
   }
 
+}
+
+@Pipe({ name: 'safe' })
+export class SafePipe implements PipeTransform {
+  constructor(private sanitizer: DomSanitizer) {}
+  transform(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
 }

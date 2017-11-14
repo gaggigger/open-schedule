@@ -6,11 +6,20 @@
   <link href='libs/fullcalendar-3.7.0/fullcalendar.print.min.css' rel='stylesheet' media='print' />
   <script src='libs/fullcalendar-3.7.0/lib/moment.min.js'></script>
   <script src='libs/fullcalendar-3.7.0/lib/jquery.min.js'></script>
+  <script src='libs/fullcalendar-3.7.0/lib/url.min.js'></script>
+  <script src='libs/fullcalendar-3.7.0/lib/jquery.ba-hashchange.min.js'></script>
   <script src='libs/fullcalendar-3.7.0/fullcalendar.min.js'></script>
   <script>
 
     $(document).ready(function() {
 
+      $(window).hashchange( function(){
+        // Reload calendar
+        console.log(url('#'));
+      });
+
+
+      var furl = url('?');
       $('#calendar').fullCalendar({
         header: {
           left: 'prev,next today',
@@ -26,62 +35,33 @@
 
         editable: true,
         eventLimit: true, // allow "more" link when too many events
-        events: [
-          {
-            title: 'All Day Event',
-            start: '2017-11-01'
-          },
-          {
-            title: 'Long Event',
-            start: '2017-11-07',
-            end: '2017-11-10'
-          },
-          {
-            id: 999,
-            title: 'Repeating Event',
-            start: '2017-11-09T16:00:00'
-          },
-          {
-            id: 999,
-            title: 'Repeating Event',
-            start: '2017-11-16T16:00:00'
-          },
-          {
-            title: 'Conference',
-            start: '2017-11-11',
-            end: '2017-11-13'
-          },
-          {
-            title: 'Meeting',
-            start: '2017-11-12T10:30:00',
-            end: '2017-11-12T12:30:00'
-          },
-          {
-            title: 'Lunch',
-            start: '2017-11-12T12:00:00'
-          },
-          {
-            title: 'Meeting',
-            start: '2017-11-12T14:30:00'
-          },
-          {
-            title: 'Happy Hour',
-            start: '2017-11-12T17:30:00'
-          },
-          {
-            title: 'Dinner',
-            start: '2017-11-12T20:00:00'
-          },
-          {
-            title: 'Birthday Party',
-            start: '2017-11-13T07:00:00'
-          },
-          {
-            title: 'Click for Google',
-            url: 'http://google.com/',
-            start: '2017-11-28'
-          }
-        ]
+        events: function(start, end, timezone, callback) {
+          $.ajax({
+            url: furl.path,
+            dataType: 'json',
+            beforeSend: function(request) {
+              request.setRequestHeader("Authorization", furl.token);
+            },
+            data: {
+              items: url('#').items,
+              start: start.unix(),
+              end: end.unix()
+            },
+            success: function(doc) {
+              console.log(doc);
+              /*
+              var events = [];
+              $(doc).find('event').each(function() {
+                events.push({
+                  title: $(this).attr('title'),
+                  start: $(this).attr('start') // will be parsed
+                });
+              });
+              callback(events);
+              */
+            }
+          });
+        }
       });
 
     });

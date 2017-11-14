@@ -44,14 +44,10 @@ export class ResourceInfoComponent implements OnChanges {
   }
 
   formatData() {
-    console.log(this.form);
-    console.log(this.items);
     Object.keys(this.form).map(key => {
       this.form[key].map(item => {
         if(item.type == 'date') {
-          console.log(this.items);
           this.items.map((data, k) => {
-            //console.log(this.items[k], item.name);
             if(this.items[k]['data'][item.name]) {
               this.items[k]['data'][item.name] = new Date(this.items[k]['data'][item.name]);
             }
