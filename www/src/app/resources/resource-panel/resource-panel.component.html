@@ -9,6 +9,7 @@
     <section>
       <article
         class="panel-body"
+        style="padding:0;"
         *ngIf="feature.component == 'app-resource-info'"
         [path]="feature.path"
         [items]="selectedItems"
@@ -16,6 +17,7 @@
       ></article>
       <article
         class="panel-body"
+        style="padding:0;"
         *ngIf="feature.component == 'app-resource-calendar'"
         [path]="feature.path"
         [items]="selectedItems"
@@ -23,6 +25,7 @@
       ></article>
       <article
         class="panel-body"
+        style="padding:0;"
         *ngIf="feature.component == 'app-resource-print'"
         [path]="feature.path"
         app-resource-print

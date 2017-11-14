@@ -15,7 +15,7 @@
 
       $(window).hashchange( function(){
         // Reload calendar
-        console.log(url('#'));
+        $('#calendar').fullCalendar( 'refetchEvents' )
       });
 
 
@@ -49,6 +49,7 @@
             },
             success: function(doc) {
               console.log(doc);
+              callback(doc);
               /*
               var events = [];
               $(doc).find('event').each(function() {
