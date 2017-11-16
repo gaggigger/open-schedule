@@ -33,7 +33,8 @@ class ResourcesFeatures {
         return Db.query('set_items', {
             roles: roles,
             resource: resource,
-            data: data
+            data: data,
+            sessions: 1
         }).then(rows => {
             return Object.assign({id : rows.id}, JSON.parse(rows.params));
         });

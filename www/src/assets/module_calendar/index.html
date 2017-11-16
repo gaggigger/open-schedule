@@ -4,89 +4,34 @@
   <meta charset='utf-8' />
   <link href='libs/fullcalendar-3.7.0/fullcalendar.min.css' rel='stylesheet' />
   <link href='libs/fullcalendar-3.7.0/fullcalendar.print.min.css' rel='stylesheet' media='print' />
+  <link href='libs/vex.css' rel='stylesheet' />
+  <link href='libs/vex-theme-os.css' rel='stylesheet' />
+
   <script src='libs/fullcalendar-3.7.0/lib/moment.min.js'></script>
   <script src='libs/fullcalendar-3.7.0/lib/jquery.min.js'></script>
-  <script src='libs/fullcalendar-3.7.0/lib/url.min.js'></script>
+  <script src='libs/fullcalendar-3.7.0/lib/moment.min.js'></script>
   <script src='libs/fullcalendar-3.7.0/lib/jquery.ba-hashchange.min.js'></script>
   <script src='libs/fullcalendar-3.7.0/fullcalendar.min.js'></script>
-  <script>
 
-    $(document).ready(function() {
+  <script src='libs/url.min.js'></script>
+  <script src='libs/vex.conbined.min.js'></script>
+  <script>vex.defaultOptions.className = 'vex-theme-os'</script>
 
-      $(window).hashchange( function(){
-        // Reload calendar
-        $('#calendar').fullCalendar( 'refetchEvents' )
-      });
-
-
-      var furl = url('?');
-      $('#calendar').fullCalendar({
-        header: {
-          left: 'prev,next today',
-          center: 'title',
-          right: 'month,agendaWeek,agendaDay,listWeek'
-        },
-        defaultDate: '2017-11-12',
-        navLinks: true, // can click day/week names to navigate views
-
-        weekNumbers: true,
-        weekNumbersWithinDays: true,
-        weekNumberCalculation: 'ISO',
-
-        editable: true,
-        eventLimit: true, // allow "more" link when too many events
-        events: function(start, end, timezone, callback) {
-          $.ajax({
-            url: furl.path,
-            dataType: 'json',
-            beforeSend: function(request) {
-              request.setRequestHeader("Authorization", furl.token);
-            },
-            data: {
-              items: url('#').items,
-              start: start.unix(),
-              end: end.unix()
-            },
-            success: function(doc) {
-              console.log(doc);
-              callback(doc);
-              /*
-              var events = [];
-              $(doc).find('event').each(function() {
-                events.push({
-                  title: $(this).attr('title'),
-                  start: $(this).attr('start') // will be parsed
-                });
-              });
-              callback(events);
-              */
-            }
-          });
-        }
-      });
-
-    });
-
-  </script>
+  <script src='js/app.js'></script>
   <style>
-
     body {
       margin: 40px 10px;
       padding: 0;
       font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
       font-size: 14px;
     }
-
     #calendar {
       max-width: 900px;
       margin: 0 auto;
     }
-
   </style>
 </head>
 <body>
-
-<div id='calendar'></div>
-
+  <div id='calendar'></div>
 </body>
 </html>

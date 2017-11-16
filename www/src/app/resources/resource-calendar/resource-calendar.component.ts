@@ -21,6 +21,7 @@ export class ResourceCalendarComponent implements OnChanges {
     console.log(JSON.stringify(this.items.map(item => item['data']['id'])));
     this.frameurl = 'assets/module_calendar/index.html?' +
       'path=' + encodeURIComponent(environment.API_URL + this.path) +
+      '&resources=' + encodeURIComponent(environment.API_URL + '/resources') +
       '&token=' + encodeURIComponent(this.token.get()) +
       '#items=' + encodeURIComponent(JSON.stringify(this.items.map(item => item['data']['id'])))
     ;

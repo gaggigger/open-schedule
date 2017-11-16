@@ -34,7 +34,7 @@
               </div>
             </div>
             <!-- Type colorpicker -->
-            <div *ngSwitchCase="'color'">
+            <div *ngSwitchCase="'_color'">
               <div>
                 <div class="input-group">
                   <span class="input-group-addon">{{ it.label | trans }}</span>
@@ -48,7 +48,7 @@
               </div>
             </div>
             <!-- Date picker -->
-            <div *ngSwitchCase="'date'">
+            <div *ngSwitchCase="'_date'">
               <div>
                 <div class="input-group">
                   <span class="input-group-addon">{{ it.label | trans }}</span>
@@ -72,7 +72,7 @@
               <div>
                 <div class="input-group">
                   <span class="input-group-addon">{{ it.label | trans }}</span>
-                  <input type="text" class="form-control" [(ngModel)]="item.data[it.name]" [readonly]="! item.enableEdition" />
+                  <input [type]="it.type" class="form-control" [(ngModel)]="item.data[it.name]" [readonly]="! item.enableEdition" />
                 </div>
               </div>
             </div>
