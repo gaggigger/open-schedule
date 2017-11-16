@@ -70,6 +70,10 @@ export class ResourceItemComponent implements OnInit {
     this.selectedItems = this.selectedItems.slice();
   }
 
+  infoChange(data) {
+    console.log(data);
+  }
+
   ngOnDestroy() {
     this.sub.unsubscribe();
   }

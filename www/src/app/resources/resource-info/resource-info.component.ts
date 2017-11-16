@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges, ViewEncapsulation} from '@angular/core';
+import {Component, Input, EventEmitter, OnChanges, Output, ViewEncapsulation} from '@angular/core';
 import {HttpService} from "../../Services/http.service";
 import {UtilsService} from "../../Services/utils";
 import {NgForm} from "@angular/forms";
@@ -18,6 +18,8 @@ import { FileDropModule, UploadFile, UploadEvent } from 'ngx-file-drop/lib/ngx-d
 export class ResourceInfoComponent implements OnChanges {
   @Input() path: string = '';
   @Input() items: Array<object> = [];
+  @Output() onInfoChange = new EventEmitter<object>();
+
   private resources: Array<object> = [];
   private cacheForm: Array<object> = [];
   private form: object = {};
@@ -77,6 +79,7 @@ export class ResourceInfoComponent implements OnChanges {
         if(result.id) item.data.id = result.id;
         item.savedError = false;
         item.saved = true;
+        this.onInfoChange.emit(result);
       })
       .catch(error => {
         item.saved = false;

@@ -1,4 +1,4 @@
-import {Component, Input, OnChanges} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, Output} from '@angular/core';
 
 @Component({
   selector: 'app-resource-panel',
@@ -8,11 +8,14 @@ import {Component, Input, OnChanges} from '@angular/core';
 export class ResourcePanelComponent implements OnChanges {
   @Input() panelFeatures: Array<object> = [];
   @Input('selectedItems') selectedItems: Array<object> = [];
+  @Output() onInfoChange = new EventEmitter<Array<object>>();
 
   constructor() { }
 
   ngOnChanges() {
 
   }
-
+  infoChange(data) {
+    this.onInfoChange.emit(data);
+  }
 }

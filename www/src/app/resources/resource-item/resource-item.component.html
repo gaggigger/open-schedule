@@ -12,6 +12,7 @@
         <app-resource-panel
           [panelFeatures]="panelFeatures"
           [selectedItems]="selectedItems"
+          (onInfoChange)="infoChange($event)"
         ></app-resource-panel>
       </div>
     </div>

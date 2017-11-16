@@ -13,6 +13,7 @@
         *ngIf="feature.component == 'app-resource-info'"
         [path]="feature.path"
         [items]="selectedItems"
+        (onInfoChange)="infoChange($event)"
         app-resource-info
       ></article>
       <article
