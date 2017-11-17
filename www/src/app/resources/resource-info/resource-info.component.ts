@@ -92,6 +92,10 @@ export class ResourceInfoComponent implements OnChanges {
   }
 
   checkItems(data) {
-    console.log(data);
+    this.items.map((item: object) => {
+      if(item['data'].id === data.id) {
+        console.log(data);
+      }
+    })
   }
 }

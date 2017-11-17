@@ -68,13 +68,14 @@
               </div>
             </div>
 
-            <!-- Type text -->
+            <!-- Type list -->
             <div *ngSwitchCase="'resources_items'">
               <div>
                 <div class="input-group">
                   <h5 *ngIf="it.label">{{ it.label | trans }}</h5>
                   <app-resource-list
                     [item]="it"
+                    [itemId]="item.data.id"
                     (onCheck)="checkItems($event)"
                     [readonly]="! item.enableEdition"
                   >

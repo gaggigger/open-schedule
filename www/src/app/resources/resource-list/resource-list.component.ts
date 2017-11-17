@@ -1,4 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output, Pipe, PipeTransform, TemplateRef} from '@angular/core';
+import {
+  Component, EventEmitter, Input, OnChanges, OnInit, Output, Pipe, PipeTransform,
+  TemplateRef
+} from '@angular/core';
 import {BsModalRef, BsModalService} from "ngx-bootstrap";
 import {HttpService} from "../../Services/http.service";
 
@@ -7,12 +10,14 @@ import {HttpService} from "../../Services/http.service";
   templateUrl: './resource-list.component.html',
   styleUrls: ['./resource-list.component.css']
 })
-export class ResourceListComponent implements OnInit {
+export class ResourceListComponent implements OnChanges {
   @Input() item: object = {};
+  @Input() itemId: number = null;
   @Input() readonly: boolean = true;
 
   modalRef: BsModalRef;
   private items: Array<object> = [];
+
   private term: string = '';
   private checkedItems: Array<object> = [];
 
@@ -23,17 +28,20 @@ export class ResourceListComponent implements OnInit {
     private modalService: BsModalService,
   ) { }
 
-  ngOnInit() {
+  ngOnChanges() {
+
   }
 
   showlist(template: TemplateRef<any>) {
     this.items = [];
     this.item['resources_items_items'].map(resource => {
-      //console.log(this.item);
       this.httpSrv
         .get('/resources/' + resource + '/data') // TODO get path from db
         .then(result => {
-          this.items = this.items.concat(result);
+          this.items = this.items.concat(result.map(i => {
+            i['_resource'] = resource;
+            return i;
+          }));
         })
         .catch(error => console.error(error));
     });
@@ -43,7 +51,11 @@ export class ResourceListComponent implements OnInit {
 
   checkItem(item: object) {
     item['checked'] = ! item['checked'];
-    this.onCheck.emit(item);
+    this.onCheck.emit({
+      id : this.itemId,
+      item: this.item,
+      data: item
+    });
     if(item['checked']) {
       this.checkedItems.push(item);
     }else {

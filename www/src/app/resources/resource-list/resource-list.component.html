@@ -1,24 +1,20 @@
 <div>
-  <button
-    aria-expanded="false"
-    aria-haspopup="true"
-    class="btn btn-success"
-    type="button"
+  <span
+    class="label label-success"
+    style="margin:2px;cursor:pointer;"
     (click)="showlist(template)"
-    *ngIf="readonly"
+    *ngIf="!readonly"
   >
-    <span class="glyphicon glyphicon-plus-sign"></span>
-  </button>
+    <span class="glyphicon glyphicon-pencil"></span>
+  </span>
 
-  <div>
-    <span
-      class="label label-default"
-      style="margin:2px;"
-      *ngFor="let el of checkedItems"
-    >
-      {{ el.name }}
-    </span>
-  </div>
+  <span
+    class="label label-default"
+    style="margin:2px;"
+    *ngFor="let el of checkedItems"
+  >
+    {{ el.name }}
+  </span>
 
 </div>
 
@@ -50,7 +46,7 @@
         *ngFor="let el of items | filter : term : 'name'"
         (click)="checkItem(el)"
       >
-        {{ el.name }}
+        {{ el.name }} ({{ el._resource}})
       </button>
     </div>
   </div>
