@@ -67,7 +67,26 @@
                 </div>
               </div>
             </div>
+
             <!-- Type text -->
+            <div *ngSwitchCase="'resources_items'">
+              <div>
+                <div class="input-group">
+                  <h5 *ngIf="it.label">{{ it.label | trans }}</h5>
+                  <button
+                    aria-expanded="false"
+                    aria-haspopup="true"
+                    class="btn btn-success"
+                    type="button"
+                    (click)="showlist(template, it.items_name)"
+                  >
+                    <span class="glyphicon glyphicon-plus-sign"></span>
+                  </button>
+
+
+                </div>
+              </div>
+            </div>
             <div *ngSwitchDefault>
               <div>
                 <div class="input-group">
@@ -96,3 +115,14 @@
   </tab>
 </tabset>
 
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Modal</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    This is a modal.
+  </div>
+</ng-template>

@@ -26,6 +26,7 @@
     "angular4-color-picker": "^1.4.2",
     "bootstrap": "^3.3.7",
     "core-js": "^2.4.1",
+    "ng-auto-complete": "^2.7.13",
     "ngx-bootstrap": "^1.9.3",
     "ngx-cookie-service": "^1.0.9",
     "ngx-file-drop": "^1.0.18",

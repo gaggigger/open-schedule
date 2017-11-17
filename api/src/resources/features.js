@@ -34,7 +34,7 @@ class ResourcesFeatures {
             roles: roles,
             resource: resource,
             data: data,
-            sessions: 1
+            sessions: 1 // TODO defaut session and selected session
         }).then(rows => {
             return Object.assign({id : rows.id}, JSON.parse(rows.params));
         });

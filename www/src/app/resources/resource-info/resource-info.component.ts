@@ -1,8 +1,13 @@
-import {Component, Input, EventEmitter, OnChanges, Output, ViewEncapsulation} from '@angular/core';
+import {
+  Component, Input, EventEmitter, OnChanges, Output, ViewEncapsulation, ViewChild,
+  TemplateRef
+} from '@angular/core';
 import {HttpService} from "../../Services/http.service";
 import {UtilsService} from "../../Services/utils";
 import {NgForm} from "@angular/forms";
 import { FileDropModule, UploadFile, UploadEvent } from 'ngx-file-drop/lib/ngx-drop';
+import {CreateNewAutocompleteGroup, NgAutocompleteComponent, SelectedAutocompleteItem} from "ng-auto-complete";
+import {BsModalRef, BsModalService} from "ngx-bootstrap";
 
 
 @Component({
@@ -23,10 +28,30 @@ export class ResourceInfoComponent implements OnChanges {
   private resources: Array<object> = [];
   private cacheForm: Array<object> = [];
   private form: object = {};
+  modalRef: BsModalRef;
+
+  @ViewChild(NgAutocompleteComponent) public completer: NgAutocompleteComponent;
+  public group = [
+    CreateNewAutocompleteGroup(
+      'Search / choose in / from list',
+      'completer',
+      [
+        {title: 'Option 1', id: '1'},
+        {title: 'Option 2', id: '2'},
+        {title: 'Option 3', id: '3'},
+        {title: 'Option 4', id: '4'},
+        {title: 'Option 5', id: '5'},
+      ],
+      {titleKey: 'title', childrenKey: null},
+      '',
+      false
+    )
+  ];
 
   constructor(
     private httpSrv: HttpService,
     private utils: UtilsService,
+    private modalService: BsModalService,
   ) { }
 
   ngOnChanges() {
@@ -86,5 +111,10 @@ export class ResourceInfoComponent implements OnChanges {
         item.savedError = true;
         console.error(error);
       });
+  }
+
+  showlist(template: TemplateRef<any>, items: Array<string>) {
+    console.log(items);
+    this.modalRef = this.modalService.show(template);
   }
 }
