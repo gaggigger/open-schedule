@@ -73,17 +73,12 @@
               <div>
                 <div class="input-group">
                   <h5 *ngIf="it.label">{{ it.label | trans }}</h5>
-                  <button
-                    aria-expanded="false"
-                    aria-haspopup="true"
-                    class="btn btn-success"
-                    type="button"
-                    (click)="showlist(template, it.items_name)"
+                  <app-resource-list
+                    [item]="it"
+                    (onCheck)="checkItems($event)"
+                    [readonly]="! item.enableEdition"
                   >
-                    <span class="glyphicon glyphicon-plus-sign"></span>
-                  </button>
-
-
+                  </app-resource-list>
                 </div>
               </div>
             </div>
@@ -115,14 +110,3 @@
   </tab>
 </tabset>
 
-<ng-template #template>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">Modal</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    This is a modal.
-  </div>
-</ng-template>

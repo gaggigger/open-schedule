@@ -14,7 +14,8 @@ import {ResourcePrintComponent} from "../resource-print/resource-print.component
 import {FormsModule} from "@angular/forms";
 import { FileDropModule } from 'ngx-file-drop/lib/ngx-drop';
 import {ColorPickerModule} from 'angular4-color-picker';
-import {SafePipe} from "../../Services/utils";
+import {FilterPipe, SafePipe} from "../../Services/utils";
+import {ResourceListComponent} from "../resource-list/resource-list.component";
 
 
 @NgModule({
@@ -36,7 +37,10 @@ import {SafePipe} from "../../Services/utils";
     ResourceInfoComponent,
     ResourceCalendarComponent,
     ResourcePrintComponent,
+    ResourceListComponent,
     SafePipe,
+    FilterPipe,
+
   ],
   providers: [  ]
 })

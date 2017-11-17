@@ -24,3 +24,24 @@ export class SafePipe implements PipeTransform {
     return this.sanitizer.bypassSecurityTrustResourceUrl(url);
   }
 }
+
+@Pipe({
+  name: 'filter',
+  pure: false
+})
+export class FilterPipe implements PipeTransform {
+  transform(items: any[], term, key): any {
+    return term
+      ? items.filter(item => item[key].indexOf(term) !== -1)
+      : items;
+  }
+}
+
+@Pipe({
+  name: 'sortBy'
+})
+export class SortByPipe implements PipeTransform {
+  transform(items: any[], sortedBy: string): any {
+    return items.sort((a, b) => {return b[sortedBy] - a[sortedBy]});
+  }
+}

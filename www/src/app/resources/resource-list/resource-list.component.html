@@ -1,0 +1,57 @@
+<div>
+  <button
+    aria-expanded="false"
+    aria-haspopup="true"
+    class="btn btn-success"
+    type="button"
+    (click)="showlist(template)"
+    *ngIf="readonly"
+  >
+    <span class="glyphicon glyphicon-plus-sign"></span>
+  </button>
+
+  <div>
+    <span
+      class="label label-default"
+      style="margin:2px;"
+      *ngFor="let el of checkedItems"
+    >
+      {{ el.name }}
+    </span>
+  </div>
+
+</div>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left"> <!-- TODO --></h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="list-group">
+
+      <div class="input-group">
+        <span class="input-group-addon" style="min-width: 50px;">
+          <i class="glyphicon glyphicon-filter"></i>
+        </span>
+        <input
+          type="text"
+          class="form-control"
+          aria-label="..."
+          name="term" [(ngModel)]="term"
+        />
+      </div>
+
+      <button
+        class="list-group-item"
+        [ngClass]="{'active': el.checked}"
+        *ngFor="let el of items | filter : term : 'name'"
+        (click)="checkItem(el)"
+      >
+        {{ el.name }}
+      </button>
+    </div>
+  </div>
+</ng-template>
