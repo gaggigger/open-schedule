@@ -75,7 +75,7 @@
                   <h5 *ngIf="it.label">{{ it.label | trans }}</h5>
                   <app-resource-list
                     [item]="it"
-                    [itemId]="item.data.id"
+                    [itemData]="item.data"
                     (onCheck)="checkItems($event)"
                     [readonly]="! item.enableEdition"
                   >

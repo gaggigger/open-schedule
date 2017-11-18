@@ -29,11 +29,10 @@ class Recources {
         });
     }
 
-    getData(roles, resource) {
-        return Db.select('get_resources_data', {
-            roles: roles,
-            resource: resource
-        });
+    getData(roles, params) {
+        return Db.select('get_resources_data', Object.assign({
+            roles: roles
+        }, params));
     }
 
 }

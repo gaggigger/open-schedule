@@ -12,7 +12,7 @@ import {HttpService} from "../../Services/http.service";
 })
 export class ResourceListComponent implements OnChanges {
   @Input() item: object = {};
-  @Input() itemId: number = null;
+  @Input() itemData: number = null;
   @Input() readonly: boolean = true;
 
   modalRef: BsModalRef;
@@ -29,7 +29,16 @@ export class ResourceListComponent implements OnChanges {
   ) { }
 
   ngOnChanges() {
-    console.log(this.items);
+    // Load selected item
+    console.log();
+    this.httpSrv
+      .get('/resources/items/data', {
+        ids: this.itemData[this.item['name']]
+      }) // TODO get path from db
+      .then(result => {
+
+      })
+      .catch(error => console.error(error));
   }
 
   showlist(template: TemplateRef<any>) {
@@ -52,7 +61,7 @@ export class ResourceListComponent implements OnChanges {
   checkItem(item: object) {
     item['checked'] = ! item['checked'];
     this.onCheck.emit({
-      id : this.itemId,
+      id : this.itemData['id'],
       item: this.item,
       data: item
     });

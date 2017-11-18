@@ -139,8 +139,14 @@ router.get('/resources/:item/columns', function(req, res) {
     }).catch(err => UHandlers.handleError(res, 500, err));
 });
 
+router.get('/resources/items/data', function(req, res) {
+    Recources.getData(req.connectedUser.roles, { ids : req.query.ids.split(',') }).then(rows => {
+        res.send(rows);
+    }).catch(err => UHandlers.handleError(res, 500, err));
+});
+
 router.get('/resources/:item/data', function(req, res) {
-    Recources.getData(req.connectedUser.roles, req.params.item).then(rows => {
+    Recources.getData(req.connectedUser.roles, { resource : req.params.item }).then(rows => {
         res.send(
             rows.map(row => JSON.parse(row.data))
         );

@@ -28,6 +28,7 @@ class Mysql extends IDb {
         // TODO params
         return new Promise((resolve, reject) => {
             let query = 'CALL os_' + sql + '('+ this.escape(JSON.stringify(params)) +')';
+            console.log(query);
             this.pool.query(query, function(err, rows, fields) {
                 if (err) {
                     reject(err.message);
