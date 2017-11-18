@@ -29,7 +29,7 @@ export class ResourceListComponent implements OnChanges {
   ) { }
 
   ngOnChanges() {
-
+    console.log(this.items);
   }
 
   showlist(template: TemplateRef<any>) {

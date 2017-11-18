@@ -1,5 +1,6 @@
 import {Injectable, Pipe, PipeTransform} from '@angular/core';
 import {DomSanitizer} from "@angular/platform-browser";
+import {isArray} from "rxjs/util/isArray";
 
 
 @Injectable()
@@ -43,5 +44,17 @@ export class FilterPipe implements PipeTransform {
 export class SortByPipe implements PipeTransform {
   transform(items: any[], sortedBy: string): any {
     return items.sort((a, b) => {return b[sortedBy] - a[sortedBy]});
+  }
+}
+
+@Pipe({
+  name: 'join'
+})
+export class JoinPipe implements PipeTransform {
+ transform (input: any, character: string = ''): any {
+    if (!isArray(input)) {
+      return input;
+    }
+    return input.join(character);
   }
 }

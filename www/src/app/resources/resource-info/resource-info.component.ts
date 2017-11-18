@@ -33,7 +33,7 @@ export class ResourceInfoComponent implements OnChanges {
   ) { }
 
   ngOnChanges() {
-    if(! this.cacheForm[this.path]) {
+    if (! this.cacheForm[this.path]) {
       this.httpSrv
         .get(this.path)
         .then(result => {
@@ -41,8 +41,7 @@ export class ResourceInfoComponent implements OnChanges {
           this.formatData();
         })
         .catch(error => console.error(error));
-    }
-    else {
+    } else {
       this.form = this.cacheForm[this.path];
       this.formatData();
     }
@@ -51,9 +50,9 @@ export class ResourceInfoComponent implements OnChanges {
   formatData() {
     Object.keys(this.form).map(key => {
       this.form[key].map(item => {
-        if(item.type == 'date') {
+        if (item.type == 'date') {
           this.items.map((data, k) => {
-            if(this.items[k]['data'][item.name]) {
+            if (this.items[k]['data'][item.name]) {
               this.items[k]['data'][item.name] = new Date(this.items[k]['data'][item.name]);
             }
           });
@@ -79,7 +78,7 @@ export class ResourceInfoComponent implements OnChanges {
     this.httpSrv
       .put(this.path, item)
       .then(result => {
-        if(result.id) item.data.id = result.id;
+        if (result.id) item.data.id = result.id;
         item.savedError = false;
         item.saved = true;
         this.onInfoChange.emit(result);
@@ -93,9 +92,12 @@ export class ResourceInfoComponent implements OnChanges {
 
   checkItems(data) {
     this.items.map((item: object) => {
-      if(item['data'].id === data.id) {
-        console.log(data);
+      if (item['data'].id === data.id) {
+        if (! item['data'][data.item.name]) {
+          item['data'][data.item.name] = [];
+        }
+        item['data'][data.item.name].push(data.data.id);
       }
-    })
+    });
   }
 }
