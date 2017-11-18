@@ -141,7 +141,9 @@ router.get('/resources/:item/columns', function(req, res) {
 
 router.get('/resources/items/data', function(req, res) {
     Recources.getData(req.connectedUser.roles, { ids : req.query.ids.split(',') }).then(rows => {
-        res.send(rows);
+        res.send(
+            rows.map(row => JSON.parse(row.data))
+        );
     }).catch(err => UHandlers.handleError(res, 500, err));
 });
 

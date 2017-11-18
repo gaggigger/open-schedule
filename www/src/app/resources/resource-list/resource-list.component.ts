@@ -30,13 +30,15 @@ export class ResourceListComponent implements OnChanges {
 
   ngOnChanges() {
     // Load selected item
-    console.log();
     this.httpSrv
       .get('/resources/items/data', {
         ids: this.itemData[this.item['name']]
       }) // TODO get path from db
       .then(result => {
-
+        this.checkedItems = result.map(item => {
+          item['checked'] = true;
+          return item;
+        });
       })
       .catch(error => console.error(error));
   }
@@ -47,6 +49,7 @@ export class ResourceListComponent implements OnChanges {
       this.httpSrv
         .get('/resources/' + resource + '/data') // TODO get path from db
         .then(result => {
+          // TODO get checked items
           this.items = this.items.concat(result.map(i => {
             i['_resource'] = resource;
             return i;
