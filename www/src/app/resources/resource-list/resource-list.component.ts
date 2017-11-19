@@ -44,14 +44,15 @@ export class ResourceListComponent implements OnChanges {
   }
 
   showlist(template: TemplateRef<any>) {
+    const ids = this.checkedItems.map(item => item['id']);
     this.items = [];
     this.item['resources_items_items'].map(resource => {
       this.httpSrv
         .get('/resources/' + resource + '/data') // TODO get path from db
         .then(result => {
-          // TODO get checked items
           this.items = this.items.concat(result.map(i => {
             i['_resource'] = resource;
+            i['checked'] = ids.indexOf(i['id']) !== -1;
             return i;
           }));
         })

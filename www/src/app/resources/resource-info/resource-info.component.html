@@ -7,6 +7,21 @@
       {{ item.data.name }}
     </ng-template>
     <section class="info-container">
+
+      <footer *ngIf="item.enableEdition" class="btn-group" role="group">
+        <button type="button" class="btn"
+                [ngClass]="{'btn-success': item.saved,'btn-danger': item.savedError}"
+                (click)="saveResource(item);"
+        >
+            <span class="glyphicon" [ngClass]="{
+              'glyphicon-floppy-disk': !item.saved,
+              'glyphicon-floppy-saved': item.saved,
+              'glyphicon-floppy-remove': item.savedError
+            }"></span>
+          Save
+        </button>
+      </footer>
+
       <article
         class="card"
         *ngFor="let group of utils.toarray(form); let i=index; trackBy:trackByFn"
@@ -15,6 +30,7 @@
           <h3 class="label label-primary">{{ group.key | trans }}</h3>
           <span class="glyphicon glyphicon-edit" style="float:right;" *ngIf="! item.enableEdition" (click)="activeResourceEdition(item);"></span>
         </header>
+
         <div
           *ngFor="let it of group.value"
         >
@@ -93,21 +109,7 @@
             </div>
           </div>
         </div>
-        <footer *ngIf="item.enableEdition" class="btn-group" role="group">
-          <button type="button" class="btn"
-              [ngClass]="{'btn-success': item.saved,'btn-danger': item.savedError}"
-              (click)="saveResource(item);"
-          >
-            <span class="glyphicon" [ngClass]="{
-              'glyphicon-floppy-disk': !item.saved,
-              'glyphicon-floppy-saved': item.saved,
-              'glyphicon-floppy-remove': item.savedError
-            }"></span>
-            Save
-          </button>
-        </footer>
       </article>
     </section>
   </tab>
 </tabset>
-

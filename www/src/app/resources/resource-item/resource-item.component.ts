@@ -71,7 +71,7 @@ export class ResourceItemComponent implements OnInit {
   }
 
   infoChange(data) {
-    console.log(data);
+    // 
   }
 
   ngOnDestroy() {

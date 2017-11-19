@@ -5,8 +5,8 @@ module.exports = {
         'dirver' : 'mysql',
         'host' : 'localhost',
         'database' : 'openschedule',
-        'user' : 'solofo',
-        'password' : 'solofo',
+        'user' : 'api',
+        'password' : 'api',
         'port' : 3306
     }
 };
