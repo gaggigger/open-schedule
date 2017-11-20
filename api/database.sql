@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.20, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Linux (x86_64)
 --
 -- Host: localhost    Database: openschedule
 -- ------------------------------------------------------
--- Server version	5.7.20-0ubuntu0.17.10.1
+-- Server version	5.7.17-1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -56,7 +56,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_resources_insert
+/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_resources_insert
 BEFORE INSERT
 ON openschedule.os_resources FOR EACH ROW
 BEGIN
@@ -77,7 +77,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_resources_update
+/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_resources_update
 BEFORE UPDATE
 ON openschedule.os_resources FOR EACH ROW
 BEGIN
@@ -100,7 +100,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_resources_delete
+/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_resources_delete
 BEFORE DELETE
 ON openschedule.os_resources FOR EACH ROW
 BEGIN
@@ -155,7 +155,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_resources_features_insert
+/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_resources_features_insert
 BEFORE INSERT
 ON openschedule.os_resources_features FOR EACH ROW
 BEGIN
@@ -176,7 +176,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_resources_features_update
+/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_resources_features_update
 BEFORE UPDATE
 ON openschedule.os_resources_features FOR EACH ROW
 BEGIN
@@ -199,7 +199,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_resources_features_delete
+/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_resources_features_delete
 BEFORE DELETE
 ON openschedule.os_resources_features FOR EACH ROW
 BEGIN
@@ -236,7 +236,7 @@ CREATE TABLE `os_resources_items` (
   KEY `os_resources_items_os_sessions_FK` (`sessions_id`),
   CONSTRAINT `os_resources_items_os_resources_FK` FOREIGN KEY (`resource`) REFERENCES `os_resources` (`name`) ON UPDATE CASCADE,
   CONSTRAINT `os_resources_items_os_sessions_FK` FOREIGN KEY (`sessions_id`) REFERENCES `os_sessions` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -245,7 +245,7 @@ CREATE TABLE `os_resources_items` (
 
 LOCK TABLES `os_resources_items` WRITE;
 /*!40000 ALTER TABLE `os_resources_items` DISABLE KEYS */;
-INSERT INTO `os_resources_items` VALUES (1,'students','{\"name\": \"Ralitera\", \"birth\": \"1983-12-22T00:00:00.000Z\", \"email\": \"solofo.ralitera@gmail.com\", \"lastname\": \"Solofo\", \"matricule\": \"007\", \"promotions\": [5, 6, 5, 6]}','2017-11-11 23:31:45','2017-11-11 23:31:45','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',32,1),(2,'students','{\"name\": \"aeaeazea\", \"birth\": \"azeaze\", \"email\": \"azeaeaz@gmqil.com\", \"lastname\": \"zeaze\", \"matricule\": \"TEST\"}','2017-11-12 10:43:02','2017-11-12 10:43:02','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',35,1),(3,'lectures','{\"code\": \"Test\", \"name\": \"test\", \"color\": \"#ff0366\"}','2017-11-14 22:18:14','2017-11-14 22:18:14','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(4,'rooms','{\"code\": \"S1\", \"name\": \"Salle 1\", \"capacity\": \"50\"}','2017-11-15 21:24:31','2017-11-15 21:24:31','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(5,'promotions','{\"name\": \"testset\", \"classid\": \"Test\"}','2017-11-16 21:55:43','2017-11-16 21:55:43','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(6,'promotions','{\"name\": \"Prom1\", \"classid\": \"P1\"}','2017-11-17 09:10:42','2017-11-17 09:10:42','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(7,'promotions','{\"name\": \"Prom 2\", \"classid\": \"P2\"}','2017-11-17 09:10:57','2017-11-17 09:10:57','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1);
+INSERT INTO `os_resources_items` VALUES (1,'students','{\"name\": \"Ralitera\", \"birth\": \"1983-12-22T00:00:00.000Z\", \"email\": \"solofo.ralitera@gmail.com\", \"lastname\": \"Solofo\", \"matricule\": \"007\", \"promotions\": [5, 6, 5, 6, 5, 6, 7, 6, 6, 6]}','2017-11-11 23:31:45','2017-11-11 23:31:45','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',32,1),(2,'students','{\"name\": \"aeaeazea\", \"birth\": null, \"email\": \"azeaeaz@gmqil.com\", \"lastname\": \"zeaze\", \"matricule\": \"TEST\", \"promotions\": [6, 7, 6, 7]}','2017-11-12 10:43:02','2017-11-12 10:43:02','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',35,1),(3,'lectures','{\"code\": \"Test\", \"name\": \"test\", \"color\": \"#ff0366\"}','2017-11-14 22:18:14','2017-11-14 22:18:14','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(4,'rooms','{\"code\": \"S1\", \"name\": \"Salle 1\", \"capacity\": \"50\"}','2017-11-15 21:24:31','2017-11-15 21:24:31','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(5,'promotions','{\"name\": \"testset\", \"classid\": \"Test\"}','2017-11-16 21:55:43','2017-11-16 21:55:43','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(6,'promotions','{\"name\": \"Prom1\", \"classid\": \"P1\"}','2017-11-17 09:10:42','2017-11-17 09:10:42','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(7,'promotions','{\"name\": \"Prom 2\", \"classid\": \"P2\"}','2017-11-17 09:10:57','2017-11-17 09:10:57','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(8,'students','{\"name\": \"Kalao\", \"birth\": \"2017-11-04\", \"email\": \"qeqeqwe\", \"lastname\": \"Test\", \"matricule\": \"Kouakou\", \"promotions\": [6], \"father_name\": \"asdasdada\", \"mother_name\": \"sdasdasd\"}','2017-11-19 11:23:47','2017-11-19 11:23:47','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',36,1),(9,'students','{\"name\": \"asdasd\", \"birth\": \"2017-11-09T00:00:00.000Z\", \"email\": \"adasdasdd@qweqwe:con\", \"lastname\": \"asdasdasda\", \"matricule\": \"Tes\", \"promotions\": [5], \"father_name\": \"dasdasdasd\", \"mother_name\": \"asdasdasd\"}','2017-11-19 11:36:17','2017-11-19 11:36:17','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',38,1),(10,'students','{\"name\": \"New *\", \"birth\": \"2017-11-12\", \"email\": \"asdadasd@asdasd.com\", \"lastname\": \"dasdasdasd\", \"matricule\": \"TesT!\"}','2017-11-19 11:38:54','2017-11-19 11:38:54','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',39,1);
 /*!40000 ALTER TABLE `os_resources_items` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -257,7 +257,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_resources_items_insert
+/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_resources_items_insert
 BEFORE INSERT
 ON openschedule.os_resources_items FOR EACH ROW
 BEGIN 
@@ -267,7 +267,6 @@ BEGIN
 	SET @r = null;
 	
 	SELECT os_resources_items_check(NEW.resource, NEW.params, null) INTO @r;
-	
 	
 	SET @u_name = null;
 	if NEW.params->'$.email' is not null THEN
@@ -282,21 +281,17 @@ BEGIN
 		SET @user_roles = null;
 		SELECT u.id, u.roles INTO @user_id, @user_roles FROM os_users u WHERE u.username = @u_name;
 		
-		
 		if @user_id is null THEN		
 			SET @password = LEFT(UUID(), 8);
 			SET @roles = CONCAT('["ROLE_USER","ROLE_', UPPER(NEW.resource) ,'"]');
 			INSERT INTO os_users (params, active, username, password, roles) VALUES ('{}', 0, @u_name, @password, @roles);
 			SET @user_id = last_insert_id();
 			
-			
 			SET @token = null;
 			SELECT SHA2(RANDOM_BYTES(64), '256') into @token;
 			INSERT INTO os_users_pending (user_id, email, password, token) VALUES (@user_id, @u_name, @password, @token);
 			
-		
 		else
-			
 			SET @user_roles = JSON_INSERT(@user_roles, '$', CONCAT('ROLE_', UPPER(NEW.resource)));
 			UPDATE os_users SET roles = @user_roles WHERE id = @user_id;
 		end if;
@@ -319,7 +314,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_resources_items_update
+/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_resources_items_update
 BEFORE UPDATE
 ON openschedule.os_resources_items FOR EACH ROW
 BEGIN 
@@ -343,7 +338,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_resources_items_delete
+/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_resources_items_delete
 BEFORE DELETE
 ON openschedule.os_resources_items FOR EACH ROW
 BEGIN 
@@ -393,7 +388,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_roles_insert
+/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_roles_insert
 BEFORE INSERT
 ON openschedule.os_roles FOR EACH ROW
 BEGIN
@@ -414,7 +409,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_roles_update
+/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_roles_update
 BEFORE UPDATE
 ON openschedule.os_roles FOR EACH ROW
 BEGIN
@@ -440,7 +435,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_roles_delete
+/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_roles_delete
 BEFORE DELETE
 ON openschedule.os_roles FOR EACH ROW
 BEGIN
@@ -506,7 +501,7 @@ CREATE TABLE `os_users` (
   PRIMARY KEY (`id`),
   KEY `os_users_username_IDX` (`username`) USING BTREE,
   KEY `os_users_active_IDX` (`active`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -515,7 +510,7 @@ CREATE TABLE `os_users` (
 
 LOCK TABLES `os_users` WRITE;
 /*!40000 ALTER TABLE `os_users` DISABLE KEYS */;
-INSERT INTO `os_users` VALUES (32,'{}',1,'2017-11-11 23:31:45','2017-11-18 20:08:27','2017-11-18 20:08:27','admin','$6$588410667ce1594c$IioWjBw9XINk3t2JV/vgkZHQjf02x/CSbOIbIIfpCJfIk3Qhn8wtV0abrIZHSZQz4eTeGwerND/51oeomZ6FY/','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]'),(35,'{}',0,'2017-11-12 10:43:02','2017-11-12 10:43:02',NULL,'azeaeaz@gmqil.com','$6$d981633f3a1a864a$SX2tQTG0zXnwVgB/v0jFFaqnuGcYXex1ZiBh3UU7ERwHtOcB3UsJrIRsAjZi1rWJFG6LZmh3QT86BoxCGYHC61','[\"ROLE_USER\", \"ROLE_STUDENTS\"]');
+INSERT INTO `os_users` VALUES (32,'{}',1,'2017-11-11 23:31:45','2017-11-19 15:06:33','2017-11-19 15:06:33','admin','$6$588410667ce1594c$IioWjBw9XINk3t2JV/vgkZHQjf02x/CSbOIbIIfpCJfIk3Qhn8wtV0abrIZHSZQz4eTeGwerND/51oeomZ6FY/','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]'),(35,'{}',0,'2017-11-12 10:43:02','2017-11-12 10:43:02',NULL,'azeaeaz@gmqil.com','$6$d981633f3a1a864a$SX2tQTG0zXnwVgB/v0jFFaqnuGcYXex1ZiBh3UU7ERwHtOcB3UsJrIRsAjZi1rWJFG6LZmh3QT86BoxCGYHC61','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(36,'{}',0,'2017-11-19 11:23:47','2017-11-19 11:23:47',NULL,'qeqeqwe','$6$78402a3da62501c4$0FB7JavJingUzR4CBSxkTML7t9HxKkmXjpQsbDEhIkPWWCebnS/6P0Svwn8mz4OtHZeOs3fyQ24EOUEqg3syB1','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(38,'{}',0,'2017-11-19 11:36:17','2017-11-19 11:36:17',NULL,'adasdasdd@qweqwe:con','$6$2871235526dde90b$dORDPIFnqizTUcBKt/4xZqeHz66DOIMn/dTbQYU9exsFPmzl27nxbekAf5HxoTuHa.cy8eljFaux5yI37XQJw1','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(39,'{}',0,'2017-11-19 11:38:54','2017-11-19 11:38:54',NULL,'asdadasd@asdasd.com','$6$ccd09c4ed282d303$JN7lYOG9mv5xlmGTLJRCekjUNXVZHD/.ZVpaOcJsVgm4uZJ/o.oeXUyJDT06twgnzr1ln24ueaJkq/9gflRtf1','[\"ROLE_USER\", \"ROLE_STUDENTS\"]');
 /*!40000 ALTER TABLE `os_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -527,7 +522,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_users_insert
+/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_users_insert
 BEFORE INSERT
 ON openschedule.os_users FOR EACH ROW
 BEGIN 
@@ -547,7 +542,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_users_update
+/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_users_update
 BEFORE UPDATE
 ON openschedule.os_users FOR EACH ROW
 BEGIN 
@@ -580,7 +575,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_users_delete
+/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_users_delete
 BEFORE DELETE
 ON openschedule.os_users FOR EACH ROW
 BEGIN 
@@ -625,7 +620,7 @@ CREATE TABLE `os_users_pending` (
 
 LOCK TABLES `os_users_pending` WRITE;
 /*!40000 ALTER TABLE `os_users_pending` DISABLE KEYS */;
-INSERT INTO `os_users_pending` VALUES (35,'azeaeaz@gmqil.com','2017-11-12 10:43:02','1c791c4e','b4bb9b7cf5191abed5aa24b2564ff135fcac9042ec1c66a8bee273f75b25fdcb',0,NULL);
+INSERT INTO `os_users_pending` VALUES (38,'adasdasdd@qweqwe:con','2017-11-19 11:36:17','b5bc2e63','90380de22428ae7ee31c8f3174ab26186aa84f2a0d7b2a683882867592ed78d4',0,NULL),(39,'asdadasd@asdasd.com','2017-11-19 11:38:54','1354f7d6','ade485fe69afcb75ac4ffa3067031e86cdbef91091af47e368809f2217bf2370',0,NULL),(35,'azeaeaz@gmqil.com','2017-11-12 10:43:02','1c791c4e','b4bb9b7cf5191abed5aa24b2564ff135fcac9042ec1c66a8bee273f75b25fdcb',0,NULL),(36,'qeqeqwe','2017-11-19 11:23:47','f713dbec','e35c8d56862cbc0f5b205f840342840ef5abf3df9a027897c4d5abaf443adc01',0,NULL);
 /*!40000 ALTER TABLE `os_users_pending` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -637,10 +632,14 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_user_pending_before_insert
+/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_user_pending_before_insert
 BEFORE INSERT
 ON openschedule.os_users_pending FOR EACH ROW
 BEGIN
+	if not os_check_email(NEW.email) then
+    	SIGNAL SQLSTATE '45000'
+ 		SET MESSAGE_TEXT = 'invalid_email';
+	end if; 
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -656,10 +655,14 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.s_user_pending_before_update
+/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.s_user_pending_before_update
 BEFORE UPDATE
 ON openschedule.os_users_pending FOR EACH ROW
 BEGIN
+	if not os_check_email(NEW.email) then
+    	SIGNAL SQLSTATE '45000'
+ 		SET MESSAGE_TEXT = 'invalid_email';
+	end if; 
 END */;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -675,7 +678,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.s_user_pending_before_delete
+/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.s_user_pending_before_delete
 BEFORE DELETE
 ON openschedule.os_users_pending FOR EACH ROW
 BEGIN 
@@ -699,7 +702,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE  FUNCTION `os_allowed_creating_roles`(roles JSON, search_field VARCHAR(20)) RETURNS text CHARSET utf8
+CREATE DEFINER=`api`@`%` FUNCTION `os_allowed_creating_roles`(roles JSON, search_field VARCHAR(20)) RETURNS text CHARSET utf8
 BEGIN
     return os_allowed_roles(roles, search_field, '$.can_create');
 END ;;
@@ -718,7 +721,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE  FUNCTION `os_allowed_reading_roles`(roles JSON, search_field VARCHAR(20)) RETURNS text CHARSET utf8
+CREATE DEFINER=`api`@`%` FUNCTION `os_allowed_reading_roles`(roles JSON, search_field VARCHAR(20)) RETURNS text CHARSET utf8
     DETERMINISTIC
 BEGIN
     return os_allowed_roles(roles, search_field, '$.can_read');
@@ -739,7 +742,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE  FUNCTION `os_allowed_roles`(roles JSON, search_field VARCHAR(20), jfield VARCHAR(20)) RETURNS text CHARSET utf8
+CREATE DEFINER=`api`@`%` FUNCTION `os_allowed_roles`(roles JSON, search_field VARCHAR(20), jfield VARCHAR(20)) RETURNS text CHARSET utf8
     DETERMINISTIC
 BEGIN
     DECLARE j_length SMALLINT UNSIGNED DEFAULT JSON_LENGTH(roles); 
@@ -785,7 +788,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE  FUNCTION `os_allowed_writing_roles`(roles JSON, search_field VARCHAR(20)) RETURNS text CHARSET utf8
+CREATE DEFINER=`api`@`%` FUNCTION `os_allowed_writing_roles`(roles JSON, search_field VARCHAR(20)) RETURNS text CHARSET utf8
 BEGIN
     return os_allowed_roles(roles, search_field, '$.can_write');
 END ;;
@@ -804,7 +807,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE  FUNCTION `os_check_email`(email VARCHAR(255)) RETURNS tinyint(1)
+CREATE DEFINER=`api`@`%` FUNCTION `os_check_email`(email VARCHAR(255)) RETURNS tinyint(1)
 BEGIN
 	IF NOT (SELECT email REGEXP '^[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$') THEN
 		RETURN 0;
@@ -826,7 +829,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE  FUNCTION `os_check_sessions`(new_session INT, old_session INT) RETURNS tinyint(1)
+CREATE DEFINER=`api`@`%` FUNCTION `os_check_sessions`(new_session INT, old_session INT) RETURNS tinyint(1)
 BEGIN
 	if new_session IS NULL THEN
 		SIGNAL SQLSTATE '40000'
@@ -864,7 +867,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE  FUNCTION `os_get_json_roles`(query JSON) RETURNS json
+CREATE DEFINER=`api`@`%` FUNCTION `os_get_json_roles`(query JSON) RETURNS json
 BEGIN
 	DECLARE roles JSON default '[]';
 	DECLARE user_id INT default 0;
@@ -898,7 +901,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE  FUNCTION `os_get_json_string`(query JSON, jkey VARCHAR(20)) RETURNS text CHARSET utf8
+CREATE DEFINER=`api`@`%` FUNCTION `os_get_json_string`(query JSON, jkey VARCHAR(20)) RETURNS text CHARSET utf8
 BEGIN
 	SET @k = concat('$.', jkey);
 	SET @resource = REPLACE(
@@ -928,7 +931,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE  FUNCTION `os_resources_items_check`(data_resource VARCHAR(20), data_param JSON, item_id INT) RETURNS tinyint(1)
+CREATE DEFINER=`api`@`%` FUNCTION `os_resources_items_check`(data_resource VARCHAR(20), data_param JSON, item_id INT) RETURNS tinyint(1)
 BEGIN
 	DECLARE j_length SMALLINT UNSIGNED default 0;
 	DECLARE i SMALLINT UNSIGNED default 0;
@@ -959,7 +962,7 @@ BEGIN
 				SELECT count(*) INTO i_count  
 					FROM os_resources_items oi
 					WHERE oi.resource = resource
-					AND JSON_EXTRACT(oi.params, @pf_name) = JSON_EXTRACT(data_param, @pf_name)
+					AND LOWER(JSON_EXTRACT(oi.params, @pf_name)) = LOWER(JSON_EXTRACT(data_param, @pf_name))
 					AND oi.id <> item_id;
 			else
 				SELECT count(*) INTO i_count  
@@ -992,7 +995,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `os_get_resources`(query JSON)
+CREATE DEFINER=`api`@`%` PROCEDURE `os_get_resources`(query JSON)
 BEGIN
 	DECLARE roles JSON default '[]';
 	SET roles = os_get_json_roles(query); 
@@ -1021,7 +1024,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `os_get_resources_columns`(query JSON)
+CREATE DEFINER=`api`@`%` PROCEDURE `os_get_resources_columns`(query JSON)
 BEGIN
 	DECLARE roles JSON default '[]';
 	SET roles = os_get_json_roles(query); 
@@ -1051,7 +1054,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `os_get_resources_data`(query JSON)
+CREATE DEFINER=`api`@`%` PROCEDURE `os_get_resources_data`(query JSON)
 BEGIN
 	DECLARE roles JSON default '[]';
 	SET roles = os_get_json_roles(query); 
@@ -1095,7 +1098,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `os_get_resources_features`(query JSON)
+CREATE DEFINER=`api`@`%` PROCEDURE `os_get_resources_features`(query JSON)
 BEGIN
 	DECLARE roles JSON default '[]';
 	SET roles = os_get_json_roles(query); 
@@ -1125,7 +1128,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `os_get_user_by_name_password`(query JSON)
+CREATE DEFINER=`api`@`%` PROCEDURE `os_get_user_by_name_password`(query JSON)
 BEGIN
 
 	SET @u = JSON_UNQUOTE(query -> '$.username');
@@ -1160,7 +1163,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE  PROCEDURE `os_set_items`(query JSON)
+CREATE DEFINER=`api`@`%` PROCEDURE `os_set_items`(query JSON)
 BEGIN
 	DECLARE parent_fields JSON default '[]';
 	DECLARE parent_fields_item JSON default '[]';
@@ -1247,4 +1250,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-18 22:12:30
+-- Dump completed on 2017-11-20 12:48:41
