@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.14, for Win32 (AMD64)
 --
--- Host: localhost    Database: openschedule
+-- Host: 192.168.88.8    Database: openschedule
 -- ------------------------------------------------------
--- Server version	5.7.17-1
+-- Server version	5.7.20
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -14,6 +14,111 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `os_attachments`
+--
+
+DROP TABLE IF EXISTS `os_attachments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `os_attachments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `uuid` varchar(100) NOT NULL,
+  `content` blob NOT NULL,
+  `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `user_id` int(11) NOT NULL,
+  `sessions_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `os_attachments_UN` (`uuid`),
+  KEY `os_attachments_uuid_IDX` (`uuid`) USING BTREE,
+  KEY `os_attachments_os_users_FK` (`user_id`),
+  KEY `os_attachments_os_sessions_FK` (`sessions_id`),
+  CONSTRAINT `os_attachments_os_sessions_FK` FOREIGN KEY (`sessions_id`) REFERENCES `os_sessions` (`id`),
+  CONSTRAINT `os_attachments_os_users_FK` FOREIGN KEY (`user_id`) REFERENCES `os_users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `os_attachments`
+--
+
+LOCK TABLES `os_attachments` WRITE;
+/*!40000 ALTER TABLE `os_attachments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `os_attachments` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_attachments_insert
+BEFORE INSERT
+ON openschedule.os_attachments FOR EACH ROW
+BEGIN
+
+	SET @r = 0;
+
+	SELECT os_check_sessions(NEW.sessions_id, NEW.sessions_id) INTO @r;
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_attachments_update
+BEFORE UPDATE
+ON openschedule.os_attachments FOR EACH ROW
+BEGIN
+
+	SET @r = 0;
+
+	SELECT os_check_sessions(NEW.sessions_id, OLD.sessions_id) INTO @r;
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_attachments_delete
+BEFORE DELETE
+ON openschedule.os_attachments FOR EACH ROW
+BEGIN
+
+	SET @r = 0;
+
+	SELECT os_check_sessions(OLD.sessions_id, OLD.sessions_id) INTO @r;
+
+END */;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 
 --
 -- Table structure for table `os_resources`
@@ -56,7 +161,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_resources_insert
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_resources_insert
 BEFORE INSERT
 ON openschedule.os_resources FOR EACH ROW
 BEGIN
@@ -77,7 +182,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_resources_update
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_resources_update
 BEFORE UPDATE
 ON openschedule.os_resources FOR EACH ROW
 BEGIN
@@ -100,7 +205,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_resources_delete
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_resources_delete
 BEFORE DELETE
 ON openschedule.os_resources FOR EACH ROW
 BEGIN
@@ -155,7 +260,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_resources_features_insert
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_resources_features_insert
 BEFORE INSERT
 ON openschedule.os_resources_features FOR EACH ROW
 BEGIN
@@ -176,7 +281,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_resources_features_update
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_resources_features_update
 BEFORE UPDATE
 ON openschedule.os_resources_features FOR EACH ROW
 BEGIN
@@ -199,7 +304,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_resources_features_delete
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_resources_features_delete
 BEFORE DELETE
 ON openschedule.os_resources_features FOR EACH ROW
 BEGIN
@@ -257,7 +362,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_resources_items_insert
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_resources_items_insert
 BEFORE INSERT
 ON openschedule.os_resources_items FOR EACH ROW
 BEGIN 
@@ -314,7 +419,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_resources_items_update
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_resources_items_update
 BEFORE UPDATE
 ON openschedule.os_resources_items FOR EACH ROW
 BEGIN 
@@ -338,7 +443,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_resources_items_delete
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_resources_items_delete
 BEFORE DELETE
 ON openschedule.os_resources_items FOR EACH ROW
 BEGIN 
@@ -388,7 +493,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_roles_insert
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_roles_insert
 BEFORE INSERT
 ON openschedule.os_roles FOR EACH ROW
 BEGIN
@@ -409,7 +514,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_roles_update
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_roles_update
 BEFORE UPDATE
 ON openschedule.os_roles FOR EACH ROW
 BEGIN
@@ -435,7 +540,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_roles_delete
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_roles_delete
 BEFORE DELETE
 ON openschedule.os_roles FOR EACH ROW
 BEGIN
@@ -510,7 +615,7 @@ CREATE TABLE `os_users` (
 
 LOCK TABLES `os_users` WRITE;
 /*!40000 ALTER TABLE `os_users` DISABLE KEYS */;
-INSERT INTO `os_users` VALUES (32,'{}',1,'2017-11-11 23:31:45','2017-11-19 15:06:33','2017-11-19 15:06:33','admin','$6$588410667ce1594c$IioWjBw9XINk3t2JV/vgkZHQjf02x/CSbOIbIIfpCJfIk3Qhn8wtV0abrIZHSZQz4eTeGwerND/51oeomZ6FY/','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]'),(35,'{}',0,'2017-11-12 10:43:02','2017-11-12 10:43:02',NULL,'azeaeaz@gmqil.com','$6$d981633f3a1a864a$SX2tQTG0zXnwVgB/v0jFFaqnuGcYXex1ZiBh3UU7ERwHtOcB3UsJrIRsAjZi1rWJFG6LZmh3QT86BoxCGYHC61','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(36,'{}',0,'2017-11-19 11:23:47','2017-11-19 11:23:47',NULL,'qeqeqwe','$6$78402a3da62501c4$0FB7JavJingUzR4CBSxkTML7t9HxKkmXjpQsbDEhIkPWWCebnS/6P0Svwn8mz4OtHZeOs3fyQ24EOUEqg3syB1','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(38,'{}',0,'2017-11-19 11:36:17','2017-11-19 11:36:17',NULL,'adasdasdd@qweqwe:con','$6$2871235526dde90b$dORDPIFnqizTUcBKt/4xZqeHz66DOIMn/dTbQYU9exsFPmzl27nxbekAf5HxoTuHa.cy8eljFaux5yI37XQJw1','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(39,'{}',0,'2017-11-19 11:38:54','2017-11-19 11:38:54',NULL,'asdadasd@asdasd.com','$6$ccd09c4ed282d303$JN7lYOG9mv5xlmGTLJRCekjUNXVZHD/.ZVpaOcJsVgm4uZJ/o.oeXUyJDT06twgnzr1ln24ueaJkq/9gflRtf1','[\"ROLE_USER\", \"ROLE_STUDENTS\"]');
+INSERT INTO `os_users` VALUES (32,'{}',1,'2017-11-11 23:31:45','2017-11-20 07:45:41','2017-11-20 07:45:41','admin','$6$588410667ce1594c$IioWjBw9XINk3t2JV/vgkZHQjf02x/CSbOIbIIfpCJfIk3Qhn8wtV0abrIZHSZQz4eTeGwerND/51oeomZ6FY/','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]'),(35,'{}',0,'2017-11-12 10:43:02','2017-11-12 10:43:02',NULL,'azeaeaz@gmqil.com','$6$d981633f3a1a864a$SX2tQTG0zXnwVgB/v0jFFaqnuGcYXex1ZiBh3UU7ERwHtOcB3UsJrIRsAjZi1rWJFG6LZmh3QT86BoxCGYHC61','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(36,'{}',0,'2017-11-19 11:23:47','2017-11-19 11:23:47',NULL,'qeqeqwe','$6$78402a3da62501c4$0FB7JavJingUzR4CBSxkTML7t9HxKkmXjpQsbDEhIkPWWCebnS/6P0Svwn8mz4OtHZeOs3fyQ24EOUEqg3syB1','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(38,'{}',0,'2017-11-19 11:36:17','2017-11-19 11:36:17',NULL,'adasdasdd@qweqwe:con','$6$2871235526dde90b$dORDPIFnqizTUcBKt/4xZqeHz66DOIMn/dTbQYU9exsFPmzl27nxbekAf5HxoTuHa.cy8eljFaux5yI37XQJw1','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(39,'{}',0,'2017-11-19 11:38:54','2017-11-19 11:38:54',NULL,'asdadasd@asdasd.com','$6$ccd09c4ed282d303$JN7lYOG9mv5xlmGTLJRCekjUNXVZHD/.ZVpaOcJsVgm4uZJ/o.oeXUyJDT06twgnzr1ln24ueaJkq/9gflRtf1','[\"ROLE_USER\", \"ROLE_STUDENTS\"]');
 /*!40000 ALTER TABLE `os_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -522,7 +627,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_users_insert
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_users_insert
 BEFORE INSERT
 ON openschedule.os_users FOR EACH ROW
 BEGIN 
@@ -542,7 +647,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_users_update
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_users_update
 BEFORE UPDATE
 ON openschedule.os_users FOR EACH ROW
 BEGIN 
@@ -575,7 +680,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_users_delete
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_users_delete
 BEFORE DELETE
 ON openschedule.os_users FOR EACH ROW
 BEGIN 
@@ -632,7 +737,7 @@ UNLOCK TABLES;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.os_user_pending_before_insert
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.os_user_pending_before_insert
 BEFORE INSERT
 ON openschedule.os_users_pending FOR EACH ROW
 BEGIN
@@ -655,7 +760,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.s_user_pending_before_update
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.s_user_pending_before_update
 BEFORE UPDATE
 ON openschedule.os_users_pending FOR EACH ROW
 BEGIN
@@ -678,7 +783,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-/*!50003 CREATE*/ /*!50017 DEFINER=`api`@`%`*/ /*!50003 TRIGGER openschedule.s_user_pending_before_delete
+/*!50003 CREATE*/ /*!50017 */ /*!50003 TRIGGER openschedule.s_user_pending_before_delete
 BEFORE DELETE
 ON openschedule.os_users_pending FOR EACH ROW
 BEGIN 
@@ -702,7 +807,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`api`@`%` FUNCTION `os_allowed_creating_roles`(roles JSON, search_field VARCHAR(20)) RETURNS text CHARSET utf8
+CREATE  FUNCTION `os_allowed_creating_roles`(roles JSON, search_field VARCHAR(20)) RETURNS text CHARSET utf8
 BEGIN
     return os_allowed_roles(roles, search_field, '$.can_create');
 END ;;
@@ -721,7 +826,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`api`@`%` FUNCTION `os_allowed_reading_roles`(roles JSON, search_field VARCHAR(20)) RETURNS text CHARSET utf8
+CREATE  FUNCTION `os_allowed_reading_roles`(roles JSON, search_field VARCHAR(20)) RETURNS text CHARSET utf8
     DETERMINISTIC
 BEGIN
     return os_allowed_roles(roles, search_field, '$.can_read');
@@ -742,7 +847,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`api`@`%` FUNCTION `os_allowed_roles`(roles JSON, search_field VARCHAR(20), jfield VARCHAR(20)) RETURNS text CHARSET utf8
+CREATE  FUNCTION `os_allowed_roles`(roles JSON, search_field VARCHAR(20), jfield VARCHAR(20)) RETURNS text CHARSET utf8
     DETERMINISTIC
 BEGIN
     DECLARE j_length SMALLINT UNSIGNED DEFAULT JSON_LENGTH(roles); 
@@ -788,7 +893,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`api`@`%` FUNCTION `os_allowed_writing_roles`(roles JSON, search_field VARCHAR(20)) RETURNS text CHARSET utf8
+CREATE  FUNCTION `os_allowed_writing_roles`(roles JSON, search_field VARCHAR(20)) RETURNS text CHARSET utf8
 BEGIN
     return os_allowed_roles(roles, search_field, '$.can_write');
 END ;;
@@ -807,7 +912,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`api`@`%` FUNCTION `os_check_email`(email VARCHAR(255)) RETURNS tinyint(1)
+CREATE  FUNCTION `os_check_email`(email VARCHAR(255)) RETURNS tinyint(1)
 BEGIN
 	IF NOT (SELECT email REGEXP '^[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$') THEN
 		RETURN 0;
@@ -829,7 +934,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`api`@`%` FUNCTION `os_check_sessions`(new_session INT, old_session INT) RETURNS tinyint(1)
+CREATE  FUNCTION `os_check_sessions`(new_session INT, old_session INT) RETURNS tinyint(1)
 BEGIN
 	if new_session IS NULL THEN
 		SIGNAL SQLSTATE '40000'
@@ -867,7 +972,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`api`@`%` FUNCTION `os_get_json_roles`(query JSON) RETURNS json
+CREATE  FUNCTION `os_get_json_roles`(query JSON) RETURNS json
 BEGIN
 	DECLARE roles JSON default '[]';
 	DECLARE user_id INT default 0;
@@ -901,7 +1006,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`api`@`%` FUNCTION `os_get_json_string`(query JSON, jkey VARCHAR(20)) RETURNS text CHARSET utf8
+CREATE  FUNCTION `os_get_json_string`(query JSON, jkey VARCHAR(20)) RETURNS text CHARSET utf8
 BEGIN
 	SET @k = concat('$.', jkey);
 	SET @resource = REPLACE(
@@ -931,7 +1036,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`api`@`%` FUNCTION `os_resources_items_check`(data_resource VARCHAR(20), data_param JSON, item_id INT) RETURNS tinyint(1)
+CREATE  FUNCTION `os_resources_items_check`(data_resource VARCHAR(20), data_param JSON, item_id INT) RETURNS tinyint(1)
 BEGIN
 	DECLARE j_length SMALLINT UNSIGNED default 0;
 	DECLARE i SMALLINT UNSIGNED default 0;
@@ -995,7 +1100,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`api`@`%` PROCEDURE `os_get_resources`(query JSON)
+CREATE  PROCEDURE `os_get_resources`(query JSON)
 BEGIN
 	DECLARE roles JSON default '[]';
 	SET roles = os_get_json_roles(query); 
@@ -1024,7 +1129,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`api`@`%` PROCEDURE `os_get_resources_columns`(query JSON)
+CREATE  PROCEDURE `os_get_resources_columns`(query JSON)
 BEGIN
 	DECLARE roles JSON default '[]';
 	SET roles = os_get_json_roles(query); 
@@ -1054,7 +1159,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`api`@`%` PROCEDURE `os_get_resources_data`(query JSON)
+CREATE  PROCEDURE `os_get_resources_data`(query JSON)
 BEGIN
 	DECLARE roles JSON default '[]';
 	SET roles = os_get_json_roles(query); 
@@ -1098,7 +1203,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`api`@`%` PROCEDURE `os_get_resources_features`(query JSON)
+CREATE  PROCEDURE `os_get_resources_features`(query JSON)
 BEGIN
 	DECLARE roles JSON default '[]';
 	SET roles = os_get_json_roles(query); 
@@ -1128,7 +1233,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`api`@`%` PROCEDURE `os_get_user_by_name_password`(query JSON)
+CREATE  PROCEDURE `os_get_user_by_name_password`(query JSON)
 BEGIN
 
 	SET @u = JSON_UNQUOTE(query -> '$.username');
@@ -1163,7 +1268,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`api`@`%` PROCEDURE `os_set_items`(query JSON)
+CREATE  PROCEDURE `os_set_items`(query JSON)
 BEGIN
 	DECLARE parent_fields JSON default '[]';
 	DECLARE parent_fields_item JSON default '[]';
@@ -1250,4 +1355,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-20 12:48:41
+-- Dump completed on 2017-11-20 18:42:13

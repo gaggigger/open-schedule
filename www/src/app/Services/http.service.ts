@@ -28,10 +28,21 @@ export class HttpService {
     });
   }
 
-  private request(): Http {
+  private request(body: any): Http {
     // TODO send lang
     if(! this.options.headers.has('Authorization') && this.token.get()) {
       this.options.headers.append('Authorization', this.token.get());
+    }
+
+    this.options.headers.delete('Content-Type');
+    this.options.headers.delete('Accept');
+
+    if(typeof body === 'object') {
+      this.options.headers.append('Content-Type', 'application/json');
+      this.options.headers.append('Accept', 'q=0.8;application/json;q=0.9');
+    } else if(typeof body === 'string') {
+      this.options.headers.append('Content-Type', 'application/octet-stream');
+      this.options.headers.append('Accept', 'q=0.8;application/octet-stream;q=0.9');
     }
     return this.http;
   }
@@ -72,19 +83,19 @@ export class HttpService {
 
   post(url: string, body: any): Promise<any> {
     return this.send(
-      this.request().post(environment.API_URL + url, body, this.options)
+      this.request(body).post(environment.API_URL + url, body, this.options)
     );
   }
 
   put(url: string, body: any): Promise<any> {
     return this.send(
-      this.request().put(environment.API_URL + url, body, this.options)
+      this.request(body).put(environment.API_URL + url, body, this.options)
     );
   }
 
   get(url: string, parameters: object={}): Promise<any> {
     return this.send(
-      this.request().get(
+      this.request(parameters).get(
         environment.API_URL + url + '?' + Object.keys(parameters)
           .map(p => p + '=' + encodeURIComponent(parameters[p]))
           .join('&'),

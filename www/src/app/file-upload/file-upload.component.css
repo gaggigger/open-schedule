@@ -1,0 +1,11 @@
+div.file-upload {
+  min-width: 200px;
+  min-height: 200px;
+  border : 1px dashed grey;
+  border-radius: 2em;
+  text-align: center;
+}
+
+div.file-active {
+  background-color: grey;
+}

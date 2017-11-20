@@ -38,12 +38,10 @@
             <!-- Type picture -->
             <div *ngSwitchCase="'picture'">
               <div *ngIf="item.enableEdition">
-                <file-drop
-                    class="upload-picture"
-                    headertext="Drop files here"
-                    (onFileDrop)="fileDrop($event)"
-                >
-                </file-drop>
+                <app-file-upload
+                  (onUpload)="uploadFile($event)"
+                ></app-file-upload>
+
               </div>
               <div *ngIf="! item.enableEdition">
                 <img *ngIf="item.data[it.name]" [src]="item.data[it.name]" />

@@ -9,6 +9,7 @@ const Recources = require('../src/resources/resources');
 const RecourcesFeatures = require('../src/resources/features');
 const User = require('../src/user/user');
 const UHandlers = require('../src/utils/handlers');
+const bodyParser = require('body-parser');
 
 
 router.use(ApiMiddlewares.token);
@@ -124,6 +125,17 @@ router.get('/menu', function(req, res) {
  *********** All route below are protected by token ***********/
 router.use(ApiMiddlewares.protect);
 /*************************************************************/
+
+router.put('/attachments', function(req, res) {
+    /*
+    Recources.getAll(req.connectedUser.roles).then(rows => {
+        res.send(
+            rows.map(row => JSON.parse(row.params))
+        );
+    }).catch(err => UHandlers.handleError(res, 500, err));
+    */
+    res.send({});
+});
 
 router.get('/resources', function(req, res) {
     Recources.getAll(req.connectedUser.roles).then(rows => {

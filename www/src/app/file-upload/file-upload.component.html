@@ -1,0 +1,10 @@
+<div
+  class="file-upload"
+  [ngClass]="{'file-active': divActive}"
+  (drop)="onDrop($event)"
+  (dragover)="onDragOver($event)"
+  (dragenter)="onDragEnter($event)"
+  (dragleave)="onDragLeave($event)"
+>
+  Drop target
+</div>

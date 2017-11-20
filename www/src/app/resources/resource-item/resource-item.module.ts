@@ -12,10 +12,10 @@ import {ResourceInfoComponent} from "../resource-info/resource-info.component";
 import {ResourceCalendarComponent} from "../resource-calendar/resource-calendar.component";
 import {ResourcePrintComponent} from "../resource-print/resource-print.component";
 import {FormsModule} from "@angular/forms";
-import { FileDropModule } from 'ngx-file-drop/lib/ngx-drop';
 import {ColorPickerModule} from 'angular4-color-picker';
 import {FilterPipe, JoinPipe, SafePipe} from "../../Services/utils";
 import {ResourceListComponent} from "../resource-list/resource-list.component";
+import {FileUploadComponent} from "../../file-upload/file-upload.component";
 
 
 @NgModule({
@@ -27,7 +27,6 @@ import {ResourceListComponent} from "../resource-list/resource-list.component";
     TabsModule.forRoot(),
     BsDatepickerModule.forRoot(),
     FormsModule,
-    FileDropModule,
     ColorPickerModule,
   ],
   declarations: [
@@ -41,6 +40,7 @@ import {ResourceListComponent} from "../resource-list/resource-list.component";
     SafePipe,
     FilterPipe,
     JoinPipe,
+    FileUploadComponent,
   ],
   providers: [  ]
 })

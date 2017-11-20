@@ -5,7 +5,7 @@ import {
 import {HttpService} from "../../Services/http.service";
 import {UtilsService} from "../../Services/utils";
 import {NgForm} from "@angular/forms";
-import { FileDropModule, UploadFile, UploadEvent } from 'ngx-file-drop/lib/ngx-drop';
+import {AttachmentService} from "../../Services/attachment.service";
 
 
 @Component({
@@ -30,6 +30,7 @@ export class ResourceInfoComponent implements OnChanges {
   constructor(
     private httpSrv: HttpService,
     private utils: UtilsService,
+    private attachment: AttachmentService,
   ) { }
 
   ngOnChanges() {
@@ -66,10 +67,6 @@ export class ResourceInfoComponent implements OnChanges {
     return index;
   }
 
-  fileDrop(event) {
-    //console.log(event);
-  }
-
   activeResourceEdition(item) {
     item.enableEdition = true;
   }
@@ -88,6 +85,10 @@ export class ResourceInfoComponent implements OnChanges {
         item.savedError = true;
         console.error(error);
       });
+  }
+
+  uploadFile(content) {
+    this.attachment.upload(content);
   }
 
   checkItems(data) {

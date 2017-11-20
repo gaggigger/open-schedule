@@ -32,6 +32,7 @@ import {CacheService} from "./Services/cache.service";
 import {I18nService} from "./Services/i18n.service";
 import {CreditModule} from "./credit/credit.module";
 import {UtilsService} from "./Services/utils";
+import {AttachmentService} from "./Services/attachment.service";
 
 
 @NgModule({
@@ -75,6 +76,7 @@ import {UtilsService} from "./Services/utils";
     CacheService,
     I18nService,
     UtilsService,
+    AttachmentService,
   ],
   bootstrap: [AppComponent]
 })
