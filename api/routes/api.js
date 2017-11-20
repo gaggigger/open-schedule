@@ -7,6 +7,7 @@ const config = require('../config');
 const ApiMiddlewares = require('../src/middlewares');
 const Recources = require('../src/resources/resources');
 const RecourcesFeatures = require('../src/resources/features');
+const Attachments = require('../src/attachments/attachments');
 const User = require('../src/user/user');
 const UHandlers = require('../src/utils/handlers');
 const bodyParser = require('body-parser');
@@ -127,14 +128,18 @@ router.use(ApiMiddlewares.protect);
 /*************************************************************/
 
 router.put('/attachments', function(req, res) {
-    /*
-    Recources.getAll(req.connectedUser.roles).then(rows => {
-        res.send(
-            rows.map(row => JSON.parse(row.params))
-        );
-    }).catch(err => UHandlers.handleError(res, 500, err));
-    */
-    res.send({});
+    let body = '';
+
+    req.addListener('data', chunk => body += chunk);
+
+    req.addListener('error', error => next(err));
+
+    req.addListener('end', chunk => {
+        if (chunk) body += chunk;
+        Attachments.set(req.connectedUser, body).then(rows => {
+            res.send(rows);
+        }).catch(err => UHandlers.handleError(res, 500, err));
+    });
 });
 
 router.get('/resources', function(req, res) {

@@ -88,7 +88,11 @@ export class ResourceInfoComponent implements OnChanges {
   }
 
   uploadFile(content) {
-    this.attachment.upload(content);
+    this.attachment.upload(content).then(result => {
+      console.log(result);
+    }).catch(error => {
+      console.error(error);
+    });
   }
 
   checkItems(data) {

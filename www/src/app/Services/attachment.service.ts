@@ -8,13 +8,6 @@ export class AttachmentService {
   ) { }
 
   upload(content) {
-    this.http
-      .put('/attachments', content)
-      .then(result => {
-        console.log(result);
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    return this.http.put('/attachments', content);
   }
 }

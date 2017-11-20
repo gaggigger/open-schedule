@@ -28,7 +28,7 @@ export class HttpService {
     });
   }
 
-  private request(body: any): Http {
+  private request(contentType: any): Http {
     // TODO send lang
     if(! this.options.headers.has('Authorization') && this.token.get()) {
       this.options.headers.append('Authorization', this.token.get());
@@ -37,12 +37,15 @@ export class HttpService {
     this.options.headers.delete('Content-Type');
     this.options.headers.delete('Accept');
 
-    if(typeof body === 'object') {
+    if(typeof contentType === 'object') {
       this.options.headers.append('Content-Type', 'application/json');
       this.options.headers.append('Accept', 'q=0.8;application/json;q=0.9');
-    } else if(typeof body === 'string') {
-      this.options.headers.append('Content-Type', 'application/octet-stream');
-      this.options.headers.append('Accept', 'q=0.8;application/octet-stream;q=0.9');
+    } else if(typeof contentType === 'string') {
+      if(contentType.substr(0, 11) === 'data:image/') {
+        let mime = contentType.substr(5).split(';')[0];
+        this.options.headers.append('Content-Type', mime);
+        this.options.headers.append('Accept', 'q=0.8;'+ mime +';q=0.9');
+      }
     }
     return this.http;
   }
