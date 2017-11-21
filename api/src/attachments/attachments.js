@@ -14,6 +14,14 @@ class Attachments {
         }, new Buffer(body.split('base64,')[1], 'base64'));
     }
 
+    get(user, uuid) {
+        return Db.select('get_attachments', {
+            roles: user.roles,
+            uuid : uuid,
+            sessions: 1 // TODO defaut session and selected session
+        });
+    }
+
 }
 
 module.exports = new Attachments();

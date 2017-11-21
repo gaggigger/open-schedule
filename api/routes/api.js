@@ -142,6 +142,17 @@ router.put('/attachments', function(req, res) {
     });
 });
 
+router.get('/attachments/:uuid', function(req, res) {
+    Attachments.get(req.connectedUser, req.params.uuid).then(rows => {
+        if(rows[0]) {
+            res.contentType('image/jpeg');
+            res.end(rows[0].content);
+        }else {
+
+        }res.send({});
+    }).catch(err => UHandlers.handleError(res, 500, err));
+});
+
 router.get('/resources', function(req, res) {
     Recources.getAll(req.connectedUser.roles).then(rows => {
         res.send(

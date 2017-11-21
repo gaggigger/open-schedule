@@ -37,15 +37,13 @@
           <div [ngSwitch]="it.type">
             <!-- Type picture -->
             <div *ngSwitchCase="'picture'">
-              <div *ngIf="item.enableEdition">
-                <app-file-upload
-                  (onUpload)="uploadFile($event)"
-                ></app-file-upload>
-
-              </div>
-              <div *ngIf="! item.enableEdition">
-                <img *ngIf="item.data[it.name]" [src]="item.data[it.name]" />
-              </div>
+              <app-file-upload
+                [item]="it"
+                [itemData]="item.data"
+                (onUpload)="uploadFile($event)"
+                [readonly]="! item.enableEdition"
+                [pictures]="item.data[it.name]"
+              ></app-file-upload>
             </div>
             <!-- Type colorpicker -->
             <div *ngSwitchCase="'_color'">

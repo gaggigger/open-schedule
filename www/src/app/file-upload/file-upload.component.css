@@ -1,11 +1,17 @@
 div.file-upload {
-  min-width: 200px;
-  min-height: 200px;
+  width: 150px;
+  height: 150px;
+  display: inline-block;
   border : 1px dashed grey;
   border-radius: 2em;
   text-align: center;
+  vertical-align: top;
+  line-height: 10em;
 }
 
 div.file-active {
   background-color: grey;
+}
+img {
+  height: 150px;
 }

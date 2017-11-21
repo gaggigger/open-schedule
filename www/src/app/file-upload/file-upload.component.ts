@@ -1,4 +1,5 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AttachmentService} from "../Services/attachment.service";
 
 @Component({
   selector: 'app-file-upload',
@@ -7,9 +8,15 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 })
 export class FileUploadComponent implements OnInit {
   private divActive: boolean = false;
+  @Input() item: object = {};
+  @Input() readonly: boolean = true;
+  @Input() pictures: Array<string> = [];
+  @Input() itemData: number = null;
   @Output() onUpload = new EventEmitter<any>();
 
-  constructor() { }
+  constructor(
+    private attachment: AttachmentService,
+  ) { }
 
   ngOnInit() {
   }
@@ -56,6 +63,14 @@ export class FileUploadComponent implements OnInit {
   }
 
   handleUpload(evt) {
-    this.onUpload.emit(evt.target.result);
+    this.attachment.upload(evt.target.result).then(result => {
+      this.onUpload.emit({
+        id : this.itemData['id'],
+        item: this.item,
+        data: result
+      });
+    }).catch(error => {
+      console.error(error);
+    });
   }
 }

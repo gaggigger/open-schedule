@@ -1,6 +1,8 @@
 import {Injectable, Pipe, PipeTransform} from '@angular/core';
 import {DomSanitizer} from "@angular/platform-browser";
 import {isArray} from "rxjs/util/isArray";
+import {HttpService} from "./http.service";
+import {RequestOptions, ResponseContentType} from "@angular/http";
 
 
 @Injectable()
@@ -56,5 +58,28 @@ export class JoinPipe implements PipeTransform {
       return input;
     }
     return input.join(character);
+  }
+}
+
+@Pipe({name: 'image'})
+export class ImagePipe implements PipeTransform {
+  constructor(
+    private http: HttpService,
+  ) {}
+
+  transform(url: string) {
+    return new Promise<string>((resolve, reject) => {
+      this.http.get(url, {
+        responseType : ResponseContentType.Blob
+      }).then( result => {
+        const reader = new FileReader();
+        reader.readAsDataURL(result);
+        reader.onloadend = () => {
+          resolve(reader.result);
+        };
+      }).catch(err => {
+        reject(err);
+      });
+    });
   }
 }

@@ -1,3 +1,7 @@
+<img
+  *ngFor="let uuid of pictures"
+  [src]="attachment.getUrl(uuid) | image | async"
+/>
 <div
   class="file-upload"
   [ngClass]="{'file-active': divActive}"
@@ -5,6 +9,7 @@
   (dragover)="onDragOver($event)"
   (dragenter)="onDragEnter($event)"
   (dragleave)="onDragLeave($event)"
+  *ngIf="!readonly"
 >
-  Drop target
+  +
 </div>

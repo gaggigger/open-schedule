@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {Http, Headers, RequestOptions} from '@angular/http';
+import {Http, Headers, RequestOptions, ResponseContentType} from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
@@ -46,6 +46,11 @@ export class HttpService {
         this.options.headers.append('Content-Type', mime);
         this.options.headers.append('Accept', 'q=0.8;'+ mime +';q=0.9');
       }
+    }
+    if(contentType.responseType) {
+      this.options.responseType = contentType.responseType;
+    }else {
+      this.options.responseType = ResponseContentType.Json;
     }
     return this.http;
   }

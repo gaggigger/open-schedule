@@ -33,18 +33,11 @@ class Mysql extends IDb {
                 if(typeof arguments[i] !== 'undefined') queryArgs.push(this.escape(arguments[i]));
             }
             let query = 'CALL os_' + sql + '('+ queryArgs.join(',') +')';
-            console.log(query);
             this.pool.query(query, function(err, rows, fields) {
                 if (err) {
                     reject(err.message);
                     return false;
                 }
-
-                //console.log("\n\n");
-                //console.log(query)
-                //console.log(rows)
-                //console.log("\n\n");
-
                 // TODO OkPacket in results ?
                 if(typeof rows !== 'undefined' && 0 in rows) resolve(rows[0]);
                 else resolve(rows);

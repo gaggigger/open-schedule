@@ -30,7 +30,6 @@ export class ResourceInfoComponent implements OnChanges {
   constructor(
     private httpSrv: HttpService,
     private utils: UtilsService,
-    private attachment: AttachmentService,
   ) { }
 
   ngOnChanges() {
@@ -87,11 +86,15 @@ export class ResourceInfoComponent implements OnChanges {
       });
   }
 
-  uploadFile(content) {
-    this.attachment.upload(content).then(result => {
-      console.log(result);
-    }).catch(error => {
-      console.error(error);
+  uploadFile(data) {
+    console.log(data);
+    this.items.map((item: object) => {
+      if (item['data'].id === data.id) {
+        if (! item['data'][data.item.name]) {
+          item['data'][data.item.name] = [];
+        }
+        item['data'][data.item.name].push(data.data.uuid);
+      }
     });
   }
 
