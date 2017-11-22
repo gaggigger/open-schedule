@@ -7,9 +7,9 @@ import {AttachmentService} from "../Services/attachment.service";
   styleUrls: ['./file-upload.component.css']
 })
 export class FileUploadComponent implements OnInit {
-  private divActive: boolean = false;
-  @Input() item: object = {};
-  @Input() readonly: boolean = true;
+  private divActive = false;
+  @Input() fieldParameters: object = {};
+  @Input() readonly = true;
   @Input() pictures: Array<string> = [];
   @Input() itemData: number = null;
   @Output() onUpload = new EventEmitter<any>();
@@ -25,7 +25,7 @@ export class FileUploadComponent implements OnInit {
     event.preventDefault();
     this.divActive = false;
 
-    if(event.dataTransfer.files.length) {
+    if (event.dataTransfer.files.length) {
       this.uploadFile(event.dataTransfer.files);
     }
     return false;
@@ -36,7 +36,7 @@ export class FileUploadComponent implements OnInit {
     this.divActive = true;
   }
 
-  onDragEnter(event) {
+  onDragEnter() {
     this.divActive = true;
     return false;
   }
@@ -54,7 +54,7 @@ export class FileUploadComponent implements OnInit {
         alert('The file must be an image') ;
         return false ;
       }
-      let reader = new FileReader();
+      const reader = new FileReader();
       reader.onload = (event) => {
         this.handleUpload(event);
       };
@@ -66,7 +66,7 @@ export class FileUploadComponent implements OnInit {
     this.attachment.upload(evt.target.result).then(result => {
       this.onUpload.emit({
         id : this.itemData['id'],
-        item: this.item,
+        item: this.fieldParameters,
         data: result
       });
     }).catch(error => {

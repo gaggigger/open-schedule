@@ -38,7 +38,7 @@
             <!-- Type picture -->
             <div *ngSwitchCase="'picture'">
               <app-file-upload
-                [item]="it"
+                [fieldParameters]="it"
                 [itemData]="item.data"
                 (onUpload)="uploadFile($event)"
                 [readonly]="! item.enableEdition"
