@@ -1,5 +1,5 @@
 <img
-  *ngFor="let uuid of pictures"
+  *ngFor="let uuid of pictures | filterNotNull"
   [src]="attachment.getUrl(uuid) | image | async"
 />
 <div

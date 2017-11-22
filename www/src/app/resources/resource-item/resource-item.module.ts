@@ -13,7 +13,7 @@ import {ResourceCalendarComponent} from "../resource-calendar/resource-calendar.
 import {ResourcePrintComponent} from "../resource-print/resource-print.component";
 import {FormsModule} from "@angular/forms";
 import {ColorPickerModule} from 'angular4-color-picker';
-import {FilterPipe, ImagePipe, JoinPipe, SafePipe} from "../../Services/utils";
+import {FilterNotNullPipe, FilterPipe, ImagePipe, JoinPipe, SafePipe} from "../../Services/utils";
 import {ResourceListComponent} from "../resource-list/resource-list.component";
 import {FileUploadComponent} from "../../file-upload/file-upload.component";
 
@@ -39,6 +39,7 @@ import {FileUploadComponent} from "../../file-upload/file-upload.component";
     ResourceListComponent,
     SafePipe,
     FilterPipe,
+    FilterNotNullPipe,
     JoinPipe,
     ImagePipe,
     FileUploadComponent,

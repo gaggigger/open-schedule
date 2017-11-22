@@ -131,12 +131,10 @@ router.put('/attachments', function(req, res) {
     let body = '';
 
     req.addListener('data', chunk => body += chunk);
-
     req.addListener('error', error => next(err));
-
     req.addListener('end', chunk => {
         if (chunk) body += chunk;
-        Attachments.set(req.connectedUser, body).then(rows => {
+        Attachments.set(req.connectedUser, body, req.query.item_id).then(rows => {
             res.send(rows);
         }).catch(err => UHandlers.handleError(res, 500, err));
     });
@@ -148,8 +146,9 @@ router.get('/attachments/:uuid', function(req, res) {
             res.contentType('image/jpeg');
             res.end(rows[0].content);
         }else {
-
-        }res.send({});
+            res.contentType('image/jpeg');
+            res.end(0x00);
+        };
     }).catch(err => UHandlers.handleError(res, 500, err));
 });
 

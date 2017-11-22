@@ -41,6 +41,16 @@ export class FilterPipe implements PipeTransform {
 }
 
 @Pipe({
+  name: 'filterNotNull',
+  pure: false
+})
+export class FilterNotNullPipe implements PipeTransform {
+  transform(items: any[]): any {
+    return items.filter(item => item !== null);
+  }
+}
+
+@Pipe({
   name: 'sortBy'
 })
 export class SortByPipe implements PipeTransform {
@@ -75,7 +85,11 @@ export class ImagePipe implements PipeTransform {
         const reader = new FileReader();
         reader.readAsDataURL(result);
         reader.onloadend = () => {
-          resolve(reader.result);
+          if(reader.result === 'data:') {
+            resolve('data:image/jpeg;base64,MA==');
+          }else {
+            resolve(reader.result);
+          }
         };
       }).catch(err => {
         reject(err);

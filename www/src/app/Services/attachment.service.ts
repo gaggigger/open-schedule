@@ -8,8 +8,8 @@ export class AttachmentService {
     private http: HttpService,
   ) { }
 
-  upload(content) {
-    return this.http.put('/attachments', content);
+  upload(item_id, content) {
+    return this.http.put('/attachments?item_id=' + item_id, content);
   }
 
   getUrl(uuid) {

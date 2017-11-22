@@ -38,7 +38,7 @@ CREATE TABLE `os_attachments` (
   KEY `os_attachments_os_users_FK` (`creator`),
   CONSTRAINT `os_attachments_os_sessions_FK` FOREIGN KEY (`sessions_id`) REFERENCES `os_sessions` (`id`),
   CONSTRAINT `os_attachments_os_users_FK` FOREIGN KEY (`creator`) REFERENCES `os_users` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,9 +100,9 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -110,9 +110,7 @@ DELIMITER ;;
 BEFORE DELETE
 ON openschedule.os_attachments FOR EACH ROW
 BEGIN
-
 	SET @r = 0;
-
 	SELECT os_check_sessions(OLD.sessions_id, OLD.sessions_id) INTO @r;
 
 END */;;
@@ -352,7 +350,7 @@ CREATE TABLE `os_resources_items` (
 
 LOCK TABLES `os_resources_items` WRITE;
 /*!40000 ALTER TABLE `os_resources_items` DISABLE KEYS */;
-INSERT INTO `os_resources_items` VALUES (1,'students','{\"name\": \"Ralitera\", \"birth\": \"1983-12-22T00:00:00.000Z\", \"email\": \"solofo.ralitera@gmail.com\", \"lastname\": \"Solofo\", \"matricule\": \"007\", \"promotions\": [5, 6, 5, 6, 5, 6, 7, 6, 6, 6]}','2017-11-11 23:31:45','2017-11-11 23:31:45','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',32,1),(2,'students','{\"name\": \"aeaeazea\", \"birth\": null, \"email\": \"azeaeaz@gmqil.com\", \"lastname\": \"zeaze\", \"matricule\": \"TEST\", \"promotions\": [6, 7, 6, 7]}','2017-11-12 10:43:02','2017-11-12 10:43:02','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',35,1),(3,'lectures','{\"code\": \"Test\", \"name\": \"test\", \"color\": \"#ff0366\"}','2017-11-14 22:18:14','2017-11-14 22:18:14','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(4,'rooms','{\"code\": \"S1\", \"name\": \"Salle 1\", \"picture\": [\"c00b2b0c-cee3-11e7-836e-1866da0d8409\", null, null, \"9dedb352-cee5-11e7-836e-1866da0d8409\", \"a33b667f-cee5-11e7-836e-1866da0d8409\", \"b5a65c85-cee5-11e7-836e-1866da0d8409\"], \"capacity\": \"50\"}','2017-11-15 21:24:31','2017-11-15 21:24:31','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(5,'promotions','{\"name\": \"testset\", \"classid\": \"Test\"}','2017-11-16 21:55:43','2017-11-16 21:55:43','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(6,'promotions','{\"name\": \"Prom1\", \"classid\": \"P1\"}','2017-11-17 09:10:42','2017-11-17 09:10:42','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(7,'promotions','{\"name\": \"Prom 2\", \"classid\": \"P2\"}','2017-11-17 09:10:57','2017-11-17 09:10:57','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(8,'students','{\"name\": \"Kalao\", \"birth\": \"2017-11-04\", \"email\": \"qeqeqwe\", \"lastname\": \"Test\", \"matricule\": \"Kouakou\", \"promotions\": [6], \"father_name\": \"asdasdada\", \"mother_name\": \"sdasdasd\"}','2017-11-19 11:23:47','2017-11-19 11:23:47','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',36,1),(9,'students','{\"name\": \"asdasd\", \"birth\": \"2017-11-09T00:00:00.000Z\", \"email\": \"adasdasdd@qweqwe:con\", \"lastname\": \"asdasdasda\", \"matricule\": \"Tes\", \"promotions\": [5], \"father_name\": \"dasdasdasd\", \"mother_name\": \"asdasdasd\"}','2017-11-19 11:36:17','2017-11-19 11:36:17','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',38,1),(10,'students','{\"name\": \"New *\", \"birth\": \"2017-11-12\", \"email\": \"asdadasd@asdasd.com\", \"lastname\": \"dasdasdasd\", \"matricule\": \"TesT!\"}','2017-11-19 11:38:54','2017-11-19 11:38:54','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',39,1),(11,'rooms','{\"code\": \"Mini\", \"name\": \"Mini\", \"picture\": [\"f0cfa21e-cee3-11e7-836e-1866da0d8409\"], \"capacity\": \"10\"}','2017-11-21 20:46:47','2017-11-21 20:46:47','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1);
+INSERT INTO `os_resources_items` VALUES (1,'students','{\"name\": \"Ralitera\", \"birth\": \"1983-12-22T00:00:00.000Z\", \"email\": \"solofo.ralitera@gmail.com\", \"lastname\": \"Solofo\", \"matricule\": \"007\", \"promotions\": [5, 6, 5, 6, 5, 6, 7, 6, 6, 6]}','2017-11-11 23:31:45','2017-11-11 23:31:45','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',32,1),(2,'students','{\"name\": \"aeaeazea\", \"birth\": null, \"email\": \"azeaeaz@gmqil.com\", \"lastname\": \"zeaze\", \"matricule\": \"TEST\", \"promotions\": [6, 7, 6, 7]}','2017-11-12 10:43:02','2017-11-12 10:43:02','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',35,1),(3,'lectures','{\"code\": \"Test\", \"name\": \"test\", \"color\": \"#ff0366\"}','2017-11-14 22:18:14','2017-11-14 22:18:14','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(4,'rooms','{\"code\": \"S1\", \"name\": \"Salle 1\", \"picture\": [\"c00b2b0c-cee3-11e7-836e-1866da0d8409\", null, null, \"9dedb352-cee5-11e7-836e-1866da0d8409\", \"a33b667f-cee5-11e7-836e-1866da0d8409\", \"b5a65c85-cee5-11e7-836e-1866da0d8409\", \"0918622f-cf9f-11e7-98d6-1866da0d8409\", \"1433a084-cf9f-11e7-98d6-1866da0d8409\"], \"capacity\": \"50\"}','2017-11-15 21:24:31','2017-11-15 21:24:31','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(5,'promotions','{\"name\": \"testset\", \"classid\": \"Test\"}','2017-11-16 21:55:43','2017-11-16 21:55:43','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(6,'promotions','{\"name\": \"Prom1\", \"classid\": \"P1\"}','2017-11-17 09:10:42','2017-11-17 09:10:42','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(7,'promotions','{\"name\": \"Prom 2\", \"classid\": \"P2\"}','2017-11-17 09:10:57','2017-11-17 09:10:57','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(8,'students','{\"name\": \"Kalao\", \"birth\": \"2017-11-04\", \"email\": \"qeqeqwe\", \"lastname\": \"Test\", \"matricule\": \"Kouakou\", \"promotions\": [6], \"father_name\": \"asdasdada\", \"mother_name\": \"sdasdasd\"}','2017-11-19 11:23:47','2017-11-19 11:23:47','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',36,1),(9,'students','{\"name\": \"asdasd\", \"birth\": \"2017-11-09T00:00:00.000Z\", \"email\": \"adasdasdd@qweqwe:con\", \"lastname\": \"asdasdasda\", \"matricule\": \"Tes\", \"promotions\": [5], \"father_name\": \"dasdasdasd\", \"mother_name\": \"asdasdasd\"}','2017-11-19 11:36:17','2017-11-19 11:36:17','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',38,1),(10,'students','{\"name\": \"New *\", \"birth\": \"2017-11-12\", \"email\": \"asdadasd@asdasd.com\", \"lastname\": \"dasdasdasd\", \"matricule\": \"TesT!\"}','2017-11-19 11:38:54','2017-11-19 11:38:54','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',39,1),(11,'rooms','{\"code\": \"Mini\", \"name\": \"Mini\", \"picture\": [\"f0cfa21e-cee3-11e7-836e-1866da0d8409\"], \"capacity\": \"10\"}','2017-11-21 20:46:47','2017-11-21 20:46:47','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1);
 /*!40000 ALTER TABLE `os_resources_items` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -617,7 +615,7 @@ CREATE TABLE `os_users` (
 
 LOCK TABLES `os_users` WRITE;
 /*!40000 ALTER TABLE `os_users` DISABLE KEYS */;
-INSERT INTO `os_users` VALUES (32,'{}',1,'2017-11-11 23:31:45','2017-11-21 19:26:49','2017-11-21 19:26:49','admin','$6$588410667ce1594c$IioWjBw9XINk3t2JV/vgkZHQjf02x/CSbOIbIIfpCJfIk3Qhn8wtV0abrIZHSZQz4eTeGwerND/51oeomZ6FY/','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]'),(35,'{}',0,'2017-11-12 10:43:02','2017-11-12 10:43:02',NULL,'azeaeaz@gmqil.com','$6$d981633f3a1a864a$SX2tQTG0zXnwVgB/v0jFFaqnuGcYXex1ZiBh3UU7ERwHtOcB3UsJrIRsAjZi1rWJFG6LZmh3QT86BoxCGYHC61','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(36,'{}',0,'2017-11-19 11:23:47','2017-11-19 11:23:47',NULL,'qeqeqwe','$6$78402a3da62501c4$0FB7JavJingUzR4CBSxkTML7t9HxKkmXjpQsbDEhIkPWWCebnS/6P0Svwn8mz4OtHZeOs3fyQ24EOUEqg3syB1','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(38,'{}',0,'2017-11-19 11:36:17','2017-11-19 11:36:17',NULL,'adasdasdd@qweqwe:con','$6$2871235526dde90b$dORDPIFnqizTUcBKt/4xZqeHz66DOIMn/dTbQYU9exsFPmzl27nxbekAf5HxoTuHa.cy8eljFaux5yI37XQJw1','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(39,'{}',0,'2017-11-19 11:38:54','2017-11-19 11:38:54',NULL,'asdadasd@asdasd.com','$6$ccd09c4ed282d303$JN7lYOG9mv5xlmGTLJRCekjUNXVZHD/.ZVpaOcJsVgm4uZJ/o.oeXUyJDT06twgnzr1ln24ueaJkq/9gflRtf1','[\"ROLE_USER\", \"ROLE_STUDENTS\"]');
+INSERT INTO `os_users` VALUES (32,'{}',1,'2017-11-11 23:31:45','2017-11-22 18:57:36','2017-11-22 18:57:36','admin','$6$588410667ce1594c$IioWjBw9XINk3t2JV/vgkZHQjf02x/CSbOIbIIfpCJfIk3Qhn8wtV0abrIZHSZQz4eTeGwerND/51oeomZ6FY/','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]'),(35,'{}',0,'2017-11-12 10:43:02','2017-11-12 10:43:02',NULL,'azeaeaz@gmqil.com','$6$d981633f3a1a864a$SX2tQTG0zXnwVgB/v0jFFaqnuGcYXex1ZiBh3UU7ERwHtOcB3UsJrIRsAjZi1rWJFG6LZmh3QT86BoxCGYHC61','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(36,'{}',0,'2017-11-19 11:23:47','2017-11-19 11:23:47',NULL,'qeqeqwe','$6$78402a3da62501c4$0FB7JavJingUzR4CBSxkTML7t9HxKkmXjpQsbDEhIkPWWCebnS/6P0Svwn8mz4OtHZeOs3fyQ24EOUEqg3syB1','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(38,'{}',0,'2017-11-19 11:36:17','2017-11-19 11:36:17',NULL,'adasdasdd@qweqwe:con','$6$2871235526dde90b$dORDPIFnqizTUcBKt/4xZqeHz66DOIMn/dTbQYU9exsFPmzl27nxbekAf5HxoTuHa.cy8eljFaux5yI37XQJw1','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(39,'{}',0,'2017-11-19 11:38:54','2017-11-19 11:38:54',NULL,'asdadasd@asdasd.com','$6$ccd09c4ed282d303$JN7lYOG9mv5xlmGTLJRCekjUNXVZHD/.ZVpaOcJsVgm4uZJ/o.oeXUyJDT06twgnzr1ln24ueaJkq/9gflRtf1','[\"ROLE_USER\", \"ROLE_STUDENTS\"]');
 /*!40000 ALTER TABLE `os_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -1296,10 +1294,26 @@ CREATE  PROCEDURE `os_set_attachements`(query JSON, body MEDIUMBLOB)
 BEGIN
 	DECLARE user_id INT default null;
 	DECLARE sessions INT default 0;
+	DECLARE item_id INT default null;
+	DECLARE roles JSON default null;
 	
+	SET roles = os_get_json_roles(query);	
 	SET user_id = os_get_json_string(query , 'user_id');
 	SET sessions = os_get_json_string(query , 'sessions');
-
+	SET item_id = os_get_json_string(query , 'item_id');
+	SET @items_roles = null;
+	
+	set @query = CONCAT(
+		'SELECT roles INTO @items_roles FROM os_resources_items WHERE id = ', QUOTE(item_id) ,' AND ',
+		' (', os_allowed_writing_roles(roles, 'roles'), ' )'
+	);
+	PREPARE stmt FROM @query;
+	EXECUTE stmt;
+	if (@items_roles is null) then
+    	SIGNAL SQLSTATE '45000'
+ 		SET MESSAGE_TEXT = 'no_role_allowed';			
+	end if;
+	
 	INSERT INTO os_attachments (content, creator, sessions_id, uuid) VALUES (body, user_id, sessions, uuid());
 	SET @lid = last_insert_id();
 	SELECT id,uuid FROM os_attachments WHERE id = @lid;
@@ -1407,4 +1421,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-21 21:03:01
+-- Dump completed on 2017-11-22 20:52:31

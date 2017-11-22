@@ -11,7 +11,7 @@ export class FileUploadComponent implements OnInit {
   @Input() fieldParameters: object = {};
   @Input() readonly = true;
   @Input() pictures: Array<string> = [];
-  @Input() itemData: number = null;
+  @Input() itemData: object = {};
   @Output() onUpload = new EventEmitter<any>();
 
   constructor(
@@ -63,7 +63,7 @@ export class FileUploadComponent implements OnInit {
   }
 
   handleUpload(evt) {
-    this.attachment.upload(evt.target.result).then(result => {
+    this.attachment.upload(this.itemData['id'], evt.target.result).then(result => {
       this.onUpload.emit({
         id : this.itemData['id'],
         item: this.fieldParameters,
