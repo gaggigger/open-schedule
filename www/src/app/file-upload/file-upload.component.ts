@@ -73,4 +73,9 @@ export class FileUploadComponent implements OnInit {
       console.error(error);
     });
   }
+
+  removeAttachment(uuid) {
+    let index = this.pictures.indexOf(uuid);
+    if (index > -1) this.pictures.splice(index, 1);
+  }
 }

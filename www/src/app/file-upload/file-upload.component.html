@@ -1,7 +1,14 @@
-<img
+<div
+  class="image"
   *ngFor="let uuid of pictures | filterNotNull"
-  [src]="attachment.getUrl(uuid) | image | async"
-/>
+>
+  <span
+    class="image-close glyphicon glyphicon-remove-circle"
+    (click)="removeAttachment(uuid)"
+    *ngIf="!readonly"
+  ></span>
+  <img [src]="attachment.getUrl(uuid) | image | async" />
+</div>
 <div
   class="file-upload"
   [ngClass]="{'file-active': divActive}"
