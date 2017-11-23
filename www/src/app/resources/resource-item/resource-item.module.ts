@@ -16,6 +16,7 @@ import {ColorPickerModule} from 'angular4-color-picker';
 import {FilterNotNullPipe, FilterPipe, ImagePipe, JoinPipe, SafePipe} from "../../Services/utils";
 import {ResourceListComponent} from "../resource-list/resource-list.component";
 import {FileUploadComponent} from "../../file-upload/file-upload.component";
+import {ChoicelistComponent} from "../../choicelist/choicelist.component";
 
 
 @NgModule({
@@ -43,6 +44,7 @@ import {FileUploadComponent} from "../../file-upload/file-upload.component";
     JoinPipe,
     ImagePipe,
     FileUploadComponent,
+    ChoicelistComponent,
   ],
   providers: [  ]
 })

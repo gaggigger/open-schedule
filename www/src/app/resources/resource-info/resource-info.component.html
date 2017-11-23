@@ -45,6 +45,15 @@
                 [pictures]="item.data[it.name]"
               ></app-file-upload>
             </div>
+            <!-- Type choicelist -->
+            <div *ngSwitchCase="'choicelist'">
+              <app-choicelist
+                [fieldParameters]="it"
+                [itemData]="item.data"
+                [readonly]="! item.enableEdition"
+                [choice]="item.data[it.name]"
+              ></app-choicelist>
+            </div>
             <!-- Type colorpicker -->
             <div *ngSwitchCase="'_color'">
               <div>
