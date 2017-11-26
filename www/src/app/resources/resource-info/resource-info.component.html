@@ -28,7 +28,12 @@
       >
         <header>
           <h3 class="label label-primary">{{ group.key | trans }}</h3>
-          <span class="glyphicon glyphicon-edit" style="float:right;" *ngIf="! item.enableEdition" (click)="activeResourceEdition(item);"></span>
+          <span
+            class="glyphicon glyphicon-edit"
+            style="float:right;cursor:pointer;color:green;"
+            *ngIf="! item.enableEdition"
+            (click)="activeResourceEdition(item);"
+          ></span>
         </header>
 
         <div
@@ -47,12 +52,18 @@
             </div>
             <!-- Type choicelist -->
             <div *ngSwitchCase="'choicelist'">
-              <app-choicelist
-                [fieldParameters]="it"
-                [itemData]="item.data"
-                [readonly]="! item.enableEdition"
-                [choice]="item.data[it.name]"
-              ></app-choicelist>
+              <div>
+                <div class="input-group">
+                  <span class="input-group-addon">{{ it.label | trans }}</span>
+                  <app-choicelist
+                    [fieldParameters]="it"
+                    [itemData]="item.data"
+                    [readonly]="! item.enableEdition"
+                    [choice]="item.data[it.name]"
+                    (onChange)="choiceListChange($event)"
+                  ></app-choicelist>
+                </div>
+              </div>
             </div>
             <!-- Type colorpicker -->
             <div *ngSwitchCase="'_color'">

@@ -86,8 +86,21 @@ export class ResourceInfoComponent implements OnChanges {
       });
   }
 
-  uploadFile(data) {
-    console.log(data);
+  setDataAttribut(data: object, dataAtribut: string, overide: boolean = false) {
+    this.items.map((item: object) => {
+      if (item['data'].id === data['id']) {
+        if (! item['data'][data['item'].name]) {
+          item['data'][data['item'].name] = [];
+        }
+        if(overide) item['data'][data['item'].name] = data['data'][dataAtribut];
+        else  item['data'][data['item'].name].push(data['data'][dataAtribut]);
+      }
+    });
+  }
+
+  uploadFile(data: object) {
+    this.setDataAttribut(data, 'uuid');
+    /*
     this.items.map((item: object) => {
       if (item['data'].id === data.id) {
         if (! item['data'][data.item.name]) {
@@ -96,9 +109,12 @@ export class ResourceInfoComponent implements OnChanges {
         item['data'][data.item.name].push(data.data.uuid);
       }
     });
+    */
   }
 
-  checkItems(data) {
+  checkItems(data: object) {
+    this.setDataAttribut(data, 'id');
+    /*
     this.items.map((item: object) => {
       if (item['data'].id === data.id) {
         if (! item['data'][data.item.name]) {
@@ -107,5 +123,11 @@ export class ResourceInfoComponent implements OnChanges {
         item['data'][data.item.name].push(data.data.id);
       }
     });
+    */
+  }
+
+  choiceListChange(data: object) {
+    this.setDataAttribut(data, 'selected', true);
+    console.log(this.items)
   }
 }

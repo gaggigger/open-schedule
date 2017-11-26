@@ -1,3 +1,27 @@
-<p>
-  choicelist works!
-</p>
+<div
+  *ngIf="readonly"
+>
+  <span
+    class="label label-default"
+    style="margin:2px;white-space:inherit;"
+    *ngFor="let item of getSelectedChoiceLists()"
+  >
+    {{ item.label }}
+  </span>
+</div>
+
+<select
+  *ngIf="!readonly"
+  [disabled]="readonly"
+  (change)="change($event.target)"
+  style="width: 100%"
+  multiple
+>
+  <option
+    *ngFor="let item of choiceLists"
+    [value]="item.code"
+    [selected]="isChecked(item.code)"
+  >
+    {{ item.label }}
+  </option>
+</select>

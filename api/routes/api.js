@@ -1,4 +1,3 @@
-
 const express = require('express');
 const router = express.Router();
 
@@ -6,6 +5,8 @@ const jwt    = require('jsonwebtoken');
 const config = require('../config');
 const ApiMiddlewares = require('../src/middlewares');
 const Recources = require('../src/resources/resources');
+const Choicelists = require('../src/choicelists/choicelists');
+
 const RecourcesFeatures = require('../src/resources/features');
 const Attachments = require('../src/attachments/attachments');
 const User = require('../src/user/user');
@@ -126,6 +127,13 @@ router.get('/menu', function(req, res) {
  *********** All route below are protected by token ***********/
 router.use(ApiMiddlewares.protect);
 /*************************************************************/
+
+router.get('/choicelists', function(req, res) {
+    Choicelists.get(req.connectedUser, req.params.uuid).then(rows => {
+        res.send(rows);
+    }).catch(err => UHandlers.handleError(res, 500, err));
+});
+
 
 router.put('/attachments', function(req, res) {
     let body = '';
