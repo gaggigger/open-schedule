@@ -4,8 +4,17 @@
   <meta charset='utf-8' />
   <link href='libs/fullcalendar-3.7.0/fullcalendar.min.css' rel='stylesheet' />
   <link href='libs/fullcalendar-3.7.0/fullcalendar.print.min.css' rel='stylesheet' media='print' />
-  <link href='libs/vex.css' rel='stylesheet' />
-  <link href='libs/vex-theme-os.css' rel='stylesheet' />
+  <!--link href='libs/vex.css' rel='stylesheet' />
+  <link href='libs/vex-theme-os.css' rel='stylesheet' /-->
+
+  <script src='libs/angular/angular.min.js'></script>
+  <script src='libs/angular/angular-animate.min.js'></script>
+  <script src='libs/angular/angular-aria.min.js'></script>
+  <script src='libs/angular/angular-messages.min.js'></script>
+  <script src='libs/angular/angular-sanitize.min.js'></script>
+
+  <link href='libs/angular-material/angular-material.min.css' rel='stylesheet' />
+  <script src='libs/angular-material/angular-material.min.js'></script>
 
   <script src='libs/fullcalendar-3.7.0/lib/moment.min.js'></script>
   <script src='libs/fullcalendar-3.7.0/lib/jquery.min.js'></script>
@@ -14,16 +23,15 @@
   <script src='libs/fullcalendar-3.7.0/fullcalendar.min.js'></script>
 
   <script src='libs/url.min.js'></script>
-  <script src='libs/vex.conbined.min.js'></script>
-  <script>vex.defaultOptions.className = 'vex-theme-os'</script>
+  <!--script src='libs/vex.conbined.min.js'></script>
+  <script>vex.defaultOptions.className = 'vex-theme-os'</script-->
 
   <script src='js/app.js'></script>
   <style>
     body {
-      margin: 40px 10px;
+      margin: 0;
       padding: 0;
       font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-      font-size: 14px;
     }
     #calendar {
       max-width: 900px;
@@ -32,6 +40,59 @@
   </style>
 </head>
 <body>
-  <div id='calendar'></div>
+<div ng-app="calendarApp">
+  <article ng-controller="calendarController" ng-init="init()">
+    <div id='calendar'></div>
+
+    <script type="text/ng-template" id="resources.tmpl.html">
+      <md-dialog id="" aria-label="Mango (Fruit)">
+        <form ng-cloak>
+          <md-toolbar>
+            <div class="md-toolbar-tools">
+              <h2>Mango (Fruit)</h2>
+              <span flex></span>
+              <md-button class="md-icon-button" ng-click="cancel()">
+                <!--md-icon md-svg-src="img/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon-->
+              </md-button>
+            </div>
+          </md-toolbar>
+
+          <md-dialog-content>
+            <div class="md-dialog-content">
+              <h2>Using .md-dialog-content class that sets the padding as the spec</h2>
+              <p>
+                The mango is a juicy stone fruit belonging to the genus Mangifera, consisting of numerous tropical fruiting trees, cultivated mostly for edible fruit. The majority of these species are found in nature as wild mangoes. They all belong to the flowering plant family Anacardiaceae. The mango is native to South and Southeast Asia, from where it has been distributed worldwide to become one of the most cultivated fruits in the tropics.
+              </p>
+
+              <img style="margin: auto; max-width: 100%;" alt="Lush mango tree" src="img/mangues.jpg">
+
+              <p>
+                The highest concentration of Mangifera genus is in the western part of Malesia (Sumatra, Java and Borneo) and in Burma and India. While other Mangifera species (e.g. horse mango, M. foetida) are also grown on a more localized basis, Mangifera indica&mdash;the "common mango" or "Indian mango"&mdash;is the only mango tree commonly cultivated in many tropical and subtropical regions.
+              </p>
+              <p>
+                It originated in Indian subcontinent (present day India and Pakistan) and Burma. It is the national fruit of India, Pakistan, and the Philippines, and the national tree of Bangladesh. In several cultures, its fruit and leaves are ritually used as floral decorations at weddings, public celebrations, and religious ceremonies.
+              </p>
+            </div>
+          </md-dialog-content>
+
+          <md-dialog-actions layout="row">
+            <!--md-button href="http://en.wikipedia.org/wiki/Mango" target="_blank" md-autofocus>
+              More on Wikipedia
+            </md-button-->
+            <span flex></span>
+            <md-button ng-click="answer('not useful')">
+              Not Useful
+            </md-button>
+            <md-button ng-click="answer('useful')" class="md-primary">
+              Useful
+            </md-button>
+          </md-dialog-actions>
+        </form>
+      </md-dialog>
+    </script>
+
+
+  </article>
+</div>
 </body>
 </html>
