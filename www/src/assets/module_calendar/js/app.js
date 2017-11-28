@@ -1,3 +1,5 @@
+var API_URL = 'http://localhost:3000/api';
+
 angular.module('calendarApp', ['ngSanitize', 'ngMaterial']).controller('calendarController', [
 '$scope', '$http', '$sce', '$mdDialog',
 function ($scope, $http, $sce, $mdDialog) {
@@ -18,6 +20,60 @@ function ($scope, $http, $sce, $mdDialog) {
       // Reload calendar
       $('#calendar').fullCalendar('refetchEvents');
     });
+  };
+
+  $scope.getResourceConfig = function(resource) {
+    $http({
+      url: API_URL + resource.path,
+      method: 'get',
+      headers: {
+        'Authorization': $scope.fUrl.token
+      },
+    }).then(function(response) {
+      $scope.diplayResource(resource, response.data);
+    }, function(response) {
+      // TODO error
+    });
+  };
+
+  $scope.diplayResource = function(resource, resourceConfiguration) {
+    $http({
+      url: API_URL + resourceConfiguration.grid.data,
+      method: 'get',
+      headers: {
+        'Authorization': $scope.fUrl.token
+      },
+    }).then(function(response) {
+      $mdDialog.show({
+        controller: function ($scope, $mdDialog, scopeParent, resource, data ) {
+          $scope.resource = resource;
+          $scope.data = data;
+          $scope.hide = function() {
+            $mdDialog.hide();
+          };
+
+          $scope.cancel = function() {
+            $mdDialog.cancel();
+          };
+        },
+        locals: {
+          scopeParent: $scope,
+          resource : resource,
+          data : response.data
+        },
+        templateUrl: 'resources-item.tmpl.html',
+        parent: angular.element(document.body),
+        skipHide: true,
+        clickOutsideToClose:true
+      }).then(function(answer) {
+        $scope.status = 'You said the information was "' + answer + '".';
+      }, function() {
+        $scope.status = 'You cancelled the dialog.';
+      });
+    }, function(response) {
+      // TODO error
+    });
+
   };
 
   $scope.initCalendar = function() {
@@ -77,54 +133,41 @@ function ($scope, $http, $sce, $mdDialog) {
         });
       },
       dayClick: function (date, jsEvent, view) {
-        /*
-        console.log(date, jsEvent, view);
-        var str = '';
-        Resources.map(function (item) {
-          str += '<div>';
-          str += '  <span>' + item.name + '</span>';
-          str += '</div>';
-        });
-        vex.dialog.open({
-          message: 'TITLE',
-          input: [
-            str
-          ].join(''),
-          callback: function (data) {
-            if (!data) {
-              return console.log('Cancelled')
-            }
-            console.log(data);
-          }
-        })
-        */
+
         $mdDialog.show({
-          controller: DialogController,
+          controller: function ($scope, $mdDialog, scopeParent, date) {
+            $scope.resources = scopeParent.resources;
+            $scope.date = date;
+
+            $scope.add = function(resource) {
+              scopeParent.getResourceConfig(resource);
+            };
+
+            $scope.hide = function() {
+              $mdDialog.hide();
+            };
+
+            $scope.cancel = function() {
+              $mdDialog.cancel();
+            };
+          },
+          locals: {
+            scopeParent: $scope,
+            date : date
+          },
           templateUrl: 'resources.tmpl.html',
           parent: angular.element(document.body),
           //targetEvent: ev,
           clickOutsideToClose:true
         }).then(function(answer) {
-            $scope.status = 'You said the information was "' + answer + '".';
-          }, function() {
-            $scope.status = 'You cancelled the dialog.';
-          });
+          $scope.status = 'You said the information was "' + answer + '".';
+        }, function() {
+          $scope.status = 'You cancelled the dialog.';
+        });
       }
     });
-  }
+  };
 
-  function DialogController($scope, $mdDialog) {
-    $scope.hide = function() {
-      $mdDialog.hide();
-    };
 
-    $scope.cancel = function() {
-      $mdDialog.cancel();
-    };
-
-    $scope.answer = function(answer) {
-      $mdDialog.hide(answer);
-    };
-  }
 
 }]);
