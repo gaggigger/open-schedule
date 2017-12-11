@@ -30,9 +30,18 @@ class Recources {
     }
 
     getData(roles, params) {
-        return Db.select('get_resources_data', Object.assign({
-            roles: roles
-        }, params));
+        console.log(params);
+        if(params.children) {
+            return Db.select('get_resources_from_params', Object.assign({
+                roles: roles
+            }, params));
+        }
+        else {
+            return Db.select('get_resources_data', Object.assign({
+                roles: roles
+            }, params));
+        }
+
     }
 
 }

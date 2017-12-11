@@ -175,7 +175,11 @@ router.get('/resources/:item/columns', function(req, res) {
 });
 
 router.get('/resources/items/data', function(req, res) {
-    Recources.getData(req.connectedUser.roles, { ids : req.query.ids.split(',') }).then(rows => {
+    const params =  req.query.ids ?
+        { ids : req.query.ids.split(',').map(item => parseInt(item)) } :
+        { children : req.query.children.split(',').map(item => parseInt(item)) };
+
+    Recources.getData(req.connectedUser.roles, params).then(rows => {
         res.send(
             rows.map(row => JSON.parse(row.data))
         );

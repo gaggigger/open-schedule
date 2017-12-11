@@ -17,6 +17,7 @@ import {FilterNotNullPipe, FilterPipe, ImagePipe, JoinPipe, SafePipe} from "../.
 import {ResourceListComponent} from "../resource-list/resource-list.component";
 import {FileUploadComponent} from "../../file-upload/file-upload.component";
 import {ChoicelistComponent} from "../../choicelist/choicelist.component";
+import {ResourcesChildrenComponent} from "../resources-children/resources-children.component";
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import {ChoicelistComponent} from "../../choicelist/choicelist.component";
     ResourceCalendarComponent,
     ResourcePrintComponent,
     ResourceListComponent,
+    ResourcesChildrenComponent,
     SafePipe,
     FilterPipe,
     FilterNotNullPipe,

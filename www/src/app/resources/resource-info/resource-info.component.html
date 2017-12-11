@@ -115,6 +115,23 @@
                 </div>
               </div>
             </div>
+
+            <!-- Type child list -->
+            <div *ngSwitchCase="'resources_children'">
+              <div>
+                <div class="input-group">
+                  <h5 *ngIf="it.label">{{ it.label | trans }}</h5>
+                  <app-resources-children
+                    [item]="it"
+                    [itemData]="item.data"
+                    (onCheck)="checkItems($event)"
+                    [readonly]="! item.enableEdition"
+                  >
+                  </app-resources-children>
+                </div>
+              </div>
+            </div>
+
             <div *ngSwitchDefault>
               <div>
                 <div class="input-group">
