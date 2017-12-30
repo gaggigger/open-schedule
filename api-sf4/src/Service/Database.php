@@ -4,7 +4,7 @@ namespace App\Service;
 
 use App\Interfaces\DatabaseInterface;
 
-class Database extends \PDO implements DatabaseInterface
+class Database implements DatabaseInterface
 {
     private $connection;
 
@@ -16,7 +16,14 @@ class Database extends \PDO implements DatabaseInterface
      *
      */
     public function connect(): void {
-        extract(parse_url(getenv('DATABASE_URL')));
+        [
+            'scheme' => $scheme,
+            'host' => $host,
+            'port' => $port,
+            'path' => $path,
+            'user' => $user,
+            'pass' => $pass
+        ] = parse_url(getenv('DATABASE_URL'));
         $path = ltrim($path, "/");
         $this->connection = new \PDO("{$scheme}:host={$host};port={$port};dbname={$path}", $user, $pass);
     }
