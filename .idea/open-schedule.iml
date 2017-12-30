@@ -8,5 +8,21 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library name="PHARS">
+        <CLASSES>
+          <root url="phar://$MODULE_DIR$/api-sf/composer_2.phar/" />
+          <root url="phar://$MODULE_DIR$/api-sf/composer.phar/" />
+          <root url="phar://$MODULE_DIR$/api-sf4/vendor/symfony/dependency-injection/Tests/Fixtures/includes/ProjectWithXsdExtensionInPhar.phar/" />
+          <root url="phar://$MODULE_DIR$/api-sf4/composer.phar/" />
+        </CLASSES>
+        <SOURCES>
+          <root url="phar://$MODULE_DIR$/api-sf/composer_2.phar/" />
+          <root url="phar://$MODULE_DIR$/api-sf/composer.phar/" />
+          <root url="phar://$MODULE_DIR$/api-sf4/vendor/symfony/dependency-injection/Tests/Fixtures/includes/ProjectWithXsdExtensionInPhar.phar/" />
+          <root url="phar://$MODULE_DIR$/api-sf4/composer.phar/" />
+        </SOURCES>
+      </library>
+    </orderEntry>
   </component>
 </module>
