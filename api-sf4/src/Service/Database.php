@@ -45,7 +45,7 @@ class Database implements DatabaseInterface
     /**
      * @param string $sql
      * @param array $parameters
-     * @return array
+     * @return iterable
      */
     public function select(string $sql, array $parameters = []): iterable
     {

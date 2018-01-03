@@ -2,6 +2,10 @@ security:
     # https://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
         in_memory: { memory: ~ }
+        jwt:
+            lexik_jwt:
+              class: App\Security\User
+
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -16,3 +20,27 @@ security:
 
             # form_login: ~
             # https://symfony.com/doc/current/cookbook/security/form_login_setup.html
+
+        api_login:
+            pattern:  ^/api/login
+            stateless: true
+            anonymous: true
+            provider: jwt
+            form_login:
+                check_path:               /api/login_check
+                success_handler:          lexik_jwt_authentication.handler.authentication_success
+                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+                require_previous_session: false
+
+        api:
+            pattern:   ^/api
+            stateless: true
+            provider: jwt
+            guard:
+                authenticators:
+                    - app.jwt_token_authenticator
+
+
+    access_control:
+        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/api,       roles: IS_AUTHENTICATED_FULLY }
