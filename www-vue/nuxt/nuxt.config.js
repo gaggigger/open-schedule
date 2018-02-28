@@ -17,6 +17,9 @@ module.exports = {
   css: [
     '@/assets/css/app.css'
   ],
+  plugins : [
+    '~/plugins/Http.js'
+  ],
   /*
   ** Customize the progress bar color
   */
