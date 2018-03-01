@@ -1,7 +1,6 @@
 <template>
   <div>
-    <navbar></navbar>
-    <login></login>
+
   </div>
 </template>
 
