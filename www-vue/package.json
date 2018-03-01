@@ -1,6 +1,0 @@
-{
-  "name": "www-vue",
-  "scripts": {
-    "dev": "nuxt"
-  }
-}
