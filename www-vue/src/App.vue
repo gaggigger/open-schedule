@@ -1,18 +1,36 @@
 <template>
-  <div id="app">
+  <div>
     <app-menu></app-menu>
     <!--img src="./assets/logo.png"-->
-    <router-view/>
+    <div class="container">
+      <router-view/>
+    </div>
   </div>
 </template>
 
 <script>
 import AppMenu from './components/AppMenu.vue'
+// import Firebase from 'firebase'
 
 export default {
   name: 'App',
   components: {
     AppMenu
+  },
+  created () {
+    /*
+    const app = Firebase.initializeApp({
+      apiKey: 'AIzaSyC8hI-mObh6_zC4CHCsErTcfSu3msojp4o',
+      authDomain: 'formation-tz.firebaseapp.com',
+      databaseURL: 'https://formation-tz.firebaseio.com',
+      projectId: 'formation-tz',
+      storageBucket: 'gs://formation-tz.appspot.com',
+      messagingSenderId: '604798803445'
+    })
+    app.database().ref('members').on('value', snapshot => {
+      console.log(snapshot.val())
+    })
+    */
   }
 }
 </script>
@@ -24,9 +42,11 @@ export default {
     -moz-osx-font-smoothing: grayscale;
     margin : 0;
     padding: 0;
-    height: 100%;
   }
-  /** Login **/
+  #app .container {
+    padding-top: 5em;
+  }
+  /** Sheet style **/
   .sheet::before,
   .sheet::after{
     content: "";
@@ -60,7 +80,6 @@ export default {
       transform: translateY(0);
     }
   }
-
   @keyframes fadeInUp {
     0% {
       opacity: 0;
@@ -79,5 +98,9 @@ export default {
     -webkit-animation-name: fadeInUp;
     animation-name: fadeInUp;
     animation-duration: 4s;
+  }
+  .error {
+    color: red;
+    padding: 0.5em 1em;
   }
 </style>
