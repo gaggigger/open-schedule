@@ -60,28 +60,39 @@ router.get('/menu', function(req, res) {
     Promise.all([
         Recources.getAll(req.connectedUser? req.connectedUser.roles : []),
     ]).then(values => {
+        const menu = [];
+        if(req.connectedUser) {
+            menu.push({
+                name : 'Session',
+                path : '/session',
+                icon : 'glyphicon glyphicon-thumbs-up'
+            });
+        }
+
         // Resources menu
-        let menu = [{
+        menu.push({
             name : 'Resources',
             path : '/resources',
             icon : 'glyphicon glyphicon-th',
             items : []
-        }];
+        });
         values[0].map(item => {
             let param = JSON.parse(item.params);
-            menu[0].items.push({
+            menu[1].items.push({
                 name : item.name,
                 path : param.path,
                 icon : param.icon
             });
         });
 
+        /*
         // Help menu
         menu.push({
             name : 'Credit',
             path : '/credit',
             icon : 'glyphicon glyphicon-thumbs-up'
         });
+        */
 
         // Login menu
         if(req.connectedUser) {
@@ -111,7 +122,11 @@ router.get('/menu', function(req, res) {
  *********** All route below are protected by token ***********/
 router.use(ApiMiddlewares.protect);
 /*************************************************************/
-
+router.get('/sessions', function(req, res) {
+    Recources.getSessions()
+        .then(rows => res.send(rows))
+        .catch(err => UHandlers.handleError(res, 500, err));
+});
 router.get('/choicelists', function(req, res) {
     Choicelists.get(req.connectedUser, req.params.uuid).then(rows => {
         res.send(rows);

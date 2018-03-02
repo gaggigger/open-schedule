@@ -44,6 +44,10 @@ class Recources {
 
     }
 
+    getSessions() {
+        return Db.select('get_sessions');
+    }
+
 }
 
 module.exports = new Recources();
