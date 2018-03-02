@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="app">
     <app-menu></app-menu>
     <!--img src="./assets/logo.png"-->
     <div class="container">
@@ -44,7 +44,7 @@ export default {
     padding: 0;
   }
   #app .container {
-    padding-top: 5em;
+    padding: 4em 1em;
   }
   /** Sheet style **/
   .sheet::before,

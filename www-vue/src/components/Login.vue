@@ -10,9 +10,11 @@
         <input
           type="text"
           name="user"
+          ref="username"
           v-bind:placeholder="s_username"
           v-model="m_username"
           required
+          autofocus
         />
         <input
           type="password"
@@ -47,6 +49,9 @@ export default {
       errorMessage: ''
     }
   },
+  mounted () {
+    this.$refs.username.focus()
+  },
   methods: {
     login (event) {
       event.preventDefault()
@@ -55,7 +60,8 @@ export default {
         user: this.m_username,
         password: this.m_password
       }).then(response => {
-        console.log(response)
+        this.$router.push('/')
+        window.location.reload()
       }).catch(error => {
         this.errorMessage = error
       })

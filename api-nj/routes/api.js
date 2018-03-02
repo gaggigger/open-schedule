@@ -76,24 +76,23 @@ router.get('/menu', function(req, res) {
             });
         });
 
+        // Help menu
+        menu.push({
+            name : 'Credit',
+            path : '/credit',
+            icon : 'glyphicon glyphicon-thumbs-up'
+        });
+
         // Login menu
         if(req.connectedUser) {
             menu.push({
                 name : req.connectedUser.username,
-                path : '',
-                icon : 'glyphicon glyphicon-user',
-                items : [
-                    {
-                        name : 'Profil',
-                        path : '/user/profil',
-                        icon : 'glyphicon glyphicon-cog'
-                    },
-                    {
-                        name : 'Logout',
-                        path : '/logout',
-                        icon : 'glyphicon glyphicon-log-out'
-                    }
-                ]
+                path : '/user',
+                icon : 'glyphicon glyphicon-user'
+            }, {
+                name : 'Logout',
+                path : '/logout',
+                icon : 'glyphicon glyphicon-log-out'
             });
         }else {
             menu.push({
@@ -102,22 +101,7 @@ router.get('/menu', function(req, res) {
                 icon : 'glyphicon glyphicon-log-in'
             });
         }
-
-        // Help menu
-        menu.push({
-            name : '',
-            icon : 'glyphicon glyphicon-question-sign',
-            items : [
-                {
-                    name : 'Credit',
-                    path : '/credit',
-                    icon : 'glyphicon glyphicon-thumbs-up'
-                }
-            ]
-        });
-
         res.send(menu);
-
     }).catch(err => {
         console.log(err);
     });

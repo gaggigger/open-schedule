@@ -1,17 +1,39 @@
 <template>
   <nav>
     <router-link to="/" href="#">🏠 OpenSchedule</router-link>
-    <router-link to="login"  href="#">👤 Login</router-link>
-    <a href="#" v-on:click="logout()">🚶 Logout</a>
+
+    <router-link
+      href="#"
+      :data-icon="menu.path"
+      v-bind:to="'' + menu.path"
+      v-bind:key="menu.path"
+      v-for="menu in menus"
+    >
+      {{ menu.name }}
+    </router-link>
+
+    <!--router-link to="login"  href="#">👤 Login</router-link>
+    <a href="#" v-on:click="logout()">🚶 Logout</a-->
   </nav>
 </template>
 
 <script>
+import Http from '../services/Http'
+
 export default {
   data () {
     return {
-
+      menus: []
     }
+  },
+  created () {
+    Http.request('/menu', 'GET')
+      .then(response => {
+        this.menus = response
+      })
+      .catch(error => {
+        console.error(error)
+      })
   },
   methods: {
     logout () {
@@ -44,5 +66,14 @@ export default {
   }
   nav > a:first-child {
     flex-grow: 1;
+  }
+  nav > a[data-icon="/user"]::before {
+    content:'👨';
+  }
+  nav > a[data-icon="/login"]::before {
+    content:'➤';
+  }
+  nav > a[data-icon="/logout"]::before {
+    content:'🚶';
   }
 </style>
