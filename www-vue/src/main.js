@@ -3,6 +3,7 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import moment from 'moment'
 
 Vue.config.productionTip = false
 
@@ -12,4 +13,11 @@ new Vue({
   router,
   components: { App },
   template: '<App/>'
+})
+
+Vue.filter('dateToLocale', function (value) {
+  if (value) {
+    return moment(String(value)).format('MMMM Do YYYY')
+  }
+  return value
 })

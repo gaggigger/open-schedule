@@ -36,29 +36,111 @@ export default {
 </script>
 
 <style>
+  :root {
+    --first-color: #818181;
+    --second-color: lightgray;
+    --third-color: #c1c1c1;
+
+    --maintext-color: black;
+
+    --ok-color: darkgreen;
+    --error-color: darkred;
+    --warning-color: darkorange;
+  }
   html, body {
     font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     margin : 0;
     padding: 0;
+    color: var(--maintext-color);
+  }
+  input {
+    color: var(--maintext-color);
+  }
+  ::placeholder {
+    color: var(--maintext-color);
+    opacity: 1;
+  }
+  :-ms-input-placeholder {
+    color: var(--maintext-color);
+  }
+  ::-ms-input-placeholder {
+    color: var(--maintext-color);
   }
   #app .container {
     padding: 4em 1em;
   }
+  a {
+    color: var(--first-color);
+    text-decoration: none;
+  }
+  a[href]:hover {
+    color: var(--third-color);
+    text-decoration: underline;
+  }
+  /** Form **/
+  input{
+    padding: 0.5em;
+    height: 2em;
+    border: 1px solid var(--first-color);
+    background: #fafafa;
+    transition: 0.2s ease-in-out;
+  }
+  input:focus{
+    outline: 0;
+    background: var(--second-color);
+  }
+  input[type]{
+    border-radius: 5px;
+  }
+  button {
+    margin-top: 0.5em;
+    padding: 0.5em 0.1em;
+    cursor: pointer;
+  }
+  button {
+    background: var(--third-color);
+    background-image: -webkit-linear-gradient(top, var(--second-color), var(--first-color));
+    background-image: -moz-linear-gradient(top, var(--second-color), var(--first-color));
+    background-image: -ms-linear-gradient(top, var(--second-color), var(--first-color));
+    background-image: -o-linear-gradient(top, var(--second-color), var(--first-color));
+    background-image: linear-gradient(to bottom, var(--second-color), var(--first-color));
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    color: var(--maintext-color);
+    text-decoration: none;
+  }
+  button:hover {
+    background: var(--third-color);
+    background-image: -webkit-linear-gradient(top, var(--first-color), var(--second-color));
+    background-image: -moz-linear-gradient(top, var(--first-color), var(--second-color));
+    background-image: -ms-linear-gradient(top, var(--first-color), var(--second-color));
+    background-image: -o-linear-gradient(top, var(--first-color), var(--second-color));
+    background-image: linear-gradient(to bottom, var(--first-color), var(--second-color));
+    text-decoration: none;
+  }
   /** Sheet style **/
+  .sheet {
+    position: relative;
+    margin: 1em;
+    padding: 1em;
+  }
   .sheet::before,
   .sheet::after{
     content: "";
     position: absolute;
-    width: 100%;height: 100%;
-    top: 3.5px;left: 0;
+    width: 100%;
+    height: 100%;
+    top: 3px;
+    left: 0;
     background: #fff;
     z-index: -1;
     -webkit-transform: rotateZ(4deg);
     -moz-transform: rotateZ(4deg);
     -ms-transform: rotateZ(4deg);
-    border: 1px solid #ccc;
+    border: 1px solid var(--first-color);
   }
   .sheet::after{
     top: 5px;
@@ -100,7 +182,7 @@ export default {
     animation-duration: 4s;
   }
   .error {
-    color: red;
+    color: var(--error-color);
     padding: 0.5em 1em;
   }
 </style>

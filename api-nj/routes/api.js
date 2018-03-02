@@ -63,7 +63,7 @@ router.get('/menu', function(req, res) {
         const menu = [];
         if(req.connectedUser) {
             menu.push({
-                name : 'Session',
+                name : 'Sessions',
                 path : '/session',
                 icon : 'glyphicon glyphicon-thumbs-up'
             });

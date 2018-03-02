@@ -46,11 +46,12 @@ export default {
 <style scoped>
   nav {
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-end;
     align-items: center;
     background-color: white;
-    border-bottom: 1px solid #f0f0f0;
-    box-shadow: 0 0 8px 2px #f0f0f0;
+    border-bottom: 1px solid var(--second-color);
+    box-shadow: 0 0 8px 2px var(--second-color);
     position: fixed;
     top: 0;
     left: 0;
