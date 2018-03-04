@@ -51,18 +51,7 @@ class Recources {
     addSessions(roles, data) {
         return Db.query('set_sessions', {
             roles: roles,
-            data: Object.assign({
-                closed: 0
-            }, data)
-        });
-    }
-
-    closeSessions(roles, data) {
-        return Db.query('set_sessions', {
-            roles: roles,
-            data: Object.assign({
-                closed: 0
-            }, data)
+            data: Object.assign({}, data)
         });
     }
 
