@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Index from '@/components/Index'
 import Login from '@/components/Login'
 import Logout from '@/components/Logout'
-import Session from '@/components/Session'
+import Sessions from '@/components/Sessions/Sessions'
 
 Vue.use(Router)
 
@@ -24,7 +24,7 @@ export default new Router({
     }, {
       path: '/session',
       name: 'session',
-      component: Session
+      component: Sessions
     }
   ]
 })

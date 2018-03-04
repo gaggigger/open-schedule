@@ -123,10 +123,16 @@ router.get('/menu', function(req, res) {
 router.use(ApiMiddlewares.protect);
 /*************************************************************/
 router.get('/sessions', function(req, res) {
-    Recources.getSessions()
+    Recources.getSessions(req.connectedUser.roles)
         .then(rows => res.send(rows))
         .catch(err => UHandlers.handleError(res, 500, err));
 });
+router.post('/sessions', function(req, res) {
+    Recources.addSessions(req.connectedUser.roles, req.body)
+        .then(rows => res.send(rows))
+        .catch(err => UHandlers.handleError(res, 500, err));
+});
+
 router.get('/choicelists', function(req, res) {
     Choicelists.get(req.connectedUser, req.params.uuid).then(rows => {
         res.send(rows);

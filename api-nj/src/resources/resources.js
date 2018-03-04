@@ -30,7 +30,6 @@ class Recources {
     }
 
     getData(roles, params) {
-        console.log(params);
         if(params.children) {
             return Db.select('get_resources_from_params', Object.assign({
                 roles: roles
@@ -41,11 +40,21 @@ class Recources {
                 roles: roles
             }, params));
         }
-
     }
 
-    getSessions() {
-        return Db.select('get_sessions');
+    getSessions(roles) {
+        return Db.select('get_sessions', {
+            roles: roles
+        });
+    }
+
+    addSessions(roles, data) {
+        return Db.query('set_sessions', {
+            roles: roles,
+            data: Object.assign({
+                closed: 0
+            }, data)
+        });
     }
 
 }

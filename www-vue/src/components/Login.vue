@@ -76,8 +76,6 @@ export default {
     margin: 5em auto;
     padding: 2em 2em;
     text-align: center;
-    background: #fff;
-    border: 1px solid var(--third-color);
     max-width: 300px;
   }
   .avatar{

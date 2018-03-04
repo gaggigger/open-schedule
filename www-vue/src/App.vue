@@ -5,6 +5,9 @@
     <div class="container">
       <router-view/>
     </div>
+    <div class="offline-message" v-if="!online">
+      ⚠️ You lost internet connection !
+    </div>
   </div>
 </template>
 
@@ -31,6 +34,18 @@ export default {
       console.log(snapshot.val())
     })
     */
+    // Listeners to offlin/online
+    window.addEventListener('offline', e => {
+      this.online = false
+    })
+    window.addEventListener('online', e => {
+      this.online = true
+    })
+  },
+  data () {
+    return {
+      online: navigator.onLine
+    }
   }
 }
 </script>
@@ -46,6 +61,8 @@ export default {
     --ok-color: darkgreen;
     --error-color: darkred;
     --warning-color: darkorange;
+
+    --sheet-bg-color: #ededed;
   }
   html, body {
     font-family: "Source Sans Pro", "Helvetica Neue", Arial, sans-serif;
@@ -126,6 +143,9 @@ export default {
     position: relative;
     margin: 1em;
     padding: 1em;
+    background-color: var(--sheet-bg-color);
+    border: 1px solid var(--first-color);
+    z-index: 200;
   }
   .sheet::before,
   .sheet::after{
@@ -135,11 +155,11 @@ export default {
     height: 100%;
     top: 3px;
     left: 0;
-    background: #fff;
+    background-color: var(--sheet-bg-color);
     z-index: -1;
-    -webkit-transform: rotateZ(4deg);
-    -moz-transform: rotateZ(4deg);
-    -ms-transform: rotateZ(4deg);
+    -webkit-transform: rotateZ(1deg);
+    -moz-transform: rotateZ(1deg);
+    -ms-transform: rotateZ(1deg);
     border: 1px solid var(--first-color);
   }
   .sheet::after{
@@ -148,6 +168,7 @@ export default {
     -webkit-transform: rotateZ(-2deg);
     -moz-transform: rotateZ(-2deg);
     -ms-transform: rotateZ(-2deg);
+    background-color: var(--sheet-bg-color);
   }
   /** Animation **/
   @-webkit-keyframes fadeInUp {
@@ -183,6 +204,34 @@ export default {
   }
   .error {
     color: var(--error-color);
-    padding: 0.5em 1em;
+  }
+  .dashed-background {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: repeating-linear-gradient(
+      -45deg,
+      var(--third-color),
+      var(--third-color) 10px,
+      var(--third-color) 10px,
+      var(--second-color) 10px,
+      var(--second-color) 20px
+    );
+  }
+  #app .offline-message {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4em;
+    line-height: 4em;
+    padding-left: 2em;
+    background-color: var(--error-color);
+    font-weight: bold;
+    color: white;
+    box-shadow: 0px 0px 8px 2px var(--error-color);
+    z-index: 100;
   }
 </style>
