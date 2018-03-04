@@ -57,6 +57,15 @@ class Recources {
         });
     }
 
+    closeSessions(roles, data) {
+        return Db.query('set_sessions', {
+            roles: roles,
+            data: Object.assign({
+                closed: 0
+            }, data)
+        });
+    }
+
 }
 
 module.exports = new Recources();

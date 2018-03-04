@@ -61,6 +61,7 @@ export default {
     --ok-color: darkgreen;
     --error-color: darkred;
     --warning-color: darkorange;
+    --deactivated-color: darkgrey ;
 
     --sheet-bg-color: #ededed;
   }

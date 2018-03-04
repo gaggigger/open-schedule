@@ -128,6 +128,9 @@ router.get('/sessions', function(req, res) {
         .catch(err => UHandlers.handleError(res, 500, err));
 });
 router.post('/sessions', function(req, res) {
+    if(req.body.id !== undefined && req.body.id === null) {
+        delete req.body.id;
+    }
     Recources.addSessions(req.connectedUser.roles, req.body)
         .then(rows => res.send(rows))
         .catch(err => UHandlers.handleError(res, 500, err));

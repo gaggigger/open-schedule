@@ -9,7 +9,7 @@
       <input
         type="text"
         placeholder="Session name"
-        v-model="newSessionName"
+        v-model="session.name"
       />
     </div>
     <div>
@@ -17,7 +17,7 @@
       <input
         type="date"
         placeholder="Session start"
-        v-model="newSessionDateStart"
+        v-model="session.date_start"
       />
     </div>
     <div>
@@ -25,12 +25,13 @@
       <input
         type="date"
         placeholder="Session end"
-        v-model="newSessionDateEnd"
+        v-model="session.date_end"
       />
     </div>
     <div style="text-align: center;">
-      <button v-on:click="add">Add</button>
-      <button v-on:click="cancelAdd">Cancel</button>
+      <button v-on:click="add" v-if="!session.id">Add</button>
+      <button v-on:click="add" v-if="session.id">Save</button>
+      <button v-on:click="close">Cancel</button>
     </div>
   </div>
 </template>
@@ -43,37 +44,26 @@ export default {
   data () {
     return {
       visible: false,
-      newSessionName: '',
-      newSessionDateStart: '',
-      newSessionDateEnd: ''
+      session: {}
     }
   },
   methods: {
-    open () {
+    open (session = null) {
+      if (session !== null) {
+        this.session = session
+      }
       this.visible = true
     },
     close () {
-      this.newSessionName = ''
-      this.newSessionDateStart = ''
-      this.newSessionDateEnd = ''
+      this.session = {}
       this.visible = false
     },
     add () {
-      Http.request('/sessions', 'POST', {
-        name: this.newSessionName,
-        date_start: this.newSessionDateStart,
-        date_end: this.newSessionDateEnd
-      }).then(response => {
+      Http.request('/sessions', 'POST', this.session).then(response => {
         this.$emit('sessionsAdded', response)
       }).catch(error => {
         console.error(error)
       })
-    },
-    cancelAdd () {
-      this.visible = false
-      this.newSessionName = ''
-      this.newSessionDateStart = ''
-      this.newSessionDateEnd = ''
     }
   }
 }
