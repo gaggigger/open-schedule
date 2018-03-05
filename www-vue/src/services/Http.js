@@ -1,8 +1,9 @@
 import Auth from '../services/Auth'
+import Config from '../../../api-nj/config'
 
 class Http {
   constructor () {
-    this.baseUrl = 'http://localhost:3000/api'
+    this.baseUrl = Config.apiUrl
   }
 
   request (url, method = 'GET', parameters = null) {

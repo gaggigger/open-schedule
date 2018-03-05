@@ -8,5 +8,6 @@ module.exports = {
         'user' : 'root',
         'password' : 'prec_dev',
         'port' : 3306
-    }
+    },
+    'apiUrl' : 'http://localhost:3000/api'
 };
