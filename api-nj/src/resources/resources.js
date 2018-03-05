@@ -42,9 +42,10 @@ class Recources {
         }
     }
 
-    getSessions(roles) {
+    getSessions(roles, params = {}) {
         return Db.select('get_sessions', {
-            roles: roles
+            roles: roles,
+            params: Object.assign({}, params)
         });
     }
 
@@ -55,6 +56,12 @@ class Recources {
         });
     }
 
+    deleteSessions(roles, id) {
+        return Db.query('delete_sessions', {
+            roles: roles,
+            id: id
+        });
+    }
 }
 
 module.exports = new Recources();

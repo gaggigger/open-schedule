@@ -123,7 +123,7 @@ router.get('/menu', function(req, res) {
 router.use(ApiMiddlewares.protect);
 /*************************************************************/
 router.get('/sessions', function(req, res) {
-    Recources.getSessions(req.connectedUser.roles)
+    Recources.getSessions(req.connectedUser.roles, req.query)
         .then(rows => res.send(rows))
         .catch(err => UHandlers.handleError(res, 500, err));
 });
@@ -132,6 +132,11 @@ router.post('/sessions', function(req, res) {
         delete req.body.id;
     }
     Recources.addSessions(req.connectedUser.roles, req.body)
+        .then(rows => res.send(rows))
+        .catch(err => UHandlers.handleError(res, 500, err));
+});
+router.delete('/sessions', function(req, res) {
+    Recources.deleteSessions(req.connectedUser.roles, req.body.id)
         .then(rows => res.send(rows))
         .catch(err => UHandlers.handleError(res, 500, err));
 });

@@ -89,11 +89,12 @@ export default {
   #app .container {
     padding: 4em 1em;
   }
-  a {
+  a, .toolbar-1 .link {
     color: var(--first-color);
     text-decoration: none;
+    cursor: pointer;
   }
-  a[href]:hover {
+  a[href]:hover, .toolbar-1 .link:hover {
     color: var(--third-color);
     text-decoration: underline;
   }
@@ -234,5 +235,15 @@ export default {
     color: white;
     box-shadow: 0px 0px 8px 2px var(--error-color);
     z-index: 100;
+  }
+  .toolbar-1 {
+    display: flex;
+    justify-content: space-between;
+  }
+  .toolbar-1 > :first-child {
+    flex-grow: 1;
+  }
+  .toolbar-1 > *:not(:first-child) {
+    margin: 0 0.5em;
   }
 </style>

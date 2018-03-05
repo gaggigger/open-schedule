@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.21, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.19, for Win64 (x86_64)
 --
--- Host: localhost    Database: openschedule
+-- Host: 192.168.88.8    Database: openschedule
 -- ------------------------------------------------------
--- Server version	5.7.21-0ubuntu0.17.10.1
+-- Server version	5.7.20
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -603,7 +603,7 @@ CREATE TABLE `os_sessions` (
   `roles` json DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -612,7 +612,7 @@ CREATE TABLE `os_sessions` (
 
 LOCK TABLES `os_sessions` WRITE;
 /*!40000 ALTER TABLE `os_sessions` DISABLE KEYS */;
-INSERT INTO `os_sessions` VALUES (1,'2017-11-01','2018-11-01',NULL,0,'College year 2017-2018-','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_create\": [\"ROLE_ADMIN\"]}',NULL);
+INSERT INTO `os_sessions` VALUES (1,'2017-11-01','2018-11-01',NULL,0,'College year 2017-2018-','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_create\": [\"ROLE_ADMIN\"]}',NULL),(19,'2018-03-01','2018-03-31',NULL,0,'Test','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"], \"can_create\": \"roles\"}',NULL);
 /*!40000 ALTER TABLE `os_sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -645,7 +645,7 @@ CREATE TABLE `os_users` (
 
 LOCK TABLES `os_users` WRITE;
 /*!40000 ALTER TABLE `os_users` DISABLE KEYS */;
-INSERT INTO `os_users` VALUES (32,'{}',1,'2017-11-11 23:31:45','2018-03-04 20:16:54','2018-03-04 20:16:54','admin','*4ACFE3202A5FF5CF467898FC58AAB1D615029441','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]');
+INSERT INTO `os_users` VALUES (32,'{}',1,'2017-11-11 23:31:45','2018-03-05 12:50:48','2018-03-05 12:50:48','admin','*4ACFE3202A5FF5CF467898FC58AAB1D615029441','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]');
 /*!40000 ALTER TABLE `os_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -1130,6 +1130,38 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `os_delete_sessions` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE  PROCEDURE `os_delete_sessions`(query JSON)
+BEGIN
+	SET @roles = os_get_json_roles(query);	
+	SET @swhere = os_allowed_reading_roles(@roles, 'roles');
+	SET @id = query->'$.id';
+
+	IF @id IS NULL THEN
+    	SIGNAL SQLSTATE '45000'
+ 		SET MESSAGE_TEXT = 'wrong_parameters';		
+	END IF;
+	set @querystring = CONCAT(
+		'DELETE FROM os_sessions WHERE id = ? AND ',
+		' (', @swhere, ' )'
+	);
+	PREPARE stmt FROM @querystring;
+	EXECUTE stmt USING @id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `os_get_attachments` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1339,17 +1371,28 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE  PROCEDURE `os_get_sessions`(query JSON)
 BEGIN
 	DECLARE roles JSON default '[]';
+	DECLARE parentId INT default null;
 	SET roles = os_get_json_roles(query); 
-	set @swhere = os_allowed_reading_roles(roles, 'roles');
+	SET @swhere = os_allowed_reading_roles(roles, 'roles');
+	
+	IF query->'$.params' IS NOT NULL AND query->'$.params.parent_id' IS NOT NULL THEN
+		SET parentId = query->'$.params.parent_id';
+		SET @swhere = CONCAT(
+			' (', @swhere, ' )',
+			' AND ',
+			' parent_id = ', parentId
+		);
+	END IF;
+	
 	set @query = CONCAT(
 		'SELECT id, name, DATE_FORMAT(date_start, "%Y-%m-%d") as date_start, DATE_FORMAT(date_end, "%Y-%m-%d") as date_end, closed, parent_id FROM os_sessions WHERE ',
 		' (', @swhere, ' )',
@@ -1533,9 +1576,9 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1553,6 +1596,10 @@ BEGIN
 	SET @date_end = STR_TO_DATE(JSON_UNQUOTE(data->'$.date_end'), '%Y-%m-%d');
 	SET @closed = JSON_UNQUOTE(data->'$.closed');		
 	SET @sroles = JSON_OBJECT('can_read', roles, 'can_create', 'roles');
+	
+	if @closed IS NULL then
+		SET @closed = 0;
+	end if;
 
 	if (@date_start > @date_end) then
     	SIGNAL SQLSTATE '45000'
@@ -1591,4 +1638,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-04 21:56:04
+-- Dump completed on 2018-03-05 14:31:55
