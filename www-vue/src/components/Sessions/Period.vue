@@ -33,21 +33,25 @@ export default {
     }
   },
   created () {
-    Http.request('/sessions?parent_id=' + this.sessionId, 'GET')
-      .then(response => {
-        this.periods = response
-      })
-      .catch(error => {
-        console.error(error)
-      })
+    this.loadPeriod()
   },
   methods: {
+    loadPeriod () {
+      Http.request('/sessions?parent_id=' + this.sessionId, 'GET')
+        .then(response => {
+          this.periods = response
+        })
+        .catch(error => {
+          console.error(error)
+        })
+    },
     addPeriod (session = null) {
       this.$refs.periodNew.open(Object.assign({
         parent_id: this.sessionId
       }, session))
     },
     handleAddPeriod () {
+      this.loadPeriod()
       this.$refs.periodNew.close()
     }
   }
