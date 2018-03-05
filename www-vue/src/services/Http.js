@@ -5,7 +5,6 @@ class Http {
   constructor () {
     this.baseUrl = Config.apiUrl
   }
-
   request (url, method = 'GET', parameters = null) {
     const headers = {
       method: method,
