@@ -1,7 +1,7 @@
 <template>
   <div>
     <h3 class="toolbar-1">
-      <span class="title">SESSIONS</span>
+      <span class="title">📅 SESSIONS</span>
       <span class="link" v-on:click="switchEdit(true)" v-if="!edit">Edit</span>
       <span class="link" v-on:click="switchEdit(false)" v-if="edit">Cancel</span>
       <span class="link" v-on:click="addSession">Add</span>
