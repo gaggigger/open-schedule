@@ -603,7 +603,7 @@ CREATE TABLE `os_sessions` (
   `roles` json DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -612,7 +612,7 @@ CREATE TABLE `os_sessions` (
 
 LOCK TABLES `os_sessions` WRITE;
 /*!40000 ALTER TABLE `os_sessions` DISABLE KEYS */;
-INSERT INTO `os_sessions` VALUES (1,'2017-11-01','2018-11-01',NULL,0,'College year 2017-2018-','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_create\": [\"ROLE_ADMIN\"]}',NULL),(19,'2018-03-01','2018-03-31',NULL,0,'Test','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"], \"can_create\": \"roles\"}',NULL);
+INSERT INTO `os_sessions` VALUES (1,'2017-11-01','2018-11-01',NULL,0,'College year 2017-2018-','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_create\": [\"ROLE_ADMIN\"]}',NULL),(21,'2018-03-01','2018-03-18',NULL,0,'Test','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"], \"can_create\": \"roles\"}',1);
 /*!40000 ALTER TABLE `os_sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -645,7 +645,7 @@ CREATE TABLE `os_users` (
 
 LOCK TABLES `os_users` WRITE;
 /*!40000 ALTER TABLE `os_users` DISABLE KEYS */;
-INSERT INTO `os_users` VALUES (32,'{}',1,'2017-11-11 23:31:45','2018-03-05 12:50:48','2018-03-05 12:50:48','admin','*4ACFE3202A5FF5CF467898FC58AAB1D615029441','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]');
+INSERT INTO `os_users` VALUES (32,'{}',1,'2017-11-11 23:31:45','2018-03-05 18:36:40','2018-03-05 18:36:40','admin','*4ACFE3202A5FF5CF467898FC58AAB1D615029441','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]');
 /*!40000 ALTER TABLE `os_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -1391,6 +1391,12 @@ BEGIN
 			' AND ',
 			' parent_id = ', parentId
 		);
+	ELSE
+		SET @swhere = CONCAT(
+			' (', @swhere, ' )',
+			' AND ',
+			' parent_id IS NULL '
+		);		
 	END IF;
 	
 	set @query = CONCAT(
@@ -1596,7 +1602,8 @@ BEGIN
 	SET @date_end = STR_TO_DATE(JSON_UNQUOTE(data->'$.date_end'), '%Y-%m-%d');
 	SET @closed = JSON_UNQUOTE(data->'$.closed');		
 	SET @sroles = JSON_OBJECT('can_read', roles, 'can_create', 'roles');
-	
+	SET @parent_id = JSON_UNQUOTE(data->'$.parent_id');
+
 	if @closed IS NULL then
 		SET @closed = 0;
 	end if;
@@ -1608,8 +1615,8 @@ BEGIN
 	
 
 	if (data->'$.id' is null) then
-		PREPARE stmt FROM 'INSERT INTO os_sessions (name, date_start, date_end, closed, roles) values (?, ?, ?, ?, ?)';
-		EXECUTE stmt USING @name, @date_start, @date_end, @closed, @sroles;
+		PREPARE stmt FROM 'INSERT INTO os_sessions (name, date_start, date_end, closed, roles, parent_id) values (?, ?, ?, ?, ?, ?)';
+		EXECUTE stmt USING @name, @date_start, @date_end, @closed, @sroles, @parent_id;
 		
 		SET @lid = last_insert_id();
 		SELECT * FROM os_sessions WHERE id = @lid;
@@ -1617,8 +1624,8 @@ BEGIN
 	else
 		SET @did = JSON_UNQUOTE(data->'$.id');		
 
-		PREPARE stmt FROM 'UPDATE os_sessions SET name = ?, date_start = ?, date_end = ?, closed = ? WHERE id = ?';
-		EXECUTE stmt USING @name, @date_start, @date_end, @closed, @did;
+		PREPARE stmt FROM 'UPDATE os_sessions SET name = ?, date_start = ?, date_end = ?, closed = ?, parent_id = ? WHERE id = ?';
+		EXECUTE stmt USING @name, @date_start, @date_end, @closed, @did, @parent_id;
 
 		SELECT * FROM os_sessions WHERE id = @did;
 	end if;
@@ -1638,4 +1645,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-05 14:31:55
+-- Dump completed on 2018-03-05 18:46:07
