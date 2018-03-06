@@ -68,7 +68,6 @@ export default {
   }
 }
 </script>
-
 <style scoped>
   .sheet {
     margin: 2em;
