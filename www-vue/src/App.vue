@@ -89,12 +89,12 @@ export default {
   #app .container {
     padding: 4em 1em;
   }
-  a, .toolbar-1 .link {
+  a, .link {
     color: var(--first-color);
     text-decoration: none;
     cursor: pointer;
   }
-  a[href]:hover, .toolbar-1 .link:hover {
+  a[href]:hover, .link:hover {
     color: var(--third-color);
     text-decoration: underline;
   }
@@ -148,6 +148,7 @@ export default {
     background-color: var(--sheet-bg-color);
     border: 1px solid var(--first-color);
     z-index: 200;
+    box-shadow: 0px 0px 8px 2px var(--second-color);
   }
   .sheet::before,
   .sheet::after{
@@ -163,6 +164,7 @@ export default {
     -moz-transform: rotateZ(1deg);
     -ms-transform: rotateZ(1deg);
     border: 1px solid var(--first-color);
+    box-shadow: 0px 0px 8px 2px var(--second-color);
   }
   .sheet::after{
     top: 5px;
@@ -171,6 +173,10 @@ export default {
     -moz-transform: rotateZ(-2deg);
     -ms-transform: rotateZ(-2deg);
     background-color: var(--sheet-bg-color);
+    box-shadow: 0px 0px 8px 2px var(--second-color);
+  }
+  .shadow {
+    box-shadow: 0px 0px 8px 2px var(--second-color);
   }
   /** Animation **/
   @-webkit-keyframes fadeInUp {

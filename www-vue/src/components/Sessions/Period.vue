@@ -2,7 +2,6 @@
   <div>
     <h3 class="toolbar-1">
       <span class="title">Periods</span>
-      <span class="link">Edit</span>
       <span class="link" v-on:click="addPeriod">Add</span>
     </h3>
     <new ref="periodNew"
@@ -13,7 +12,7 @@
          v-for="period in periods"
     >
       <div class="label">
-        {{ period.name }}
+        <b class="link" v-on:click="addPeriod(period)">{{ period.name }}</b>,
         <i>
           {{ period.date_start | dateToLocale }}
           -
@@ -86,5 +85,8 @@ export default {
   .period .label {
     position: inherit;
     z-index: 1;
+  }
+  .link {
+    color: var(--maintext-color);
   }
 </style>

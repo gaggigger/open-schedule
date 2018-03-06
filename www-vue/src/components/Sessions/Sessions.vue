@@ -11,6 +11,7 @@
     ></new>
     <div v-bind:key="session.id"
          v-for="session in sessions"
+         class="main-container shadow"
     >
       <div class="session-container">
         <div class="session-label toolbar-1">
@@ -53,10 +54,10 @@
             <span v-bind:class="{
                     link: true,
                     arrow: true,
-                    'arrow-left': !showPeriod[session.id] == true,
-                    'arrow-bottom': showPeriod[session.id] == true
+                    'arrow-left': !session.display_period,
+                    'arrow-bottom': session.display_period
                   }"
-                  v-on:click="displayPeriod(session.id)"></span>
+                  v-on:click="displayPeriod(session)"></span>
           </div>
         </div>
         <div class="ellapsed dashed-background"
@@ -64,7 +65,7 @@
         ></div>
       </div>
       <div class="period"
-           v-if="showPeriod[session.id] == true"
+           _v-if="session.display_period == true"
       >
         <period v-bind:session-id="session.id"></period>
       </div>
@@ -86,9 +87,6 @@ export default {
   },
   data () {
     return {
-      showPeriod: {
-        '1': true
-      },
       edit: false,
       sessions: []
     }
@@ -97,24 +95,14 @@ export default {
     this.loadSession()
   },
   methods: {
-    displayPeriod (sessionId = null) {
-      if (this.showPeriod[sessionId] === undefined) {
-        this.showPeriod[sessionId] = true
-      } else {
-        this.showPeriod[sessionId] = !this.showPeriod[sessionId]
-      }
+    displayPeriod (session) {
+      console.log(session.display_period)
+      session.display_period = !session.display_period
     },
     loadSession () {
       Http.request('/sessions', 'GET')
-        .then(response => {
-          response.forEach(item => {
-            this.showPeriod[item.id] = false
-          })
-          this.sessions = response
-        })
-        .catch(error => {
-          console.error(error)
-        })
+        .then(response => { this.sessions = response })
+        .catch(error => { console.error(error) })
     },
     addSession (session = null) {
       this.$refs.sessionNew.open(Object.assign({}, session))
@@ -159,6 +147,9 @@ export default {
   }
   button {
     width: 50%;
+  }
+  .main-container {
+    margin-bottom: 0.5em;
   }
   .session-container {
     border: 1px solid var(--second-color);
