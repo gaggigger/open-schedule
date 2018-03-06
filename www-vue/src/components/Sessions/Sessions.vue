@@ -93,7 +93,7 @@ export default {
       sessions: []
     }
   },
-  created () {
+  mounted () {
     this.loadSession()
   },
   methods: {
