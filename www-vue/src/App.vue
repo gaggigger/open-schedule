@@ -236,6 +236,7 @@ export default {
     box-shadow: 0px 0px 8px 2px var(--error-color);
     z-index: 100;
   }
+  /** Tool bar **/
   .toolbar-1 {
     display: flex;
     justify-content: space-between;
@@ -245,5 +246,32 @@ export default {
   }
   .toolbar-1 > *:not(:first-child) {
     margin: 0 0.5em;
+  }
+  /** Arrow **/
+  .arrow {
+    display: inline-block;
+    border: 1px solid var(--first-color);
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    width: 2em;
+    height: 2em;
+    line-height: 2em;
+    text-align: center;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  .arrow:hover {
+    text-decoration: none;
+    background-color: var(--first-color);
+  }
+  .arrow.arrow-left::before {
+    content: "<";
+  }
+  .arrow.arrow-bottom::before {
+    display: inline-block;
+    content: "<";
+    transform: rotate(-90deg);
   }
 </style>

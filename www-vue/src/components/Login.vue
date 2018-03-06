@@ -81,6 +81,8 @@ export default {
   .avatar{
     width: 100px;height: 100px;
     margin: 10px auto 30px;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
     border-radius: 100%;
     border: 2px solid var(--third-color);
     background-size: cover;
@@ -93,6 +95,8 @@ export default {
     width: calc(100% - 20%);
   }
   .form-box input[type="text"]{
+    -webkit-border-radius: 5px 5px 0 0;
+    -moz-border-radius: 5px 5px 0 0;
     border-radius: 5px 5px 0 0;
   }
   .form-box input[type="password"]{

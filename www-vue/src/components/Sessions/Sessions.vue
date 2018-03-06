@@ -2,8 +2,8 @@
   <div>
     <h3 class="toolbar-1">
       <span class="title">📅 SESSIONS</span>
-      <span class="link" v-on:click="switchEdit(true)" v-if="!edit">Edit</span>
       <span class="link" v-on:click="switchEdit(false)" v-if="edit">Cancel</span>
+      <span class="link" v-on:click="switchEdit(true)" v-else>Edit</span>
       <span class="link" v-on:click="addSession">Add</span>
     </h3>
     <new ref="sessionNew"
@@ -32,29 +32,40 @@
           <div class="icon"
                v-if="edit"
           >
-            <a href="#/session"
-               v-if="session.closed === 0"
-               v-on:click="addSession(session)"
-            >Edit</a>
-            <a href="#/session" class="error"
-               v-if="session.closed === 0"
-               v-on:click="deleteSession(session)"
-            >Delete</a>
-            <a href="#/session" title="Clôturer cette session" style="color:var(--deactivated-color);"
-               v-if="session.closed === 0"
-               v-on:click="updateSessionStatus(session, 1)"
-            >🔓</a>
-            <a href="#/session" title="Ouvrir cette session" style="color:var(--deactivated-color);"
-               v-if="session.closed === 1"
-               v-on:click="updateSessionStatus(session, 0)"
-            >🔒</a>
+            <span class="link"
+                  v-if="session.closed === 0"
+                  v-on:click="addSession(session)">Edit</span>
+            <span class="error link"
+                  v-if="session.closed === 0"
+                  v-on:click="deleteSession(session)">Delete</span>
+            <span class="link"
+                  title="Clôturer cette session"
+                  style="color:var(--deactivated-color);"
+                  v-if="session.closed === 0"
+                  v-on:click="updateSessionStatus(session, 1)"
+            >🔓</span>
+            <span class="link"
+                  title="Ouvrir cette session" style="color:var(--deactivated-color);"
+                  v-if="session.closed === 1"
+                  v-on:click="updateSessionStatus(session, 0)">🔒</span>
+          </div>
+          <div>
+            <span v-bind:class="{
+                    link: true,
+                    arrow: true,
+                    'arrow-left': !showPeriod[session.id] == true,
+                    'arrow-bottom': showPeriod[session.id] == true
+                  }"
+                  v-on:click="displayPeriod(session.id)"></span>
           </div>
         </div>
         <div class="ellapsed dashed-background"
              v-bind:style="{ width: ellapsedTime(session.date_start, session.date_end) + '%' }"
         ></div>
       </div>
-      <div class="period">
+      <div class="period"
+           v-if="showPeriod[session.id] == true"
+      >
         <period v-bind:session-id="session.id"></period>
       </div>
     </div>
@@ -75,17 +86,30 @@ export default {
   },
   data () {
     return {
+      showPeriod: {
+        '1': true
+      },
       edit: false,
       sessions: []
     }
   },
-  mounted () {
+  created () {
     this.loadSession()
   },
   methods: {
+    displayPeriod (sessionId = null) {
+      if (this.showPeriod[sessionId] === undefined) {
+        this.showPeriod[sessionId] = true
+      } else {
+        this.showPeriod[sessionId] = !this.showPeriod[sessionId]
+      }
+    },
     loadSession () {
       Http.request('/sessions', 'GET')
         .then(response => {
+          response.forEach(item => {
+            this.showPeriod[item.id] = false
+          })
           this.sessions = response
         })
         .catch(error => {
@@ -157,8 +181,7 @@ export default {
     padding: 0 0.2em;
   }
   .period {
-    margin: 0 2em 1em 2em;
-    padding: 0 0.2em;
+    padding: 0.4em 2em;
     font-size: 0.9em;
     border: 1px solid var(--second-color);
   }
