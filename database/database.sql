@@ -38,7 +38,7 @@ CREATE TABLE `os_attachments` (
   KEY `os_attachments_os_users_FK` (`creator`),
   CONSTRAINT `os_attachments_os_sessions_FK` FOREIGN KEY (`sessions_id`) REFERENCES `os_sessions` (`id`),
   CONSTRAINT `os_attachments_os_users_FK` FOREIGN KEY (`creator`) REFERENCES `os_users` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -370,7 +370,7 @@ CREATE TABLE `os_resources_items` (
   KEY `os_resources_items_os_sessions_FK` (`sessions_id`),
   CONSTRAINT `os_resources_items_os_resources_FK` FOREIGN KEY (`resource`) REFERENCES `os_resources` (`name`) ON UPDATE CASCADE,
   CONSTRAINT `os_resources_items_os_sessions_FK` FOREIGN KEY (`sessions_id`) REFERENCES `os_sessions` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -603,7 +603,7 @@ CREATE TABLE `os_sessions` (
   `roles` json DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -636,7 +636,7 @@ CREATE TABLE `os_users` (
   PRIMARY KEY (`id`),
   KEY `os_users_username_IDX` (`username`) USING BTREE,
   KEY `os_users_active_IDX` (`active`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -645,7 +645,7 @@ CREATE TABLE `os_users` (
 
 LOCK TABLES `os_users` WRITE;
 /*!40000 ALTER TABLE `os_users` DISABLE KEYS */;
-INSERT INTO `os_users` VALUES (32,'{}',1,'2017-11-11 23:31:45','2018-03-05 18:36:40','2018-03-05 18:36:40','admin','*4ACFE3202A5FF5CF467898FC58AAB1D615029441','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]');
+INSERT INTO `os_users` VALUES (32,'{}',1,'2017-11-11 23:31:45','2018-03-07 20:07:25','2018-03-07 20:07:25','admin','*4ACFE3202A5FF5CF467898FC58AAB1D615029441','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]');
 /*!40000 ALTER TABLE `os_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -1619,7 +1619,7 @@ BEGIN
 	if @closed IS NULL then
 		SET @closed = 0;
 	end if;
-
+	
 	if (@date_start > @date_end) then
     	SIGNAL SQLSTATE '45000'
  		SET MESSAGE_TEXT = 'wrong_date';	
@@ -1637,6 +1637,11 @@ BEGIN
 		SET @did = JSON_UNQUOTE(data->'$.id');
 		PREPARE stmt FROM 'UPDATE os_sessions SET name = ?, date_start = ?, date_end = ?, closed = ?, parent_id = ? WHERE id = ?';
 		EXECUTE stmt USING @name, @date_start, @date_end, @closed, @parent_id, @did;
+		
+		IF @closed = '1' AND (@parent_id IS NULL OR @parent_id = ' OR @parent_id = 0') THEN
+			PREPARE stmt FROM 'UPDATE os_sessions SET closed = ? WHERE parent_id = ?';
+			EXECUTE stmt USING @closed, @did;
+		END IF;
 
 		SELECT * FROM os_sessions WHERE id = @did;
 	end if;
@@ -1656,4 +1661,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-06 21:45:12
+-- Dump completed on 2018-03-07 22:07:35

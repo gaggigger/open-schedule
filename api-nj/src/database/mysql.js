@@ -33,7 +33,6 @@ class Mysql extends IDb {
                 if(typeof arguments[i] !== 'undefined') queryArgs.push(this.escape(arguments[i]));
             }
             let query = 'CALL os_' + sql + '('+ queryArgs.join(',') +')';
-            console.log(query);
             this.pool.query(query, function(err, rows, fields) {
                 if (err) {
                     reject(err.message);

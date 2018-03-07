@@ -5,6 +5,13 @@
       <span class="link" v-on:click="switchEdit(false)" v-if="edit">Cancel</span>
       <span class="link" v-on:click="switchEdit(true)" v-else>Edit</span>
       <span class="link" v-on:click="addSession">Add</span>
+      <span v-bind:class="{
+                    link: true,
+                    arrow: true,
+                    'arrow-left': !display_period,
+                    'arrow-bottom': display_period
+                  }"
+            v-on:click="display_period = !display_period"></span>
     </h3>
     <new ref="sessionNew"
          v-on:sessionsAdded="handleAddSession"
@@ -40,24 +47,15 @@
                   v-if="session.closed === 0"
                   v-on:click="deleteSession(session)">Delete</span>
             <span class="link"
-                  title="Clôturer cette session"
+                  title="Close session"
                   style="color:var(--deactivated-color);"
                   v-if="session.closed === 0"
                   v-on:click="updateSessionStatus(session, 1)"
             >🔓</span>
             <span class="link"
-                  title="Ouvrir cette session" style="color:var(--deactivated-color);"
+                  title="Open session" style="color:var(--deactivated-color);"
                   v-if="session.closed === 1"
                   v-on:click="updateSessionStatus(session, 0)">🔒</span>
-          </div>
-          <div>
-            <span v-bind:class="{
-                    link: true,
-                    arrow: true,
-                    'arrow-left': !session.display_period,
-                    'arrow-bottom': session.display_period
-                  }"
-                  v-on:click="displayPeriod(session)"></span>
           </div>
         </div>
         <div class="ellapsed dashed-background"
@@ -65,7 +63,7 @@
         ></div>
       </div>
       <div class="period"
-           _v-if="session.display_period == true"
+           v-if="display_period == true"
       >
         <period v-bind:session-id="session.id"></period>
       </div>
@@ -74,9 +72,9 @@
 </template>
 
 <script>
-import Http from '@/services/Http'
 import moment from 'moment'
 import New from './New'
+import PeriodService from '@/services/Period'
 import Period from './Period'
 
 export default {
@@ -88,6 +86,7 @@ export default {
   data () {
     return {
       edit: false,
+      display_period: false,
       sessions: []
     }
   },
@@ -95,12 +94,8 @@ export default {
     this.loadSession()
   },
   methods: {
-    displayPeriod (session) {
-      console.log(session.display_period)
-      session.display_period = !session.display_period
-    },
     loadSession () {
-      Http.request('/sessions', 'GET')
+      PeriodService.loadPeriod()
         .then(response => { this.sessions = response })
         .catch(error => { console.error(error) })
     },
@@ -122,20 +117,16 @@ export default {
       this.$refs.sessionNew.close()
     },
     updateSessionStatus (session, status) {
-      session.closed = status
-      Http.request('/sessions', 'POST', session).then(response => {
-        // sessions = response
-      }).catch(error => {
-        session.closed = status === 1 ? 0 : 1
-        console.error(error)
-      })
+      PeriodService.updatePeriodStatus(session, status)
+        .then(response => {
+          // sessions = response
+        })
     },
     deleteSession (session) {
-      Http.request('/sessions', 'DELETE', session).then(response => {
-        this.loadSession()
-      }).catch(error => {
-        console.error(error)
-      })
+      PeriodService.deletePeriod(session)
+        .then(response => {
+          if (response) this.loadSession()
+        })
     }
   }
 }

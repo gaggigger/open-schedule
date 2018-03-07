@@ -32,6 +32,9 @@ class Http {
         if (response.token) Auth.setToken(response.token)
         return response
       })
+      .catch(err => {
+        if (err) window.AppVue.$snotify.error(err)
+      })
   }
 }
 export default new Http()

@@ -8,6 +8,7 @@
     <div class="offline-message" v-if="!online">
       ⚠️ You lost internet connection !
     </div>
+    <vue-snotify></vue-snotify>
   </div>
 </template>
 
@@ -246,6 +247,7 @@ export default {
   .toolbar-1 {
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
   .toolbar-1 > :first-child {
     flex-grow: 1;

@@ -11,13 +11,33 @@
          class="period"
          v-for="period in periods"
     >
-      <div class="label">
-        <b class="link" v-on:click="addPeriod(period)">{{ period.name }}</b>,
-        <i>
-          {{ period.date_start | dateToLocale }}
-          -
-          {{ period.date_end | dateToLocale }}
-        </i>
+      <div class="label toolbar-1">
+        <div>
+          <b>{{ period.name }}</b>,
+          <i>
+            {{ period.date_start | dateToLocale }}
+            -
+            {{ period.date_end | dateToLocale }}
+          </i>
+        </div>
+        <div>
+          <span class="link"
+                    v-if="period.closed === 0"
+                    v-on:click="addPeriod(period)">Edit</span>
+          <span class="error link"
+                v-if="period.closed === 0"
+                v-on:click="deleteSession(period)">Delete</span>
+          <span class="link"
+                title="Close period"
+                style="color:var(--deactivated-color);"
+                v-if="period.closed === 0"
+                v-on:click="updatePeriodStatus(period, 1)"
+          >🔓</span>
+          <span class="link"
+                title="Open period" style="color:var(--deactivated-color);"
+                v-if="period.closed === 1"
+                v-on:click="updatePeriodStatus(period, 0)">🔒</span>
+        </div>
       </div>
       <div
         class="dashed-background"
@@ -28,9 +48,9 @@
   </div>
 </template>
 <script>
-import Http from '@/services/Http'
 import New from './New'
 import moment from 'moment'
+import PeriodService from '@/services/Period'
 
 export default {
   name: 'sessionPeriod',
@@ -50,18 +70,16 @@ export default {
   },
   methods: {
     loadPeriod () {
-      Http.request('/sessions?parent_id=' + this.sessionId, 'GET')
-        .then(response => {
-          this.periods = response
-        })
-        .catch(error => {
-          console.error(error)
-        })
+      PeriodService.loadPeriod({
+        parent_id: this.sessionId
+      }).then(response => {
+        this.periods = response
+      })
     },
-    addPeriod (session = null) {
+    addPeriod (period = null) {
       this.$refs.periodNew.open(Object.assign({
         parent_id: this.sessionId
-      }, session))
+      }, period))
     },
     handleAddPeriod () {
       this.loadPeriod()
@@ -72,6 +90,18 @@ export default {
       const range = moment(String(dateEnd)).toDate().getTime() - moment(String(dateStart)).toDate().getTime()
       const ellapsed = moment().toDate().getTime() - moment(String(dateStart)).toDate().getTime()
       return Math.min(100, Math.max(0, ellapsed * 100 / range))
+    },
+    updatePeriodStatus (period, status) {
+      PeriodService.updatePeriodStatus(period, status)
+        .then(response => {
+          this.loadPeriod()
+        })
+    },
+    deleteSession (period) {
+      PeriodService.deletePeriod(period)
+        .then(response => {
+          this.loadPeriod()
+        })
     }
   }
 }
@@ -85,8 +115,5 @@ export default {
   .period .label {
     position: inherit;
     z-index: 1;
-  }
-  .link {
-    color: var(--maintext-color);
   }
 </style>

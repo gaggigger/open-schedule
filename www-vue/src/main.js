@@ -4,11 +4,18 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import moment from 'moment'
+import Snotify, { SnotifyPosition } from 'vue-snotify'
 
 Vue.config.productionTip = false
 
+Vue.use(Snotify, {
+  toast: {
+    position: SnotifyPosition.rightBottom
+  }
+})
+
 /* eslint-disable no-new */
-new Vue({
+window.AppVue = new Vue({
   el: '#app',
   router,
   components: { App },
