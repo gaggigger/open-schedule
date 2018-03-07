@@ -603,7 +603,7 @@ CREATE TABLE `os_sessions` (
   `roles` json DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -612,7 +612,7 @@ CREATE TABLE `os_sessions` (
 
 LOCK TABLES `os_sessions` WRITE;
 /*!40000 ALTER TABLE `os_sessions` DISABLE KEYS */;
-INSERT INTO `os_sessions` VALUES (1,'2017-11-01','2018-11-01',NULL,1,'College year 2017-2018-','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_create\": [\"ROLE_ADMIN\"]}',NULL);
+INSERT INTO `os_sessions` VALUES (1,'2017-11-01','2018-11-01',NULL,1,'College year 2017-2018-','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_create\": [\"ROLE_ADMIN\"]}',NULL),(5,'2018-03-01','2018-03-31',NULL,1,'Test','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"], \"can_create\": \"roles\"}',1),(7,'2018-03-06','2018-03-31',NULL,1,'Testss','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"], \"can_create\": \"roles\"}',1);
 /*!40000 ALTER TABLE `os_sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1134,9 +1134,9 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb4 */ ;
-/*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1150,6 +1150,23 @@ BEGIN
     	SIGNAL SQLSTATE '45000'
  		SET MESSAGE_TEXT = 'wrong_parameters';		
 	END IF;
+
+	SET @is_closed = 0;
+	SET @parent_id = null;
+	SELECT closed, parent_id INTO @is_closed, @parent_id FROM os_sessions WHERE id = @id;
+	IF @is_closed = 1 THEN
+    	SIGNAL SQLSTATE '45000'
+ 		SET MESSAGE_TEXT = 'session_closed';		
+	END IF;
+	IF @parent_id IS NOT NULL THEN
+		SET @parent_is_closed = 0;
+		SELECT closed INTO @parent_is_closed FROM os_sessions WHERE id = @parent_id;
+		IF @parent_is_closed = 1 THEN
+	    	SIGNAL SQLSTATE '45000'
+	 		SET MESSAGE_TEXT = 'parent_session_closed';		
+		END IF;		
+	END IF;
+	
 	set @querystring = CONCAT(
 		'DELETE FROM os_sessions WHERE id = ? AND ',
 		' (', @swhere, ' )'
@@ -1661,4 +1678,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-07 22:07:35
+-- Dump completed on 2018-03-07 22:22:43
