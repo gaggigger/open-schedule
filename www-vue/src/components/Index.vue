@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Welcome to the OpenSchedule project</h1>
+    <h1>Welcome to the OpenSchedule project !</h1>
   </div>
 </template>
 
