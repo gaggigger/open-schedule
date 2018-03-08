@@ -73,9 +73,9 @@
 
 <script>
 import moment from 'moment'
-import New from './New'
+import New from './Sessions/New'
 import PeriodService from '@/services/Period'
-import Period from './Period'
+import Period from './Sessions/Period'
 
 export default {
   name: 'Session',

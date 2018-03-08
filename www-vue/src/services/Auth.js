@@ -1,22 +1,33 @@
 import Vue from 'vue'
 import VueCookie from 'vue-cookie'
+import TokenStorage from '@/services/TokenStorage'
+
 Vue.use(VueCookie)
 
 const Auth = {
   getToken () {
-    return Vue.cookie.get('os-tkn')
+    return TokenStorage.get('os-tkn')
   },
-
   setToken (token) {
-    Vue.cookie.set('os-tkn', token)
+    TokenStorage.set('os-tkn', token)
   },
-
   isLogged () {
-    return !!this.getToken()
+    const token = this.getToken()
+    return !!token
   },
-
   logOff () {
-    Vue.cookie.delete('os-tkn')
+    TokenStorage.remove('os-tkn')
+  },
+  parseToken () {
+    return JSON.parse(atob(this.getToken().split('.')[1]))
+  },
+  getUsername () {
+    const jwt = this.parseToken()
+    return jwt['username']
+  },
+  getRoles () {
+    const jwt = this.parseToken()
+    return jwt['roles']
   }
 }
 

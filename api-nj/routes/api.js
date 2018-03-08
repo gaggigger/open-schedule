@@ -174,7 +174,9 @@ router.get('/attachments/:uuid', function(req, res) {
 router.get('/resources', function(req, res) {
     Recources.getAll(req.connectedUser.roles).then(rows => {
         res.send(
-            rows.map(row => JSON.parse(row.params))
+            rows.map(row => Object.assign({
+                id: row.id
+            }, JSON.parse(row.params)))
         );
     }).catch(err => UHandlers.handleError(res, 500, err));
 });

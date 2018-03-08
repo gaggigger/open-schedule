@@ -90,6 +90,21 @@ export default {
   #app .container {
     padding: 4em 1em;
   }
+  @media screen and (max-width: 470px) {
+    #app .container {
+      padding-top: 6em;
+    }
+  }
+  @media screen and (max-width: 240px) {
+    #app .container {
+      padding-top: 7em;
+    }
+  }
+  @media screen and (max-width: 160px) {
+    #app .container {
+      padding-top: 8em;
+    }
+  }
   a, .link {
     color: var(--first-color);
     text-decoration: none;
