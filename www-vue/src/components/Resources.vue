@@ -53,13 +53,10 @@ export default {
     min-height: 150px;
     font-size: 1.5em;
     margin : 0.5em;
-    text-align: center;
-    cursor: pointer;
-  }
-  .resources-container > .resource > a {
-    display: inline-block;
-    width: 100%;
-    height: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .resources-container > .resource:hover {
     background-color: var(--first-color);

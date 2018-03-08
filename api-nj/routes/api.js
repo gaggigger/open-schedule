@@ -181,6 +181,18 @@ router.get('/resources', function(req, res) {
     }).catch(err => UHandlers.handleError(res, 500, err));
 });
 
+router.get('/resources/:item', function(req, res) {
+    RecourcesFeatures.getFeatures(req.connectedUser.roles, req.params.item).then(rows => {
+        res.send({
+            features : rows.map(row => JSON.parse(row.params)),
+            grid : {
+                columns : '/resources/' + req.params.item + '/columns',
+                data : '/resources/' + req.params.item + '/data'
+            }
+        });
+    }).catch(err => UHandlers.handleError(res, 500, err));
+});
+
 router.get('/resources/:item/columns', function(req, res) {
     Recources.getGridColumns(req.connectedUser.roles, req.params.item).then(columns => {
         res.send(columns);
@@ -204,18 +216,6 @@ router.get('/resources/:item/data', function(req, res) {
         res.send(
             rows.map(row => JSON.parse(row.data))
         );
-    }).catch(err => UHandlers.handleError(res, 500, err));
-});
-
-router.get('/resources/:item', function(req, res) {
-    RecourcesFeatures.getFeatures(req.connectedUser.roles, req.params.item).then(rows => {
-        res.send({
-            features : rows.map(row => JSON.parse(row.params)),
-            grid : {
-                columns : '/resources/' + req.params.item + '/columns',
-                data : '/resources/' + req.params.item + '/data'
-            }
-        });
     }).catch(err => UHandlers.handleError(res, 500, err));
 });
 
