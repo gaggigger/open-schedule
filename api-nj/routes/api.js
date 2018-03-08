@@ -113,9 +113,7 @@ router.get('/menu', function(req, res) {
             });
         }
         res.send(menu);
-    }).catch(err => {
-        console.log(err);
-    });
+    }).catch(err => UHandlers.handleError(res, 500, err));
 });
 
 /**************************************************************
