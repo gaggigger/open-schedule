@@ -2,7 +2,7 @@
   <div class="item-container">
     <h3 class="toolbar-1">
       <span class="title">{{ item }}</span>
-      <span class="link" v-on:click="addItem">Add</span>
+      <span class="link" v-on:click="addItem()">Add</span>
     </h3>
     <div>
       <div v-for="dt in data"
@@ -48,8 +48,6 @@ export default {
       .then(([columns, data]) => {
         this.columns = columns.filter(item => item.grid_column)
         this.data = data
-        console.log(columns)
-        console.log(data)
       })
   },
   methods: {
