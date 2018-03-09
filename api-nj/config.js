@@ -3,10 +3,10 @@ module.exports = {
     'publicRoles' : ["PUBLIC", "ROLE_PUBLIC"],
     'database': {
         'dirver': 'mysql',
-        'host': '192.168.88.8',
+        'host': 'localhost',
         'database': 'openschedule',
-        'user': 'root',
-        'password': 'prec_dev',
+        'user': 'solofo',
+        'password': 'solofo',
         'port': 3306
     },
     'apiUrl': 'http://localhost:3000/api',

@@ -38,7 +38,11 @@ export default new Router({
       component: ResourcesItem
     }, {
       path: '/resources/:item/form',
-      name: 'resources_form',
+      name: 'resources_form_new',
+      component: ResourcesForm
+    }, {
+      path: '/resources/:item/form/:id',
+      name: 'resources_form_edit',
       component: ResourcesForm
     }
   ]

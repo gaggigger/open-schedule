@@ -1,18 +1,21 @@
 <template>
-  <div>
-    <div v-on:click="imgChoose"
-         v-on:dragenter="imgDragOver($event)"
-         v-on:dragover="imgDragOver($event)"
-         v-on:dragleave="imgDragLeave($event)"
-         v-on:drop="imgDrop($event)"
-         v-bind:class="{ 'img-container': true, highlighted : highlighted }"
-    >
-      <img v-bind:src="uri" />
-      <input type="file"
-             style="display: none;visibility: hidden;"
-             v-bind:guid="guid"
-             v-on:change="imgUpload($event)"
-      />
+  <div class="image" v-on:click="imgRemove">
+    <span class="close"></span>
+    <div class="img-container flex1">
+      <div v-on:click="imgChoose"
+           v-on:dragenter="imgDragOver($event)"
+           v-on:dragover="imgDragOver($event)"
+           v-on:dragleave="imgDragLeave($event)"
+           v-on:drop="imgDrop($event)"
+           v-bind:class="{ 'img-container': true, highlighted : highlighted }"
+      >
+        <img v-bind:src="uri" />
+        <input type="file"
+               style="display: none;visibility: hidden;"
+               v-bind:guid="guid"
+               v-on:change="imgUpload($event)"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -23,15 +26,17 @@ import Notification from '@/services/Notification'
 
 export default {
   name: 'dd-image',
+  props: [
+    'uri'
+  ],
   data () {
     return {
-      uri: '',
       guid: uuidv4(),
       highlighted: false
     }
   },
   created () {
-    console.log(this.guid)
+    this.path = 'openschedule/'
   },
   methods: {
     // Drag Droop upload
@@ -76,25 +81,43 @@ export default {
           alert('Image too large, size must be less than 1MB')
           return false
         }
-        FileStorage.upload(evt.target.result, 'openschedule/' + this.guid, {
+        FileStorage.upload(evt.target.result, this.path + this.guid, {
           contentType: f.type
         }).then(response => {
           this.uri = response.downloadURL
+          this.$emit('imgChange', response.downloadURL)
         }).catch(err => {
           Notification.error(err)
         })
       })
       reader.readAsArrayBuffer(f)
+    },
+    imgRemove: function () {
+      FileStorage.remove(this.path + this.guid)
+        .then(() => {
+          this.$emit('imgChange', '')
+        })
+        .catch(err => {
+          Notification.error(err.message)
+        })
     }
   }
 }
 </script>
 <style scoped>
-  div.img-container {
-    border: 1px solid var(--first-color);
+  div.image {
+    position: relative;
+  }
+  div.image > .close {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  div.img-container * {
     cursor: pointer;
-    min-width: 150px;
-    min-height: 150px;
+  }
+  div.img-container img {
+    width: 100%;
   }
   div.img-container.highlighted,
   div.img-container:hover {

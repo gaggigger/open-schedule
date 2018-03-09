@@ -286,8 +286,8 @@ export default {
   .toolbar-1 > *:not(:first-child) {
     margin: 0 0.5em;
   }
-  /** Arrow **/
-  .arrow {
+  /** Arrow && tools **/
+  .arrow, .close {
     display: inline-block;
     border: 1px solid var(--first-color);
     -webkit-border-radius: 50%;
@@ -301,7 +301,7 @@ export default {
     cursor: pointer;
     text-decoration: none;
   }
-  .arrow:hover {
+  .arrow:hover, .close:hover {
     text-decoration: none;
     background-color: var(--first-color);
   }
@@ -313,4 +313,31 @@ export default {
     content: "<";
     transform: rotate(-90deg);
   }
+  .close::before {
+    content: "X";
+  }
+  /** Flex **/
+  .flex1 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: baseline;
+    align-content: space-between;
+  }
+  .flex1 > * {
+    border: 1px solid var(--second-color);
+    flex-grow: 1;
+    flex-basis: 150px;
+    width: 100%;
+    min-height: 150px;
+    font-size: 1.5em;
+    margin : 0.5em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .flex1 > *:hover {
+    background-color: var(--first-color);
+  }
+
 </style>

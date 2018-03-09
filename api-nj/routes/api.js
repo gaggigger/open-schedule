@@ -193,22 +193,21 @@ router.get('/resources/:item', function(req, res) {
     }).catch(err => UHandlers.handleError(res, 500, err));
 });
 
-router.get('/resources/:item/columns', function(req, res) {
-    Recources.getGridColumns(req.connectedUser.roles, req.params.item).then(columns => {
-        res.send(columns);
-    }).catch(err => UHandlers.handleError(res, 500, err));
-});
-
 router.get('/resources/items/data', function(req, res) {
     const params =  req.query.ids ?
         { ids : req.query.ids.split(',').map(item => parseInt(item)) } :
         { children : req.query.children.split(',').map(item => parseInt(item)) };
-
     Recources.getData(req.connectedUser.roles, params).then(rows => {
         res.send(
             rows.map(row => JSON.parse(row.data))
         );
     }).catch(err => UHandlers.handleError(res, 500, err));
+});
+
+router.put('/resources/:item/data', function(req, res) {
+    RecourcesFeatures.createItems(req.connectedUser.roles, req.params.item, req.body.data).then(rows => {
+        res.send(rows);
+    }).catch(err => UHandlers.handleError(res, 403, err));
 });
 
 router.get('/resources/:item/data', function(req, res) {
@@ -219,16 +218,16 @@ router.get('/resources/:item/data', function(req, res) {
     }).catch(err => UHandlers.handleError(res, 500, err));
 });
 
+router.get('/resources/:item/columns', function(req, res) {
+    Recources.getGridColumns(req.connectedUser.roles, req.params.item).then(columns => {
+        res.send(columns);
+    }).catch(err => UHandlers.handleError(res, 500, err));
+});
+
 router.get('/resources/:item/features/info', function(req, res) {
     RecourcesFeatures.getFeaturesInfo(req.connectedUser.roles, req.params.item).then(rows => {
         res.send(rows);
     }).catch(err => UHandlers.handleError(res, 500, err));
-});
-
-router.put('/resources/:item/features/info', function(req, res) {
-    RecourcesFeatures.createItems(req.connectedUser.roles, req.params.item, req.body.data).then(rows => {
-        res.send(rows);
-    }).catch(err => UHandlers.handleError(res, 403, err));
 });
 
 router.get('/resources/:item/features/calendar', function(req, res) {
