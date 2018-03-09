@@ -31,9 +31,6 @@ export default {
         console.log(response)
         this.resources = response
       })
-      .catch(error => {
-        console.error(error)
-      })
   }
 }
 </script>

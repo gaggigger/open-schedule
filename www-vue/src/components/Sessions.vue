@@ -76,6 +76,7 @@ import moment from 'moment'
 import New from './Sessions/New'
 import PeriodService from '@/services/Period'
 import Period from './Sessions/Period'
+import Notification from '@/services/Notification'
 
 export default {
   name: 'Session',
@@ -97,7 +98,7 @@ export default {
     loadSession () {
       PeriodService.loadPeriod()
         .then(response => { this.sessions = response })
-        .catch(error => { console.error(error) })
+        .catch(error => { Notification.error(error) })
     },
     addSession (session = null) {
       this.$refs.sessionNew.open(Object.assign({}, session))

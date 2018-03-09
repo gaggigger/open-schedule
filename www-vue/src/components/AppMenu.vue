@@ -31,9 +31,6 @@ export default {
       .then(response => {
         this.menus = response
       })
-      .catch(error => {
-        console.error(error)
-      })
   },
   methods: {
     logout () {

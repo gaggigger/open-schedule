@@ -61,8 +61,6 @@ export default {
     add () {
       Http.request('/sessions', 'POST', this.session).then(response => {
         this.$emit('sessionsAdded', response)
-      }).catch(error => {
-        console.error(error)
       })
     }
   }

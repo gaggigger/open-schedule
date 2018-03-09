@@ -1,5 +1,6 @@
-import Auth from '../services/Auth'
+import Auth from '@/services/Auth'
 import Config from '../../../api-nj/config'
+import Notification from '@/services/Notification'
 
 class Http {
   constructor () {
@@ -33,7 +34,7 @@ class Http {
         return response
       })
       .catch(err => {
-        if (err) window.AppVue.$snotify.error(err)
+        if (err) Notification.error(err)
       })
   }
 }

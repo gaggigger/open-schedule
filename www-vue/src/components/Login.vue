@@ -38,6 +38,7 @@
 <script>
 import Http from '../services/Http'
 import Auth from '@/services/Auth'
+import Notification from '@/services/Notification'
 
 export default {
   name: 'Login',
@@ -53,7 +54,6 @@ export default {
   created () {
     if (Auth.isLogged()) {
       this.$router.push('/')
-      window.location.reload()
     }
   },
   mounted () {
@@ -68,11 +68,10 @@ export default {
         password: this.m_password
       }).then(response => {
         if (response !== undefined) {
-          this.$router.push('/')
           window.location.reload()
         }
       }).catch(error => {
-        console.error(error)
+        Notification.error(error)
       })
     }
   }

@@ -115,6 +115,20 @@ export default {
     text-decoration: underline;
   }
   /** Form **/
+  fieldset {
+    border: 1px solid var(--first-color);
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    margin: 1em 0;
+    padding: 2em 1em;
+    -moz-box-shadow:    inset 0px 0px 8px 2px var(--second-color);
+    -webkit-box-shadow: inset 0px 0px 8px 2px var(--second-color);
+    box-shadow:         inset 0px 0px 8px 2px var(--second-color);
+  }
+  fieldset > legend {
+    font-weight: bold;
+  }
   input{
     padding: 0.5em;
     height: 2em;
@@ -127,6 +141,8 @@ export default {
     background: var(--second-color);
   }
   input[type]{
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
     border-radius: 5px;
   }
   button {
