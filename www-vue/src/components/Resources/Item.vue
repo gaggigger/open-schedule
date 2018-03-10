@@ -1,7 +1,10 @@
 <template>
   <div class="item-container">
     <h3 class="toolbar-1">
-      <span class="title">{{ item }}</span>
+      <span class="title">
+        <span class="link" v-on:click="$router.go(-1)">🔙</span>
+        {{ item }}
+      </span>
       <span class="link" v-on:click="addItem()">Add</span>
     </h3>
     <div>

@@ -1,7 +1,10 @@
 <template>
   <div>
     <h3 class="toolbar-1">
-      <span class="title">{{ item }}</span>
+      <span class="title">
+        <span class="link" v-on:click="$router.go(-1)">🔙</span>
+        {{ item }}
+      </span>
       <span class="save-progress" v-if="saving">Autosave...</span>
       <span class="save-sucess" v-else>✔ Autosave</span>
     </h3>
@@ -14,10 +17,18 @@
         v-bind:key="field.name"
         v-for="field in columns">
         {{ field.label }} (<i>{{ field.type }}</i>)
+        <span class="error" v-if="field.mandatory">*</span>
         <div v-if="field.type == 'picture'">
           <dd-image
             v-bind:uri="itemData[field.name]"
-            v-on:imgChange="changeImage(itemData, field.name, ...arguments)"></dd-image>
+            v-on:imgChange="changeItem(itemData, field.name, ...arguments)"></dd-image>
+        </div>
+        <div v-else-if="field.type == 'choicelist'" class="choicelist">
+          <choice-list
+            v-bind:selection="itemData[field.name]"
+            v-bind:clname="field.choicelist_item"
+            v-on:clChange="changeItem(itemData, field.name, ...arguments)"
+          ></choice-list>
         </div>
         <div v-else>
           <input v-bind:type="field.type"
@@ -31,12 +42,14 @@
 
 <script>
 import Http from '@/services/Http'
-import DdImage from '@/components/DdImage'
+import DdImage from '@/components/Form/DdImage'
+import ChoiceList from '@/components/Form/ChoiceList'
 
 export default {
   name: 'ResourcesForm',
   components: {
-    DdImage
+    DdImage,
+    ChoiceList
   },
   data () {
     return {
@@ -67,7 +80,7 @@ export default {
       })
   },
   methods: {
-    changeImage (item, name, response) {
+    changeItem (item, name, response) {
       item[name] = response
       this.autoSave()
     },
@@ -91,6 +104,9 @@ export default {
 <style scoped>
   input {
     width: calc(100% - 2em);
+  }
+  .choicelist {
+    padding-left: 1em;
   }
   .save-progress {
 

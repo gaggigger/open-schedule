@@ -140,11 +140,11 @@ router.delete('/sessions', function(req, res) {
 });
 
 router.get('/choicelists', function(req, res) {
-    Choicelists.get(req.connectedUser, req.params.uuid).then(rows => {
-        res.send(rows);
+    Choicelists.get(req.connectedUser, req.query.name).then(rows => {
+        if(rows.length === 1) res.send(rows[0]);
+        else res.send(rows);
     }).catch(err => UHandlers.handleError(res, 500, err));
 });
-
 
 router.put('/attachments', function(req, res) {
     let body = '';
