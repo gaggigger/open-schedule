@@ -129,18 +129,18 @@ export default {
   fieldset > legend {
     font-weight: bold;
   }
-  input{
+  input {
     padding: 0.5em;
     height: 2em;
     border: 1px solid var(--first-color);
     background: #fafafa;
     transition: 0.2s ease-in-out;
   }
-  input:focus{
+  input:focus {
     outline: 0;
     background: var(--second-color);
   }
-  input[type]{
+  input[type] {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
@@ -183,7 +183,7 @@ export default {
     box-shadow: 0px 0px 8px 2px var(--second-color);
   }
   .sheet::before,
-  .sheet::after{
+  .sheet::after {
     content: "";
     position: absolute;
     width: 100%;
@@ -198,7 +198,7 @@ export default {
     border: 1px solid var(--first-color);
     box-shadow: 0px 0px 8px 2px var(--second-color);
   }
-  .sheet::after{
+  .sheet::after {
     top: 5px;
     z-index: -2;
     -webkit-transform: rotateZ(-2deg);
@@ -339,5 +339,4 @@ export default {
   .flex1 > *:hover {
     background-color: var(--first-color);
   }
-
 </style>

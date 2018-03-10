@@ -2,8 +2,8 @@
   <div>
     <h3 class="toolbar-1">
       <span class="title">{{ item }}</span>
-      <span v-if="saving">Autosave...</span>
-      <span v-else>✔ Autosave</span>
+      <span class="save-progress" v-if="saving">Autosave...</span>
+      <span class="save-sucess" v-else>✔ Autosave</span>
     </h3>
     <fieldset
       v-bind:key="group"
@@ -72,20 +72,18 @@ export default {
       this.autoSave()
     },
     autoSave () {
-      if (this.saving || this.dataPath === null) {
-        if (this.tOut) window.clearTimeout(this.tOut)
-        this.tOut = window.setTimeout(() => {
-          this.autoSave()
-        }, 500)
-        return
-      }
-      this.saving = true
-      Http.request(this.dataPath, 'PUT', {
-        data: this.itemData
-      }).then(response => {
-        this.saving = false
-        this.itemData = Object.assign(response, this.itemData)
-      })
+      if (this.tOut) window.clearTimeout(this.tOut)
+      this.tOut = window.setTimeout(() => {
+        this.saving = true
+        Http.request(this.dataPath, 'PUT', {
+          data: this.itemData
+        }).then(response => {
+          this.saving = false
+          this.itemData = Object.assign(response, this.itemData)
+        }).catch(() => {
+          this.saving = true
+        })
+      }, 1000)
     }
   }
 }
@@ -93,5 +91,11 @@ export default {
 <style scoped>
   input {
     width: calc(100% - 2em);
+  }
+  .save-progress {
+
+  }
+  .save-sucess {
+    color: var(--ok-color);
   }
 </style>
