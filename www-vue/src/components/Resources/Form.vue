@@ -1,10 +1,6 @@
 <template>
   <div>
     <h3 class="toolbar-1">
-      <span class="title">
-        <span class="link" v-on:click="$router.go(-1)">🔙</span>
-        {{ item }}
-      </span>
       <span class="save-progress" v-if="saving">Autosave...</span>
       <span class="save-sucess" v-else>✔ Autosave</span>
     </h3>

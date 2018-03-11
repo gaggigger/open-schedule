@@ -55,8 +55,8 @@ export default {
   },
   methods: {
     addItem (id = null) {
-      if (id === null) this.$router.push('/resources/' + this.item + '/form')
-      else this.$router.push('/resources/' + this.item + '/form/' + id)
+      if (id === null) this.$router.push('/resources/' + this.item + '/detail')
+      else this.$router.push('/resources/' + this.item + '/detail/' + id)
     }
   }
 }

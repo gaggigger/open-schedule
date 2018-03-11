@@ -5,7 +5,8 @@ import Login from '@/components/Login'
 import Logout from '@/components/Logout'
 import Sessions from '@/components/Sessions'
 import Resources from '@/components/Resources'
-import ResourcesItem from '@/components/Resources/Item'
+import ResourcesItemsList from '@/components/Resources/ItemsList'
+import ResourcesItemDetail from '@/components/Resources/ItemDetail'
 import ResourcesForm from '@/components/Resources/Form'
 
 Vue.use(Router)
@@ -35,13 +36,13 @@ export default new Router({
     }, {
       path: '/resources/:item',
       name: 'resources_item',
-      component: ResourcesItem
+      component: ResourcesItemsList
     }, {
-      path: '/resources/:item/form',
-      name: 'resources_form_new',
-      component: ResourcesForm
+      path: '/resources/:item/detail/:id?',
+      name: 'resources_detail',
+      component: ResourcesItemDetail
     }, {
-      path: '/resources/:item/form/:id',
+      path: '/resources/:item/form/:id?',
       name: 'resources_form_edit',
       component: ResourcesForm
     }
