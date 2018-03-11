@@ -7,9 +7,9 @@
            v-on:dragover="imgDragOver($event)"
            v-on:dragleave="imgDragLeave($event)"
            v-on:drop="imgDrop($event)"
-           v-bind:class="{ 'img-container': true, highlighted : highlighted }"
+           v-bind:class="{ 'img-container': true, highlighted: highlighted, loading1: loading }"
       >
-        <img v-bind:src="uri" />
+        <img v-bind:src="imgUri" />
         <input type="file"
                style="display: none;visibility: hidden;"
                v-bind:guid="guid"
@@ -32,7 +32,9 @@ export default {
   data () {
     return {
       guid: uuidv4(),
-      highlighted: false
+      imgUri: this.uri,
+      highlighted: false,
+      loading: false
     }
   },
   created () {
@@ -81,12 +83,15 @@ export default {
           alert('Image too large, size must be less than 1MB')
           return false
         }
+        this.loading = true
         FileStorage.upload(evt.target.result, this.path + this.guid, {
           contentType: f.type
         }).then(response => {
-          this.uri = response.downloadURL
+          this.loading = false
+          this.imgUri = response.downloadURL
           this.$emit('imgChange', response.downloadURL)
         }).catch(err => {
+          this.loading = false
           Notification.error(err)
         })
       })

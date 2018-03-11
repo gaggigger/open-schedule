@@ -11,7 +11,8 @@ class Http {
     const headers = {
       method: method,
       headers: {
-        'Accept': 'application/json, application/xml, text/plain, text/html, *.*'
+        'Accept': 'application/json, application/xml, text/plain, text/html, *.*',
+        'Accept-Charset': 'utf-8'
       },
       mode: 'cors',
       cache: 'default'

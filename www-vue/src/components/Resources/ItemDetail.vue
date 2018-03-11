@@ -12,6 +12,7 @@
              v-bind:key="feature.name"
       >
         <item-form v-if="feature.component === 'app-resource-info'"></item-form>
+        <item-calendar v-if="feature.component === 'app-resource-calendar'"></item-calendar>
       </v-tab>
     </vue-tabs>
   </div>
@@ -20,6 +21,7 @@
 <script>
 import {VueTabs, VTab} from 'vue-nav-tabs'
 import ItemForm from '@/components/Resources/Form'
+import ItemCalendar from '@/components/Resources/Calendar'
 import Http from '@/services/Http'
 // import 'vue-nav-tabs/themes/vue-tabs.css'
 
@@ -28,7 +30,8 @@ export default {
   components: {
     VueTabs,
     VTab,
-    ItemForm
+    ItemForm,
+    ItemCalendar
   },
   data () {
     return {

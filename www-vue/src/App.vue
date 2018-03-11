@@ -237,6 +237,22 @@ export default {
       transform: translateY(0);
     }
   }
+  @-webkit-keyframes lds-dual-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes lds-dual-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
   .fadeInUp {
     -webkit-animation-name: fadeInUp;
     animation-name: fadeInUp;
@@ -338,5 +354,20 @@ export default {
   }
   .flex1 > *:hover {
     background-color: var(--first-color);
+  }
+  /** Loading **/
+  .loading1::after {
+    content: " ";
+    display: block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border-width: 6px;
+    border-style: solid;
+    border-color: var(--first-color) transparent var(--first-color) transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+    position: absolute;
+    top: calc(50% - 25px);
+    left: calc(50% - 25px);
   }
 </style>

@@ -13,6 +13,7 @@ const User = require('../src/user/user');
 const UHandlers = require('../src/utils/handlers');
 const bodyParser = require('body-parser');
 
+const Modules = require('../src/modules/modules');
 
 router.use(ApiMiddlewares.token);
 
@@ -287,6 +288,13 @@ router.get('/resources/:item/features/calendar', function(req, res) {
             start: '2017-11-28'
         }
     ]);
+});
+
+router.put('/modules/:item/data', function(req, res) {
+    Modules.createItems(req.connectedUser.roles, req.params.item, req.body.data).then(rows => {
+        res.send(rows);
+    }).catch(err => UHandlers.handleError(res, 403, err));
+
 });
 
 module.exports = router;
