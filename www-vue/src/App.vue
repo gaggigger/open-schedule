@@ -55,7 +55,7 @@ export default {
   :root {
     --first-color: #818181;
     --second-color: lightgray;
-    --third-color: #c1c1c1;
+      --third-color: #c1c1c1;
 
     --maintext-color: black;
 
@@ -139,6 +139,9 @@ export default {
   input:focus {
     outline: 0;
     background: var(--second-color);
+  }
+  input:invalid, textarea:invalid {
+    border: 1px solid var(--error-color);
   }
   input[type] {
     -webkit-border-radius: 5px;
