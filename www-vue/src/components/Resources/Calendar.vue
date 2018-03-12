@@ -13,7 +13,7 @@
         </div>
         <div>
           <label>Title</label>
-          <input type="text" v-model="modal.title" required autofocus />
+          <input type="text" class="calendar-autofocus" v-model="modal.title" required autofocus />
         </div>
         <div>
           <label>Description</label>
@@ -91,16 +91,19 @@ export default {
   created () {
     // console.log(1)
   },
+  watch: {
+    showModal (val) {
+      if (val) window.setTimeout(() => document.querySelector('.calendar-autofocus').focus(), 100)
+    }
+  },
   methods: {
     saveEvent () {
       // console.log('dayClick', date, jsEvent, view)
       Http.request('/modules/calendar/data', 'PUT', {
         data: this.modal
+      }).then(response => {
+        this.showModal = false
       })
-        .then(response => {
-          console.log(response)
-          this.showModal = false
-        })
     }
   }
 }

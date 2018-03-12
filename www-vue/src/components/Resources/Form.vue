@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="formitem-container">
     <h3 class="toolbar-1">
       <span class="save-progress" v-if="saving">Autosave...</span>
       <span class="save-sucess" v-else>✔ Autosave</span>
@@ -81,6 +81,14 @@ export default {
       this.autoSave()
     },
     autoSave () {
+      try {
+        for (const item of document.querySelectorAll('.formitem-container input, .formitem-container textarea')) {
+          if (!item.validity.valid) return
+        }
+      } catch (e) {
+        console.error(e)
+      }
+
       if (this.tOut) window.clearTimeout(this.tOut)
       this.tOut = window.setTimeout(() => {
         this.saving = true

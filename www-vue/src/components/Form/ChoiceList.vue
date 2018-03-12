@@ -30,8 +30,8 @@ export default {
     }
   },
   created () {
-    if (this.selection === undefined || this.selection === '') this.selection = []
-    this.checkedItems = this.selection.slice(0)
+    if (this.selection === undefined || this.selection === '') this.checkedItems = []
+    else this.checkedItems = this.selection.slice(0)
     Http.request('/choicelists?name=' + this.clname, 'GET')
       .then(response => {
         this.items = response.items
