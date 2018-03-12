@@ -58,14 +58,19 @@ export default {
   }
 
   .modal-container {
-    width: 300px;
+    width: 50vw;
     margin: 0px auto;
-    padding: 20px 30px;
+    padding: 1em 1.5em;
     background-color: #fff;
     border-radius: 2px;
     box-shadow: 0 2px 8px var(--third-color);
     transition: all .3s ease;
     font-family: Helvetica, Arial, sans-serif;
+  }
+  @media screen and (max-width: 1028px) {
+    .modal-container {
+      width: 80vw;
+    }
   }
 
   .modal-header h3 {

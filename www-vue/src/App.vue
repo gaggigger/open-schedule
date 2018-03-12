@@ -373,4 +373,8 @@ export default {
     top: calc(50% - 25px);
     left: calc(50% - 25px);
   }
+  /** Calendar **/
+  div.fc-row.fc-widget-header > table > thead th * {
+    font-size: 0.8em;
+  }
 </style>
