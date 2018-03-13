@@ -2,7 +2,7 @@
   <div>
     <modal v-if="showModal" @ok="saveEvent" @cancel="showModal = false">
       <h3 slot="header">Edit event</h3>
-      <div slot="body">
+      <div slot="body" class="event-form">
         <div>
           <label>Date start</label>
           <input type="datetime-local" v-model="modal.start" required />
@@ -68,17 +68,18 @@ export default {
         events: (start, end, timezone, callback) => {
           // console.log(this.item, this.id, start, end, timezone, callback)
           this.getItems().then(response => {
-            console.log(response)
             callback(response)
           })
         },
         eventClick: (event, jsEvent, view) => {
           // console.log('eventClick', event, jsEvent, view)
+          this.newEvent(event.start, event.end)
+          this.modal.uuid = event.uuid
+          this.modal.title = event.title
+          this.modal.description = event.description
         },
         dayClick: (date, jsEvent, view) => {
-          this.showModal = true
-          this.modal.start = date.format('YYYY-MM-DD[T]HH:mm')
-          this.modal.end = date.add(1, 'hours').format('YYYY-MM-DD[T]HH:mm')
+          this.newEvent(date, date.add(1, 'hours'))
         },
         eventDragStop: (event, jsEvent, ui, view) => {
           // console.log('dragStop', event, jsEvent, ui, view)
@@ -90,10 +91,7 @@ export default {
           this.saveEvent(event)
         },
         select: (start, end, jsEvent, view) => {
-          this.showModal = true
-          this.modal.start = start.format('YYYY-MM-DD[T]HH:mm')
-          this.modal.end = end.format('YYYY-MM-DD[T]HH:mm')
-          // console.log(start, end, jsEvent, view)
+          this.newEvent(start, end)
         }
       }
     }
@@ -101,15 +99,35 @@ export default {
   watch: {
     showModal (val) {
       if (val) window.setTimeout(() => document.querySelector('.calendar-autofocus').focus(), 100)
+      else {
+        this.modal = {}
+      }
     }
   },
   methods: {
     getItems () {
       return Http.request('/modules/calendar/data', 'GET')
     },
+    newEvent (start, end) {
+      console.log(start, end)
+      this.showModal = true
+      this.modal.uuid = null
 
+      if (start) this.modal.start = start.format('YYYY-MM-DD[T]HH:mm')
+      else this.modal.start = null
+
+      if (end) this.modal.end = end.format('YYYY-MM-DD[T]HH:mm')
+      else this.modal.end = null
+    },
     saveEvent (event = null) {
-      let uuid = null
+      try {
+        for (const item of document.querySelectorAll('.event-form input, .event-form textarea')) {
+          if (!item.validity.valid) return
+        }
+      } catch (e) {
+        console.error(e)
+      }
+      let uuid = this.modal.uuid
       if (event !== null) {
         uuid = event.uuid
         this.modal.start = event.start.format('YYYY-MM-DD[T]HH:mm')
