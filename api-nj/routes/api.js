@@ -290,6 +290,14 @@ router.get('/resources/:item/features/calendar', function(req, res) {
     ]);
 });
 
+router.get('/modules/:item/data', function(req, res) {
+    Modules.getItems(req.connectedUser.roles, req.params.item).then(rows => {
+        res.send(
+            rows.map(row => JSON.parse(row.data))
+        );
+    }).catch(err => UHandlers.handleError(res, 403, err));
+});
+
 router.put('/modules/:item/data', function(req, res) {
     Modules.createItems(req.connectedUser.roles, req.params.item, req.body.data).then(rows => {
         res.send(rows);
