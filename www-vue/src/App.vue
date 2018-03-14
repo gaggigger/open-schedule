@@ -8,6 +8,7 @@
     <div class="offline-message" v-if="!online">
       ⚠️ You lost internet connection !
     </div>
+    <div ref="loadingfooter" class="loading-footer" v-if="footerLoading"></div>
     <vue-snotify></vue-snotify>
   </div>
 </template>
@@ -18,6 +19,9 @@ import AppMenu from './components/AppMenu.vue'
 
 export default {
   name: 'App',
+  props: [
+    'footerLoading'
+  ],
   components: {
     AppMenu
   },
@@ -359,6 +363,15 @@ export default {
     background-color: var(--first-color);
   }
   /** Loading **/
+  .loading-footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+  }
+  .loading-footer::after {
+    content: 'Loading...';
+
+  }
   .loading1::after {
     content: " ";
     display: block;

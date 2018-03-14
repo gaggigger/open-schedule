@@ -19,7 +19,12 @@ window.AppVue = new Vue({
   el: '#app',
   router,
   components: { App },
-  template: '<App/>'
+  data () {
+    return {
+      footerLoading: false
+    }
+  },
+  template: '<App v-bind:footerLoading="footerLoading" />'
 })
 
 Vue.filter('dateToLocale', function (value) {

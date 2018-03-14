@@ -66,13 +66,11 @@ export default {
         slotLabelFormat: 'H(:mm)',
 
         events: (start, end, timezone, callback) => {
-          // console.log(this.item, this.id, start, end, timezone, callback)
           this.getItems().then(response => {
             callback(response)
           })
         },
         eventClick: (event, jsEvent, view) => {
-          // console.log('eventClick', event, jsEvent, view)
           this.newEvent(event.start, event.end)
           this.modal.uuid = event.uuid
           this.modal.title = event.title
@@ -109,7 +107,6 @@ export default {
       return Http.request('/modules/calendar/data', 'GET')
     },
     newEvent (start, end) {
-      console.log(start, end)
       this.showModal = true
       this.modal.uuid = null
 
@@ -134,7 +131,6 @@ export default {
         this.modal.end = event.end.format('YYYY-MM-DD[T]HH:mm')
       }
 
-      // console.log('dayClick', date, jsEvent, view)
       Http.request('/modules/calendar/data', 'PUT', {
         data: {
           id: this.id,

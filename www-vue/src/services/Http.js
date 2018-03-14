@@ -1,6 +1,7 @@
 import Auth from '@/services/Auth'
 import Config from '../../../api-nj/config'
 import Notification from '@/services/Notification'
+import Loading from '@/services/Loading'
 
 class Http {
   constructor () {
@@ -25,8 +26,10 @@ class Http {
       headers.body = JSON.stringify(parameters)
       headers.headers['Content-Type'] = 'application/json; charset=utf-8'
     }
+    Loading.showHttpLoading()
     return fetch(this.baseUrl + url, headers)
       .then(response => {
+        Loading.hideHttpLoading()
         return response.json()
       })
       .then(response => {
@@ -35,6 +38,7 @@ class Http {
         return response
       })
       .catch(err => {
+        Loading.hideHttpLoading()
         if (err) Notification.error(err)
       })
   }
