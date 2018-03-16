@@ -49,6 +49,7 @@ export default {
           center: 'title',
           right: 'month,agendaWeek,agendaDay' // listWeek
         },
+        height: 'auto',
         navLinks: true, // can click day/week names to navigate views
         defaultView: 'agendaWeek',
 

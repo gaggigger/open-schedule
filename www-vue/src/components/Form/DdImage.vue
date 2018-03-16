@@ -122,7 +122,7 @@ export default {
     cursor: pointer;
   }
   div.img-container img {
-    width: 100%;
+    max-width: 100%;
   }
   div.img-container.highlighted,
   div.img-container:hover {

@@ -2,6 +2,7 @@ import Auth from '@/services/Auth'
 import Config from '../../../api-nj/config'
 import Notification from '@/services/Notification'
 // import Loading from '@/services/Loading'
+import Loading from '@/components/Loading'
 
 const Http = function () {
   const baseUrl = Config.apiUrl
@@ -28,10 +29,10 @@ const Http = function () {
         h.body = JSON.stringify(parameters)
         h.headers['Content-Type'] = 'application/json; charset=utf-8'
       }
-      if (window.AppVue) window.AppVue.$children[0].$refs['app-loading'].increase()
+      Loading.methods.increase()
       return fetch(baseUrl + url, h)
         .then(response => {
-          if (window.AppVue) window.AppVue.$children[0].$refs['app-loading'].decrease()
+          Loading.methods.decrease()
           return response.json()
         })
         .then(response => {
@@ -40,7 +41,7 @@ const Http = function () {
           return response
         })
         .catch(err => {
-          if (window.AppVue) window.AppVue.$children[0].$refs['app-loading'].decrease()
+          Loading.methods.decrease()
           if (err) Notification.error(err)
         })
     }

@@ -14,7 +14,10 @@
         v-for="field in columns">
         {{ field.label }} (<i>{{ field.type }}</i>)
         <span class="error" v-if="field.mandatory">*</span>
-        <div v-if="field.type == 'picture'">
+        <div v-if="field.type == 'resources_items'">
+          <resource-item v-bind:columns="columns"></resource-item>
+        </div>
+        <div v-else-if="field.type == 'picture'">
           <dd-image
             v-bind:uri="itemData[field.name]"
             v-on:imgChange="changeItem(itemData, field.name, ...arguments)"></dd-image>
@@ -40,12 +43,14 @@
 import Http from '@/services/Http'
 import DdImage from '@/components/Form/DdImage'
 import ChoiceList from '@/components/Form/ChoiceList'
+import ResourceItem from '@/components/Form/ResourceItem'
 
 export default {
   name: 'ResourcesForm',
   components: {
     DdImage,
-    ChoiceList
+    ChoiceList,
+    ResourceItem
   },
   data () {
     return {

@@ -14,10 +14,24 @@ export default {
   },
   methods: {
     increase () {
+      try {
+        window.AppVue.$children[0].$refs['app-loading']._increase()
+      } catch (e) {
+        // raf
+      }
+    },
+    decrease () {
+      try {
+        window.AppVue.$children[0].$refs['app-loading']._decrease()
+      } catch (e) {
+        // raf
+      }
+    },
+    _increase () {
       let i = this.HttpCounter
       this.HttpCounter = Math.max(0, ++i)
     },
-    decrease () {
+    _decrease () {
       let i = this.HttpCounter
       this.HttpCounter = Math.max(0, --i)
     }
