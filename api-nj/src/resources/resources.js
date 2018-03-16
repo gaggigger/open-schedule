@@ -42,6 +42,13 @@ class Recources {
         }, params));
     }
 
+    setLnk(roles, params) {
+        return Db.select('set_resources_lnk', Object.assign({
+            roles: roles,
+            sessions: 1
+        }, params));
+    }
+
     getSessions(roles, params = {}) {
         return Db.select('get_sessions', {
             roles: roles,

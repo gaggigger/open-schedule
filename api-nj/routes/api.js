@@ -219,11 +219,8 @@ router.get('/resources/:item/data', function(req, res) {
     }).catch(err => UHandlers.handleError(res, 500, err));
 });
 
-router.get('/resources/:item/lnk', function(req, res) {
-    const params =  req.query.parent ?
-        { parent : parseInt(req.query.parent) } :
-        { child : parseInt(req.query.child) };
-    Recources.getLnk(req.connectedUser.roles, params).then(rows => {
+router.post('/resources/:item/lnk', function(req, res) {
+    Recources.setLnk(req.connectedUser.roles, req.body).then(rows => {
         res.send(
             rows.map(row => JSON.parse(row.data))
         );

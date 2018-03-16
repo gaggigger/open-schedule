@@ -15,7 +15,10 @@
         {{ field.label }} (<i>{{ field.type }}</i>)
         <span class="error" v-if="field.mandatory">*</span>
         <div v-if="field.type == 'resources_items'">
-          <resource-item v-bind:resource="id" v-bind:field="field"></resource-item>
+          <resource-item v-bind:resource="id"
+                         v-bind:field="field"
+                         v-bind:id="id"
+          ></resource-item>
         </div>
         <div v-else-if="field.type == 'picture'">
           <dd-image

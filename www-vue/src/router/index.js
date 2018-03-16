@@ -5,7 +5,7 @@ import Login from '@/components/Login'
 import Logout from '@/components/Logout'
 import Sessions from '@/components/Sessions'
 import Resources from '@/components/Resources'
-import ResourcesItemsList from '@/components/Resources/ItemsList'
+import ResourcesManageItem from '@/components/Resources/ManageItem'
 import ResourcesItemDetail from '@/components/Resources/ItemDetail'
 import ResourcesForm from '@/components/Resources/Form'
 
@@ -36,7 +36,7 @@ export default new Router({
     }, {
       path: '/resources/:item',
       name: 'resources_item',
-      component: ResourcesItemsList
+      component: ResourcesManageItem
     }, {
       path: '/resources/:item/detail/:id?',
       name: 'resources_detail',
