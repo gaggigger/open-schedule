@@ -21,10 +21,10 @@ window.AppVue = new Vue({
   components: { App },
   data () {
     return {
-      footerLoading: false
+
     }
   },
-  template: '<App v-bind:footerLoading="footerLoading" />'
+  template: '<App />'
 })
 
 Vue.filter('dateToLocale', function (value) {

@@ -3,12 +3,15 @@ const HttpCounter = {
 }
 
 class Loading {
+  countTasks () {
+    return HttpCounter.count
+  }
   showHttpLoading () {
     ++HttpCounter.count
-    if (window.AppVue) window.AppVue.footerLoading = true
+    // if (window.AppVue) window.AppVue.footerLoading = true
   }
   hideHttpLoading () {
-    if (--HttpCounter.count <= 0 && window.AppVue) window.AppVue.footerLoading = false
+    // if (--HttpCounter.count <= 0 && window.AppVue) window.AppVue.footerLoading = false
   }
 }
 

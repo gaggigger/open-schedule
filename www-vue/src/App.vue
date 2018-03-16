@@ -8,22 +8,20 @@
     <div class="offline-message" v-if="!online">
       ⚠️ You lost internet connection !
     </div>
-    <div ref="loadingfooter" class="loading-footer" v-if="footerLoading"></div>
+    <loading ref="app-loading"></loading>
     <vue-snotify></vue-snotify>
   </div>
 </template>
 
 <script>
 import AppMenu from './components/AppMenu.vue'
+import Loading from './components/Loading.vue'
 // import Firebase from 'firebase'
 
 export default {
   name: 'App',
-  props: [
-    'footerLoading'
-  ],
   components: {
-    AppMenu
+    AppMenu, Loading
   },
   created () {
     /*
@@ -260,6 +258,28 @@ export default {
       transform: rotate(360deg);
     }
   }
+  @-webkit-keyframes Gradient {
+    0% {
+      background-position: 0% 50%
+    }
+    50% {
+      background-position: 100% 50%
+    }
+    100% {
+      background-position: 0% 50%
+    }
+  }
+  @keyframes spin {
+    0% {
+      background-position: 0% 50%
+    }
+    50% {
+      background-position: 100% 50%
+    }
+    100% {
+      background-position: 0% 50%
+    }
+  }
   .fadeInUp {
     -webkit-animation-name: fadeInUp;
     animation-name: fadeInUp;
@@ -363,15 +383,6 @@ export default {
     background-color: var(--first-color);
   }
   /** Loading **/
-  .loading-footer {
-    position: fixed;
-    bottom: 0;
-    right: 0;
-  }
-  .loading-footer::after {
-    content: 'Loading...';
-
-  }
   .loading1::after {
     content: " ";
     display: block;
