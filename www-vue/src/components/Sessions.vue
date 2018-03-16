@@ -1,5 +1,17 @@
 <template>
   <div>
+    <modal v-if="showModal" @cancel="showModal = false">
+      <div slot="header">
+        <h4>Add new session</h4>
+      </div>
+      <div slot="body" class="event-form">
+        <new v-bind:session="editedSession"
+             v-on:added="handleAddSession"
+             v-on:closed="showModal = false"
+        ></new>
+      </div>
+      <div slot="footer"></div>
+    </modal>
     <h3 class="toolbar-1">
       <span class="title">📅 SESSIONS</span>
       <span class="link" v-on:click="switchEdit(false)" v-if="edit">Cancel</span>
@@ -13,9 +25,6 @@
                   }"
             v-on:click="display_period = !display_period"></span>
     </h3>
-    <new ref="sessionNew"
-         v-on:sessionsAdded="handleAddSession"
-    ></new>
     <div v-bind:key="session.id"
          v-for="session in sessions"
          class="main-container shadow"
@@ -77,18 +86,22 @@ import New from './Sessions/New'
 import PeriodService from '@/services/Period'
 import Period from './Sessions/Period'
 import Notification from '@/services/Notification'
+import Modal from '@/components/Form/Modal'
 
 export default {
   name: 'Session',
   components: {
     New,
-    Period
+    Period,
+    Modal
   },
   data () {
     return {
+      showModal: false,
       edit: false,
       display_period: false,
-      sessions: []
+      sessions: [],
+      editedSession: null
     }
   },
   mounted () {
@@ -101,7 +114,8 @@ export default {
         .catch(error => { Notification.error(error) })
     },
     addSession (session = null) {
-      this.$refs.sessionNew.open(Object.assign({}, session))
+      this.showModal = true
+      this.editedSession = Object.assign({}, session)
     },
     switchEdit (edit) {
       this.edit = edit
@@ -114,8 +128,8 @@ export default {
     },
     // Listener to child New, après le succès de l'ajout
     handleAddSession (session) {
+      this.showModal = false
       this.loadSession()
-      this.$refs.sessionNew.close()
     },
     updateSessionStatus (session, status) {
       PeriodService.updatePeriodStatus(session, status)

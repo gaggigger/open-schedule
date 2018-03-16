@@ -1,12 +1,21 @@
 <template>
   <div>
+    <modal v-if="showModal" @cancel="showModal = false">
+      <div slot="header">
+        <h4>Add new Period</h4>
+      </div>
+      <div slot="body" class="event-form">
+        <new v-bind:session="editedPeriod"
+             v-on:added="handleAddPeriod"
+             v-on:closed="showModal = false"
+        ></new>
+      </div>
+      <div slot="footer"></div>
+    </modal>
     <h3 class="toolbar-1">
       <span class="title">Periods</span>
       <span class="link" v-on:click="addPeriod">Add</span>
     </h3>
-    <new ref="periodNew"
-         v-on:sessionsAdded="handleAddPeriod"
-    ></new>
     <div v-bind:key="period.id"
          class="period"
          v-for="period in periods"
@@ -51,17 +60,21 @@
 import New from './New'
 import moment from 'moment'
 import PeriodService from '@/services/Period'
+import Modal from '@/components/Form/Modal'
 
 export default {
   name: 'sessionPeriod',
   components: {
-    New
+    New,
+    Modal
   },
   props: [
     'sessionId'
   ],
   data () {
     return {
+      showModal: false,
+      editedPeriod: null,
       periods: []
     }
   },
@@ -77,13 +90,14 @@ export default {
       })
     },
     addPeriod (period = null) {
-      this.$refs.periodNew.open(Object.assign({
+      this.showModal = true
+      this.editedPeriod = Object.assign({
         parent_id: this.sessionId
-      }, period))
+      }, period)
     },
     handleAddPeriod () {
+      this.showModal = false
       this.loadPeriod()
-      this.$refs.periodNew.close()
     },
     // Calcul le temps passé en %: depuis la date start jusqu'à now
     ellapsedTime (dateStart, dateEnd) {

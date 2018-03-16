@@ -21,15 +21,25 @@ const Http = function () {
         method: method
       }, headers)
 
-      const token = Auth.getToken()
-      if (token) {
-        h.headers.Authorization = token
+      if (Auth.isLogged()) {
+        h.headers.Authorization = Auth.getToken()
       }
-      if (parameters) {
-        h.body = JSON.stringify(parameters)
-        h.headers['Content-Type'] = 'application/json; charset=utf-8'
+
+      if (parameters !== null) {
+        if (method === 'GET') {
+          url += '?' + Object.keys(parameters).reduce((acc, k) => {
+            acc.push(`${k}=${encodeURIComponent(parameters[k])}`)
+            return acc
+          }, []).join('&')
+          console.log(url)
+        } else {
+          h.body = JSON.stringify(parameters)
+          h.headers['Content-Type'] = 'application/json; charset=utf-8'
+        }
       }
+
       Loading.methods.increase()
+
       return fetch(baseUrl + url, h)
         .then(response => {
           Loading.methods.decrease()

@@ -219,6 +219,17 @@ router.get('/resources/:item/data', function(req, res) {
     }).catch(err => UHandlers.handleError(res, 500, err));
 });
 
+router.get('/resources/:item/lnk', function(req, res) {
+    const params =  req.query.parent ?
+        { parent : parseInt(req.query.parent) } :
+        { child : parseInt(req.query.child) };
+    Recources.getLnk(req.connectedUser.roles, params).then(rows => {
+        res.send(
+            rows.map(row => JSON.parse(row.data))
+        );
+    }).catch(err => UHandlers.handleError(res, 500, err));
+});
+
 router.get('/resources/:item/columns', function(req, res) {
     Recources.getGridColumns(req.connectedUser.roles, req.params.item).then(columns => {
         res.send(columns);
@@ -229,65 +240,6 @@ router.get('/resources/:item/features/info', function(req, res) {
     RecourcesFeatures.getFeaturesInfo(req.connectedUser.roles, req.params.item).then(rows => {
         res.send(rows);
     }).catch(err => UHandlers.handleError(res, 500, err));
-});
-
-router.get('/resources/:item/features/calendar', function(req, res) {
-    res.send([
-        {
-            title: 'All Day Event',
-            start: '2017-11-01'
-        },
-        {
-            title: 'Long Event',
-            start: '2017-11-07',
-            end: '2017-11-10'
-        },
-        {
-            id: 999,
-            title: 'Repeating Event',
-            start: '2017-11-09T16:00:00'
-        },
-        {
-            id: 999,
-            title: 'Repeating Event',
-            start: '2017-11-16T16:00:00'
-        },
-        {
-            title: 'Conference',
-            start: '2017-11-11',
-            end: '2017-11-13'
-        },
-        {
-            title: 'Meeting',
-            start: '2017-11-12T10:30:00',
-            end: '2017-11-12T12:30:00'
-        },
-        {
-            title: 'Lunch',
-            start: '2017-11-12T12:00:00'
-        },
-        {
-            title: 'Meeting',
-            start: '2017-11-12T14:30:00'
-        },
-        {
-            title: 'Happy Hour',
-            start: '2017-11-12T17:30:00'
-        },
-        {
-            title: 'Dinner',
-            start: '2017-11-12T20:00:00'
-        },
-        {
-            title: 'Birthday Party',
-            start: '2017-11-13T07:00:00'
-        },
-        {
-            title: 'Click for Google',
-            url: 'http://google.com/',
-            start: '2017-11-28'
-        }
-    ]);
 });
 
 router.get('/modules/:item/data', function(req, res) {
