@@ -31,7 +31,6 @@ const Http = function () {
             acc.push(`${k}=${encodeURIComponent(parameters[k])}`)
             return acc
           }, []).join('&')
-          console.log(url)
         } else {
           h.body = JSON.stringify(parameters)
           h.headers['Content-Type'] = 'application/json; charset=utf-8'

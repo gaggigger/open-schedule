@@ -221,9 +221,12 @@ router.get('/resources/:item/data', function(req, res) {
 
 router.post('/resources/:item/lnk', function(req, res) {
     Recources.setLnk(req.connectedUser.roles, req.body).then(rows => {
-        res.send(
-            rows.map(row => JSON.parse(row.data))
-        );
+        res.send(rows);
+    }).catch(err => UHandlers.handleError(res, 500, err));
+});
+router.get('/resources/:item/lnk', function(req, res) {
+    Recources.getLnk(req.connectedUser.roles, req.query).then(rows => {
+        res.send(rows);
     }).catch(err => UHandlers.handleError(res, 500, err));
 });
 

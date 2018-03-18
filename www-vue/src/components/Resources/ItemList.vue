@@ -37,9 +37,19 @@ import Http from '@/services/Http'
 
 export default {
   name: 'ItemList',
-  props: [
-    'resource'
-  ],
+  props: {
+    resource: {
+      type: String,
+      required: true
+    },
+    defaultSelection: {
+      type: Array,
+      required: false,
+      default: function () {
+        return []
+      }
+    }
+  },
   data () {
     return {
       features: [],
@@ -51,6 +61,7 @@ export default {
     }
   },
   created () {
+    this.selection = this.defaultSelection.slice(0)
     Http.request('/resources/' + this.resource, 'GET')
       .then(response => {
         this.features = response.features

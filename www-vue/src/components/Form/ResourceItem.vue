@@ -3,7 +3,8 @@
     <modal v-if="showModal" @ok="saveEvent" @cancel="showModal = false">
       <h3 slot="header">Select Resources</h3>
       <div slot="body" class="item-list">
-        <item-list v-bind:resource="resourceName"
+        <item-list v-bind:resource="resourceLnk"
+                   v-bind:defaultSelection="selectedItems"
                    v-on:itemSelected="itemSelected"
         ></item-list>
       </div>
@@ -11,6 +12,9 @@
     <div class="toolbar-1">
       <span class="title">
         <span class="link" v-on:click="showModal = true">Edit</span>
+        <item-list v-bind:resource="resourceLnk"
+                   v-bind:itemSelected="selectedItems"
+        ></item-list>
       </span>
     </div>
   </div>
@@ -27,33 +31,35 @@ export default {
     ItemList
   },
   props: [
-    'field',
+    'resourceLnk',
     'resource',
+    'type',
     'id'
   ],
   data () {
     return {
-      resourceName: this.field.link.resource,
-      typeLnk: this.field.link.type,
+      // resourceName: this.field.link.resource,
       showModal: false,
       selectedItems: []
     }
   },
   created () {
-    Http.request('/resources/' + this.resourceName + '/lnk', 'GET', {
-      parent: this.resource
+    Http.request('/resources/' + this.resource + '/lnk', 'GET', {
+      id: this.id,
+      resource_name: this.resourceLnk,
+      type: this.type
     })
       .then(response => {
-        console.log(response)
-        console.log(response)
+        response.map(item => {
+          this.selectedItems.push(item.id)
+        })
       })
   },
   methods: {
     saveEvent () {
-      Http.request('/resources/' + this.resourceName + '/lnk', 'POST', {
+      Http.request('/resources/' + this.resource + '/lnk', 'POST', {
         id: this.id,
-        items: this.selectedItems,
-        type: this.typeLnk
+        parents: this.selectedItems
       })
         .then(response => {
           this.showModal = false

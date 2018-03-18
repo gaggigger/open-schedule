@@ -15,8 +15,9 @@
         {{ field.label }} (<i>{{ field.type }}</i>)
         <span class="error" v-if="field.mandatory">*</span>
         <div v-if="field.type == 'resources_items'">
-          <resource-item v-bind:resource="id"
-                         v-bind:field="field"
+          <resource-item v-bind:resourceLnk="field.link.resource"
+                         v-bind:resource="item"
+                         v-bind:type="field.link.type"
                          v-bind:id="id"
           ></resource-item>
         </div>

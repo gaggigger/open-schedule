@@ -38,7 +38,8 @@ class Recources {
 
     getLnk(roles, params) {
         return Db.select('get_resources_lnk', Object.assign({
-            roles: roles
+            roles: roles,
+            sessions: 1
         }, params));
     }
 
