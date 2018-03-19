@@ -15,7 +15,8 @@ class Mysql extends IDb {
             user     : config.database.user,
             password : config.database.password,
             database : config.database.database,
-            debug    :  false
+            debug    :  false,
+            charset  : 'utf8mb4_unicode_ci'
         });
     }
 

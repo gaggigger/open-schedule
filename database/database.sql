@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `os_attachments`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `os_attachments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uuid` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `uuid` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `params` json DEFAULT NULL,
   `roles` json DEFAULT NULL,
   `content` mediumblob NOT NULL,
@@ -129,7 +129,7 @@ DROP TABLE IF EXISTS `os_choicelists`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `os_choicelists` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `params` json DEFAULT NULL,
   `sessions_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -160,7 +160,7 @@ CREATE TABLE `os_lnk_resources_items` (
   `parent_id` int(11) NOT NULL,
   `resources_id` int(11) NOT NULL,
   `sessions_id` int(11) NOT NULL,
-  `resource_name` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `resource_name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   KEY `os_lnk_resources_items_os_sessions_FK` (`sessions_id`),
   KEY `os_lnk_resources_items_os_resources_items_parent_id_FK` (`parent_id`),
   KEY `os_lnk_resources_items_os_resources_items_resources_id_FK` (`resources_id`),
@@ -176,7 +176,7 @@ CREATE TABLE `os_lnk_resources_items` (
 
 LOCK TABLES `os_lnk_resources_items` WRITE;
 /*!40000 ALTER TABLE `os_lnk_resources_items` DISABLE KEYS */;
-INSERT INTO `os_lnk_resources_items` VALUES (3,2,1,'groups'),(3,2,1,'groups'),(3,2,1,'groups'),(3,2,1,'groups'),(3,2,1,'groups'),(4,2,1,'promotions');
+INSERT INTO `os_lnk_resources_items` VALUES (3,2,1,'groups'),(3,2,1,'groups'),(3,2,1,'groups'),(3,2,1,'groups'),(3,2,1,'groups'),(9,2,1,'promotions'),(4,2,1,'promotions');
 /*!40000 ALTER TABLE `os_lnk_resources_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -189,7 +189,7 @@ DROP TABLE IF EXISTS `os_modules_data`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `os_modules_data` (
   `uuid` varchar(36) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `module` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `module` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `data` json DEFAULT NULL,
   `roles` json NOT NULL,
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -241,7 +241,7 @@ DROP TABLE IF EXISTS `os_resources`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `os_resources` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `params` json DEFAULT NULL,
   `position` tinyint(4) DEFAULT NULL,
   `roles` json DEFAULT NULL,
@@ -341,7 +341,7 @@ DROP TABLE IF EXISTS `os_resources_features`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `os_resources_features` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `resources_name` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `resources_name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `params` json DEFAULT NULL,
   `roles` json DEFAULT NULL,
@@ -441,7 +441,7 @@ DROP TABLE IF EXISTS `os_resources_items`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `os_resources_items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `resource` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `resource` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `params` json DEFAULT NULL,
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -579,7 +579,7 @@ DROP TABLE IF EXISTS `os_roles`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `os_roles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `params` json DEFAULT NULL,
   `sessions_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -685,7 +685,7 @@ CREATE TABLE `os_sessions` (
   `date_end` date NOT NULL,
   `params` json DEFAULT NULL,
   `closed` tinyint(1) NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `roles` json DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -716,8 +716,8 @@ CREATE TABLE `os_users` (
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_connection` datetime DEFAULT NULL,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `roles` json DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `os_users_username_IDX` (`username`) USING BTREE,
@@ -835,10 +835,10 @@ DROP TABLE IF EXISTS `os_users_pending`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `os_users_pending` (
   `user_id` int(11) NOT NULL,
-  `email` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date_insert` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_sent` smallint(6) NOT NULL DEFAULT '0',
   `date_email` datetime DEFAULT NULL,
   UNIQUE KEY `os_users_pending_UN` (`email`),
@@ -1318,9 +1318,9 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1332,7 +1332,7 @@ BEGIN
 	SET @name = os_get_json_string(query , 'name');
 
 	IF NOT os_is_json_null(@name) THEN	
-		SELECT * FROM os_choicelists WHERE name = @name AND sessions_id = sessions;
+		SELECT * FROM os_choicelists WHERE name = @name COLLATE utf8mb4_unicode_ci AND sessions_id = sessions;
 	ELSE
 		SELECT * FROM os_choicelists WHERE sessions_id = sessions;
 	END IF;
@@ -1346,9 +1346,9 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1364,7 +1364,9 @@ BEGIN
 
 	set @query = CONCAT(
 		'SELECT JSON_SET(data->''$.detail'', ''$.uuid'', uuid) as data FROM os_modules_data WHERE ',
-		' module = ? AND sessions_id = ? '
+		' module = ? ',
+		' AND sessions_id = ? ',
+		' AND data->''$.detail'' IS NOT NULL'
 	);
 	PREPARE stmt FROM @query;
 	EXECUTE stmt USING @module, @sessions;
@@ -1412,9 +1414,9 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1585,7 +1587,7 @@ BEGIN
 		SELECT ri.*
 		FROM os_resources_items ri
 		JOIN os_lnk_resources_items lri ON ri.id = lri.parent_id
-		WHERE lri.resource_name = r_name
+		WHERE lri.resource_name = r_name COLLATE utf8mb4_unicode_ci
 			AND lri.resources_id = r_id 
 			AND ri.sessions_id = sessions
 			AND lri.sessions_id = sessions;
@@ -1593,7 +1595,7 @@ BEGIN
 		SELECT ri.*
 		FROM os_resources_items ri
 		JOIN os_lnk_resources_items lri ON ri.id = lri.resources_id
-		WHERE lri.resource_name = r_name
+		WHERE lri.resource_name = r_name COLLATE utf8mb4_unicode_ci
 			AND lri.parent_id = r_id 
 			AND ri.sessions_id = sessions
 			AND lri.sessions_id = sessions;
@@ -2028,4 +2030,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-19 20:04:30
+-- Dump completed on 2018-03-19 20:41:06

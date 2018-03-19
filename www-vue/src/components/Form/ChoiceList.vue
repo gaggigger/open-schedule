@@ -32,7 +32,7 @@ export default {
   created () {
     if (this.selection === undefined || this.selection === '') this.checkedItems = []
     else this.checkedItems = this.selection.slice(0)
-    Http.request('/choicelists' , 'GET', {
+    Http.request('/choicelists', 'GET', {
       name: this.clname
     })
       .then(response => {
