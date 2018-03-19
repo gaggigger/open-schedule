@@ -55,10 +55,10 @@ export default {
     -webkit-border-radius: 1em;
     -moz-border-radius: 1em;
     border-radius: 1em;
-    background: linear-gradient(-45deg, var(--first-color), var(--second-color), var(--third-color), var(--maintext-color));
+    background: linear-gradient(-45deg, var(--maintext-color), var(--third-color), var(--second-color), var(--first-color));
     background-size: 400% 400%;
     -webkit-animation: Gradient 4s ease infinite;
     -moz-animation: Gradient 4s ease infinite;
-    animation: Gradient 4s ease infinite;
+    animation: Gradient 2s ease infinite;
   }
 </style>
