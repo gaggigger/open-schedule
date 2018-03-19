@@ -24,7 +24,7 @@ DROP TABLE IF EXISTS `os_attachments`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `os_attachments` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `uuid` varchar(100) NOT NULL,
+  `uuid` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `params` json DEFAULT NULL,
   `roles` json DEFAULT NULL,
   `content` mediumblob NOT NULL,
@@ -38,7 +38,7 @@ CREATE TABLE `os_attachments` (
   KEY `os_attachments_os_users_FK` (`creator`),
   CONSTRAINT `os_attachments_os_sessions_FK` FOREIGN KEY (`sessions_id`) REFERENCES `os_sessions` (`id`),
   CONSTRAINT `os_attachments_os_users_FK` FOREIGN KEY (`creator`) REFERENCES `os_users` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -129,14 +129,14 @@ DROP TABLE IF EXISTS `os_choicelists`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `os_choicelists` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `params` json DEFAULT NULL,
   `sessions_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `os_choicelists_UN` (`name`),
   KEY `os_choicelists_os_sessions_FK` (`sessions_id`),
   CONSTRAINT `os_choicelists_os_sessions_FK` FOREIGN KEY (`sessions_id`) REFERENCES `os_sessions` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -160,14 +160,14 @@ CREATE TABLE `os_lnk_resources_items` (
   `parent_id` int(11) NOT NULL,
   `resources_id` int(11) NOT NULL,
   `sessions_id` int(11) NOT NULL,
-  `resource_name` varchar(20) NOT NULL,
+  `resource_name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   KEY `os_lnk_resources_items_os_sessions_FK` (`sessions_id`),
   KEY `os_lnk_resources_items_os_resources_items_parent_id_FK` (`parent_id`),
   KEY `os_lnk_resources_items_os_resources_items_resources_id_FK` (`resources_id`),
   CONSTRAINT `os_lnk_resources_items_os_resources_items_parent_id_FK` FOREIGN KEY (`parent_id`) REFERENCES `os_resources_items` (`id`),
   CONSTRAINT `os_lnk_resources_items_os_resources_items_resources_id_FK` FOREIGN KEY (`resources_id`) REFERENCES `os_resources_items` (`id`),
   CONSTRAINT `os_lnk_resources_items_os_sessions_FK` FOREIGN KEY (`sessions_id`) REFERENCES `os_sessions` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -187,8 +187,8 @@ DROP TABLE IF EXISTS `os_modules_data`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `os_modules_data` (
-  `uuid` char(36) NOT NULL,
-  `module` varchar(100) NOT NULL,
+  `uuid` char(36) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `module` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `data` json DEFAULT NULL,
   `roles` json NOT NULL,
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -197,7 +197,7 @@ CREATE TABLE `os_modules_data` (
   PRIMARY KEY (`uuid`),
   KEY `os_modules_data_os_sessions_FK` (`sessions_id`),
   CONSTRAINT `os_modules_data_os_sessions_FK` FOREIGN KEY (`sessions_id`) REFERENCES `os_sessions` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -240,7 +240,7 @@ DROP TABLE IF EXISTS `os_resources`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `os_resources` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(20) NOT NULL,
+  `name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `params` json DEFAULT NULL,
   `position` tinyint(4) DEFAULT NULL,
   `roles` json DEFAULT NULL,
@@ -251,7 +251,7 @@ CREATE TABLE `os_resources` (
   KEY `os_resources_name_IDX` (`name`) USING HASH,
   KEY `os_resources_os_sessions_FK` (`sessions_id`),
   CONSTRAINT `os_resources_os_sessions_FK` FOREIGN KEY (`sessions_id`) REFERENCES `os_sessions` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -340,7 +340,7 @@ DROP TABLE IF EXISTS `os_resources_features`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `os_resources_features` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `resources_name` varchar(20) NOT NULL,
+  `resources_name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `params` json DEFAULT NULL,
   `roles` json DEFAULT NULL,
@@ -348,9 +348,10 @@ CREATE TABLE `os_resources_features` (
   PRIMARY KEY (`id`),
   KEY `os_resources_features_resources_name_IDX` (`resources_name`) USING HASH,
   KEY `os_resources_features_os_sessions_FK` (`sessions_id`),
-  CONSTRAINT `os_resources_features_os_resources_FK` FOREIGN KEY (`resources_name`) REFERENCES `os_resources` (`name`) ON UPDATE CASCADE,
+  KEY `os_resources_features_os_resources_FK` (`resources_name`,`sessions_id`),
+  CONSTRAINT `os_resources_features_os_resources_FK` FOREIGN KEY (`resources_name`, `sessions_id`) REFERENCES `os_resources` (`name`, `sessions_id`),
   CONSTRAINT `os_resources_features_os_sessions_FK` FOREIGN KEY (`sessions_id`) REFERENCES `os_sessions` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -439,7 +440,7 @@ DROP TABLE IF EXISTS `os_resources_items`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `os_resources_items` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `resource` varchar(20) NOT NULL,
+  `resource` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `params` json DEFAULT NULL,
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -450,9 +451,10 @@ CREATE TABLE `os_resources_items` (
   KEY `os_resources_items_resource_IDX` (`resource`) USING BTREE,
   KEY `os_resources_items_os_users_FK` (`user_id`),
   KEY `os_resources_items_os_sessions_FK` (`sessions_id`),
-  CONSTRAINT `os_resources_items_os_resources_FK` FOREIGN KEY (`resource`) REFERENCES `os_resources` (`name`) ON UPDATE CASCADE,
+  KEY `os_resources_items_os_resources_FK` (`resource`,`sessions_id`),
+  CONSTRAINT `os_resources_items_os_resources_FK` FOREIGN KEY (`resource`, `sessions_id`) REFERENCES `os_resources` (`name`, `sessions_id`),
   CONSTRAINT `os_resources_items_os_sessions_FK` FOREIGN KEY (`sessions_id`) REFERENCES `os_sessions` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -576,14 +578,14 @@ DROP TABLE IF EXISTS `os_roles`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `os_roles` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
+  `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `params` json DEFAULT NULL,
   `sessions_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `os_roles_UN` (`name`,`sessions_id`),
   KEY `os_roles_os_sessions_FK` (`sessions_id`),
   CONSTRAINT `os_roles_os_sessions_FK` FOREIGN KEY (`sessions_id`) REFERENCES `os_sessions` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -682,11 +684,11 @@ CREATE TABLE `os_sessions` (
   `date_end` date NOT NULL,
   `params` json DEFAULT NULL,
   `closed` tinyint(1) NOT NULL,
-  `name` varchar(255) NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `roles` json DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -713,13 +715,13 @@ CREATE TABLE `os_users` (
   `date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `date_modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_connection` datetime DEFAULT NULL,
-  `username` varchar(255) NOT NULL,
-  `password` varchar(255) NOT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `roles` json DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `os_users_username_IDX` (`username`) USING BTREE,
   KEY `os_users_active_IDX` (`active`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -832,16 +834,16 @@ DROP TABLE IF EXISTS `os_users_pending`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `os_users_pending` (
   `user_id` int(11) NOT NULL,
-  `email` varchar(100) NOT NULL,
+  `email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `date_insert` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `password` varchar(255) NOT NULL,
-  `token` varchar(255) NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_sent` smallint(6) NOT NULL DEFAULT '0',
   `date_email` datetime DEFAULT NULL,
   UNIQUE KEY `os_users_pending_UN` (`email`),
   KEY `os_users_pending_os_users_FK` (`user_id`),
   CONSTRAINT `os_users_pending_os_users_FK` FOREIGN KEY (`user_id`) REFERENCES `os_users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1997,4 +1999,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-18 22:32:42
+-- Dump completed on 2018-03-19 10:45:39
