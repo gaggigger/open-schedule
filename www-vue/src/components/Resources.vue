@@ -37,4 +37,10 @@ export default {
   .resources-container > .resource:hover > a {
     color: var(--second-color);
   }
+  @media screen and (max-width: 470px) {
+    .resources-container > * {
+      min-height: auto;
+      padding: 1em;
+    }
+  }
 </style>
