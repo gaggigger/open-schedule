@@ -6,17 +6,16 @@ const Db = require('../database/' + config.database.dirver);
 
 class Recources {
 
-    getAll(roles) {
-        return Db.select('get_resources', {
+    getAll(roles, params = {}) {
+        return Db.select('get_resources', Object.assign(params, {
             roles: roles
-        });
+        }));
     }
 
-    getGridColumns(roles, resource) {
-        return Db.select('get_resources_columns', {
-            roles: roles,
-            resource: resource
-        }).then(rows => {
+    getGridColumns(roles, params = {}) {
+        return Db.select('get_resources_columns', Object.assign(params, {
+            roles: roles
+        })).then(rows => {
             if(! rows[0]) throw new Error('No rows found');
             if(rows[0].columns === null) return [];
             return JSON.parse(rows[0].columns);
@@ -25,29 +24,27 @@ class Recources {
 
     getData(roles, params) {
         if(params.children) {
-            return Db.select('get_resources_from_params', Object.assign({
+            return Db.select('get_resources_from_params', Object.assign(params, {
                 roles: roles
-            }, params));
+            }));
         }
         else {
-            return Db.select('get_resources_data', Object.assign({
+            return Db.select('get_resources_data', Object.assign(params, {
                 roles: roles
-            }, params));
+            }));
         }
     }
 
     getLnk(roles, params) {
-        return Db.select('get_resources_lnk', Object.assign({
-            roles: roles,
-            sessions: 1
-        }, params));
+        return Db.select('get_resources_lnk', Object.assign(params, {
+            roles: roles
+        }));
     }
 
     setLnk(roles, params) {
-        return Db.select('set_resources_lnk', Object.assign({
-            roles: roles,
-            sessions: 1
-        }, params));
+        return Db.select('set_resources_lnk', Object.assign(params, {
+            roles: roles
+        }));
     }
 
     getSessions(roles, params = {}) {

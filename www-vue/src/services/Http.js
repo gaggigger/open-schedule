@@ -3,6 +3,7 @@ import Config from '../../../api-nj/config'
 import Notification from '@/services/Notification'
 // import Loading from '@/services/Loading'
 import Loading from '@/components/Loading'
+import Period from '@/services/Period'
 
 const Http = function () {
   const baseUrl = Config.apiUrl
@@ -16,25 +17,26 @@ const Http = function () {
   }
 
   return {
-    request (url, method = 'GET', parameters = null) {
+    request (url, method = 'GET', parameters = {}) {
       const h = Object.assign({
         method: method
       }, headers)
-
+      // Add token header
       if (Auth.isLogged()) {
         h.headers.Authorization = Auth.getToken()
       }
-
-      if (parameters !== null) {
-        if (method === 'GET') {
-          url += '?' + Object.keys(parameters).reduce((acc, k) => {
-            acc.push(`${k}=${encodeURIComponent(parameters[k])}`)
-            return acc
-          }, []).join('&')
-        } else {
-          h.body = JSON.stringify(parameters)
-          h.headers['Content-Type'] = 'application/json; charset=utf-8'
-        }
+      // Add session parameter
+      parameters = Object.assign(parameters, {
+        sessions: Period.currentPeriod()
+      })
+      if (method === 'GET') {
+        url += '?' + Object.keys(parameters).reduce((acc, k) => {
+          acc.push(`${k}=${encodeURIComponent(parameters[k])}`)
+          return acc
+        }, []).join('&')
+      } else {
+        h.body = JSON.stringify(parameters)
+        h.headers['Content-Type'] = 'application/json; charset=utf-8'
       }
 
       Loading.methods.increase()

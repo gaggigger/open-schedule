@@ -71,7 +71,9 @@ export default {
       .then(response => {
         this.dataPath = response.grid.data
         const https = [Http.request(response.grid.columns, 'GET')]
-        if (this.id) https.push(Http.request('/resources/items/data?ids=' + this.id, 'GET'))
+        if (this.id) https.push(Http.request('/resources/items/data', 'GET', {
+          ids: this.id
+        }))
         else https.push(null)
         return Promise.all(https)
       })

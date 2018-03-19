@@ -2,15 +2,7 @@ import Http from '@/services/Http'
 
 const Period = {
   loadPeriod (parameters = {}) {
-    let uri = '/sessions'
-    const uriParam = []
-    Object.keys(parameters).forEach(function (key) {
-      uriParam.push(`${key}=${encodeURIComponent(parameters[key])}`)
-    })
-    if (uriParam.length > 0) {
-      uri += '?' + uriParam.join('&')
-    }
-    return Http.request(uri, 'GET')
+    return Http.request('/sessions', 'GET', parameters)
   },
   updatePeriodStatus (period, status) {
     period.closed = status
@@ -24,6 +16,9 @@ const Period = {
       return new Promise((resolve, reject) => resolve(null))
     }
     return Http.request('/sessions', 'DELETE', period)
+  },
+  currentPeriod () {
+    return 1
   }
 }
 

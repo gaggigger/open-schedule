@@ -5,23 +5,18 @@ const Db = require('../database/' + config.database.dirver);
 
 
 class Modules {
-    getItems(roles, module) {
-        return Db.select('get_modules_data', {
-            roles: roles,
-            module: module,
-            sessions: 1 // TODO defaut session and selected session
-        }).then(rows => {
+    getItems(roles, params) {
+        return Db.select('get_modules_data', Object.assign(params, {
+            roles: roles
+        })).then(rows => {
             return rows;
         });
     }
 
-    createItems(roles, module, data) {
-        return Db.query('set_modules_data', {
-            roles: roles,
-            module: module,
-            data: data,
-            sessions: 1 // TODO defaut session and selected session
-        }).then(rows => {
+    createItems(roles, params) {
+        return Db.query('set_modules_data', Object.assign(params, {
+            roles: roles
+        })).then(rows => {
             return rows;
         });
     }

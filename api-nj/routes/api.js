@@ -59,7 +59,7 @@ router.post('/login', function(req, res) {
 
 router.get('/menu', function(req, res) {
     Promise.all([
-        Recources.getAll(req.connectedUser? req.connectedUser.roles : []),
+        Recources.getAll(req.connectedUser? req.connectedUser.roles : [], req.query),
     ]).then(values => {
         const menu = [];
         if(req.connectedUser) {
@@ -141,7 +141,7 @@ router.delete('/sessions', function(req, res) {
 });
 
 router.get('/choicelists', function(req, res) {
-    Choicelists.get(req.connectedUser, req.query.name).then(rows => {
+    Choicelists.get(req.connectedUser.roles, req.query).then(rows => {
         if(rows.length === 1) res.send(rows[0]);
         else res.send(rows);
     }).catch(err => UHandlers.handleError(res, 500, err));
@@ -173,17 +173,19 @@ router.get('/attachments/:uuid', function(req, res) {
 });
 
 router.get('/resources', function(req, res) {
-    Recources.getAll(req.connectedUser.roles).then(rows => {
+    Recources.getAll(req.connectedUser.roles, req.query).then(rows => {
         res.send(
-            rows.map(row => Object.assign({
+            rows.map(row => Object.assign(JSON.parse(row.params), {
                 id: row.id
-            }, JSON.parse(row.params)))
+            }))
         );
     }).catch(err => UHandlers.handleError(res, 500, err));
 });
 
 router.get('/resources/:item', function(req, res) {
-    RecourcesFeatures.getFeatures(req.connectedUser.roles, req.params.item).then(rows => {
+    RecourcesFeatures.getFeatures(req.connectedUser.roles, Object.assign(req.query, {
+        resource: req.params.item
+    })).then(rows => {
         res.send({
             features : rows.map(row => JSON.parse(row.params)),
             grid : {
@@ -198,7 +200,7 @@ router.get('/resources/items/data', function(req, res) {
     const params =  req.query.ids ?
         { ids : req.query.ids.split(',').map(item => parseInt(item)) } :
         { children : req.query.children.split(',').map(item => parseInt(item)) };
-    Recources.getData(req.connectedUser.roles, params).then(rows => {
+    Recources.getData(req.connectedUser.roles, Object.assign(req.query, params)).then(rows => {
         res.send(
             rows.map(row => JSON.parse(row.data))
         );
@@ -206,13 +208,17 @@ router.get('/resources/items/data', function(req, res) {
 });
 
 router.put('/resources/:item/data', function(req, res) {
-    RecourcesFeatures.createItems(req.connectedUser.roles, req.params.item, req.body.data).then(rows => {
+    RecourcesFeatures.createItems(req.connectedUser.roles, Object.assign(req.body, {
+        resource: req.params.item
+    })).then(rows => {
         res.send(rows);
     }).catch(err => UHandlers.handleError(res, 403, err));
 });
 
 router.get('/resources/:item/data', function(req, res) {
-    Recources.getData(req.connectedUser.roles, { resource : req.params.item }).then(rows => {
+    Recources.getData(req.connectedUser.roles, Object.assign(req.query, {
+        resource: req.params.item
+    })).then(rows => {
         res.send(
             rows.map(row => JSON.parse(row.data))
         );
@@ -231,19 +237,25 @@ router.get('/resources/:item/lnk', function(req, res) {
 });
 
 router.get('/resources/:item/columns', function(req, res) {
-    Recources.getGridColumns(req.connectedUser.roles, req.params.item).then(columns => {
+    Recources.getGridColumns(req.connectedUser.roles, Object.assign(req.query, {
+        resource: req.params.item
+    })).then(columns => {
         res.send(columns);
     }).catch(err => UHandlers.handleError(res, 500, err));
 });
 
 router.get('/resources/:item/features/info', function(req, res) {
-    RecourcesFeatures.getFeaturesInfo(req.connectedUser.roles, req.params.item).then(rows => {
+    RecourcesFeatures.getFeaturesInfo(req.connectedUser.roles, Object.assign(req.query, {
+        resource: req.params.item
+    })).then(rows => {
         res.send(rows);
     }).catch(err => UHandlers.handleError(res, 500, err));
 });
 
 router.get('/modules/:item/data', function(req, res) {
-    Modules.getItems(req.connectedUser.roles, req.params.item).then(rows => {
+    Modules.getItems(req.connectedUser.roles, Object.assign(req.query, {
+        module: req.params.item
+    })).then(rows => {
         res.send(
             rows.map(row => JSON.parse(row.data))
         );
@@ -251,7 +263,9 @@ router.get('/modules/:item/data', function(req, res) {
 });
 
 router.put('/modules/:item/data', function(req, res) {
-    Modules.createItems(req.connectedUser.roles, req.params.item, req.body.data).then(rows => {
+    Modules.createItems(req.connectedUser.roles, Object.assign(req.body, {
+        module: req.params.item
+    })).then(rows => {
         res.send(rows);
     }).catch(err => UHandlers.handleError(res, 403, err));
 

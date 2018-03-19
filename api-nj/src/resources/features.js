@@ -6,18 +6,16 @@ const Db = require('../database/' + config.database.dirver);
 
 class ResourcesFeatures {
 
-    getFeatures(roles, resource) {
-        return Db.select('get_resources_features', {
-            roles: roles,
-            resource: resource
-        });
+    getFeatures(roles, params = {}) {
+        return Db.select('get_resources_features', Object.assign(params, {
+            roles: roles
+        }));
     }
 
     getFeaturesInfo(roles, resource) {
-        return Db.select('get_resources_columns', {
-            roles: roles,
-            resource: resource
-        }).then(rows => {
+        return Db.select('get_resources_columns', Object.assign(params, {
+            roles: roles
+        })).then(rows => {
             if(! rows[0]) throw new Error('No rows found');
             if(rows[0].columns === null) return [];
             let features = {};
@@ -29,13 +27,10 @@ class ResourcesFeatures {
         });
     }
 
-    createItems(roles, resource, data) {
-        return Db.query('set_items', {
-            roles: roles,
-            resource: resource,
-            data: data,
-            sessions: 1 // TODO defaut session and selected session
-        }).then(rows => {
+    createItems(roles, params) {
+        return Db.query('set_items', Object.assign(params, {
+            roles: roles
+        })).then(rows => {
             return Object.assign({id : rows.id}, JSON.parse(rows.params));
         });
     }
