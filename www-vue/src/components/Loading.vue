@@ -44,6 +44,7 @@ export default {
     position: fixed;
     bottom: 0;
     right: 0;
+    z-index: 1000;
   }
   .loading-bar {
     padding-left: 1em;

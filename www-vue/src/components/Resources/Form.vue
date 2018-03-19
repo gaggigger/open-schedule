@@ -36,7 +36,9 @@
         <div v-else>
           <input v-bind:type="field.type"
                  v-model="itemData[field.name]"
-                 v-bind:required="field.mandatory" />
+                 v-bind:required="field.mandatory"
+                 autofocus
+          />
         </div>
       </div>
     </fieldset>
@@ -66,7 +68,7 @@ export default {
       fields: []
     }
   },
-  created () {
+  mounted () {
     Http.request('/resources/' + this.item, 'GET')
       .then(response => {
         this.dataPath = response.grid.data
@@ -87,6 +89,10 @@ export default {
           acc[item.group].push(item)
           return acc
         }, {})
+        // Autofocus first input
+        window.setTimeout(_ => {
+          document.querySelector('.formitem-container input:not([type=hidden]):first-child').focus()
+        }, 100)
       })
   },
   methods: {
