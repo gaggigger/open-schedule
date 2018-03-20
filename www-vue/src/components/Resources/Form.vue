@@ -2,7 +2,7 @@
   <div class="formitem-container">
     <h3 class="toolbar-1">
       <span class="save-progress" v-if="saving">Autosave...</span>
-      <span class="save-sucess" v-else>✔ Autosave</span>
+      <span class="save-sucess icon-ok" v-else>Autosave</span>
     </h3>
     <fieldset
       v-bind:key="group"

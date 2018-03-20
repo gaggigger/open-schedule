@@ -225,6 +225,14 @@ router.get('/resources/:item/data', function(req, res) {
     }).catch(err => UHandlers.handleError(res, 500, err));
 });
 
+router.delete('/resources/:item/data', function(req, res) {
+    Recources.deleteData(req.connectedUser.roles, Object.assign(req.body, {
+        resource: req.params.item
+    })).then(rows => {
+        res.send(rows);
+    }).catch(err => UHandlers.handleError(res, 500, err));
+});
+
 router.post('/resources/:item/lnk', function(req, res) {
     Recources.setLnk(req.connectedUser.roles, req.body).then(rows => {
         res.send(rows);

@@ -2,7 +2,7 @@
   <div>
     <modal v-if="showModal" @cancel="showModal = false">
       <div slot="header">
-        <h4>Add new Period</h4>
+        <h4 class="icon-add">Add new Period</h4>
       </div>
       <div slot="body" class="event-form">
         <new v-bind:session="editedPeriod"
@@ -14,7 +14,7 @@
     </modal>
     <h3 class="toolbar-1">
       <span class="title">Periods</span>
-      <span class="link" v-on:click="addPeriod">Add</span>
+      <span class="link icon-add" v-on:click="addPeriod">Add</span>
     </h3>
     <div v-bind:key="period.id"
          class="period"
@@ -30,22 +30,22 @@
           </i>
         </div>
         <div>
-          <span class="link"
+          <span class="link icon-edit"
                     v-if="period.closed === 0"
                     v-on:click="addPeriod(period)">Edit</span>
-          <span class="error link"
+          <span class="error link icon-delete"
                 v-if="period.closed === 0"
-                v-on:click="deleteSession(period)">Delete</span>
-          <span class="link"
+                v-on:click="deleteSession(period)"> Delete</span>
+          <span class="link icon-unlock"
                 title="Close period"
                 style="color:var(--deactivated-color);"
                 v-if="period.closed === 0"
                 v-on:click="updatePeriodStatus(period, 1)"
-          >🔓</span>
-          <span class="link"
+          ></span>
+          <span class="link icon-unlock"
                 title="Open period" style="color:var(--deactivated-color);"
                 v-if="period.closed === 1"
-                v-on:click="updatePeriodStatus(period, 0)">🔒</span>
+                v-on:click="updatePeriodStatus(period, 0)"></span>
         </div>
       </div>
       <div

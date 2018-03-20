@@ -48,6 +48,11 @@ export default {
       default: function () {
         return []
       }
+    },
+    reload: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data () {
@@ -63,25 +68,31 @@ export default {
   watch: {
     selection () {
       this.$emit('selectionChanged', this.selection)
+    },
+    reload () {
+      this.loadList()
     }
   },
   created () {
-    this.selection = this.defaultSelection.slice(0)
-    Http.request('/resources/' + this.resource, 'GET')
-      .then(response => {
-        [this.features, this.apiColumns, this.apiData] = [response.features, response.grid.columns, response.grid.data]
-        return true
-      })
-      .then(() => Promise.all([
-        Http.request(this.apiColumns, 'GET'),
-        Http.request(this.apiData, 'GET')
-      ]))
-      .then(([columns, data]) => {
-        this.columns = columns.filter(item => item.grid_column)
-        this.data = data
-      })
+    this.loadList()
   },
   methods: {
+    loadList () {
+      this.selection = this.defaultSelection.slice(0)
+      Http.request('/resources/' + this.resource, 'GET')
+        .then(response => {
+          [this.features, this.apiColumns, this.apiData] = [response.features, response.grid.columns, response.grid.data]
+          return true
+        })
+        .then(() => Promise.all([
+          Http.request(this.apiColumns, 'GET'),
+          Http.request(this.apiData, 'GET')
+        ]))
+        .then(([columns, data]) => {
+          this.columns = columns.filter(item => item.grid_column)
+          this.data = data
+        })
+    },
     selectItem (id = null) {
       if (id !== null) {
         if (this.selection.indexOf(id) >= 0) {

@@ -2,7 +2,7 @@
   <div>
     <h3 class="toolbar-1">
       <span class="title">
-        <span class="link" v-on:click="$router.go(-1)">🔙</span>
+        <span class="link icon-back" v-on:click="$router.go(-1)"></span>
         {{ item }}
       </span>
     </h3>

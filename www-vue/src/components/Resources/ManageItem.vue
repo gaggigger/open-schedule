@@ -1,20 +1,22 @@
 <template>
   <div class="item-container">
-    <h3 class="toolbar-1">
-      <span class="title">
-        <span class="link" v-on:click="$router.go(-1)">🔙</span>
-        {{ item }}
-      </span>
-      <span class="link" v-on:click="addItem()">Add</span>
+    <h3 class="toolbar-2">
+      <span class="link icon-back" v-on:click="$router.go(-1)"></span>
+      <span class="link icon-add" v-on:click="addItem()">Add</span>
+      <span class="link icon-delete" v-on:click="deleteItem()">Delete selected</span>
+      <span class="title">{{ item }}</span>
     </h3>
     <item-list v-bind:resource="item"
                v-on:itemSelected="addItem"
+               v-on:selectionChanged="selectionChanged"
+               v-bind:reload="reloadList"
     ></item-list>
   </div>
 </template>
 
 <script>
 import ItemList from '@/components/Resources/ItemList'
+import Http from '@/services/Http'
 
 export default {
   name: 'ResourcesItem',
@@ -23,13 +25,29 @@ export default {
   },
   data () {
     return {
-      item: this.$route.params.item
+      item: this.$route.params.item,
+      selectedItems: [],
+      reloadList: true
     }
   },
   methods: {
     addItem (id = null) {
       if (id === null) this.$router.push('/resources/' + this.item + '/detail')
       else this.$router.push('/resources/' + this.item + '/detail/' + id)
+    },
+    selectionChanged (selection = []) {
+      this.selectedItems = selection.slice(0)
+    },
+    deleteItem () {
+      if (!confirm('Do you want to delete selected items?')) {
+        return false
+      }
+      Http.request('/resources/' + this.item + '/data', 'DELETE', {
+        ids: this.selectedItems
+      })
+        .then(response => {
+          this.reloadList = !this.reloadList
+        })
     }
   }
 }

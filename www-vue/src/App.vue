@@ -116,6 +116,9 @@ export default {
     color: var(--third-color);
     text-decoration: underline;
   }
+  .title {
+    text-transform: uppercase;
+  }
   /** Form **/
   fieldset {
     border: 1px solid var(--first-color);
@@ -318,7 +321,7 @@ export default {
     z-index: 100;
   }
   /** Tool bar **/
-  .toolbar-1 {
+  .toolbar-1, .toolbar-2 {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -327,6 +330,13 @@ export default {
     flex-grow: 1;
   }
   .toolbar-1 > *:not(:first-child) {
+    margin: 0 0.5em;
+  }
+  .toolbar-2 > :last-child {
+    flex-grow: 1;
+    text-align: right;
+  }
+  .toolbar-2 > *:not(:last-child) {
     margin: 0 0.5em;
   }
   /** Arrow && tools **/
@@ -401,4 +411,14 @@ export default {
   div.fc-row.fc-widget-header > table > thead th * {
     font-size: 0.8em;
   }
+  /** Icon **/
+  .icon-add::before       { content: '🆕 '; }
+  .icon-delete::before    { content: '🗑️ '; }
+  .icon-back::before      { content: '🔙 '; }
+  .icon-edit::before      { content: '📝 '; }
+  .icon-cancel::before    { content: '🗙 '; }
+  .icon-calendar::before  { content: '📅 '; }
+  .icon-unlock::before    { content: '🔓 '; }
+  .icon-lock::before      { content: '🔒 '; }
+  .icon-ok::before        { content: '✔ '; }
 </style>

@@ -35,6 +35,12 @@ class Recources {
         }
     }
 
+    deleteData(roles, params) {
+        return Db.select('delete_resources_data', Object.assign(params, {
+            roles: roles
+        }));
+    }
+
     getLnk(roles, params) {
         return Db.select('get_resources_lnk', Object.assign(params, {
             roles: roles

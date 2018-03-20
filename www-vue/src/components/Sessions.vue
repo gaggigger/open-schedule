@@ -2,7 +2,7 @@
   <div>
     <modal v-if="showModal" @cancel="showModal = false">
       <div slot="header">
-        <h4>Add new session</h4>
+        <h4 class="icon-add">Add new session</h4>
       </div>
       <div slot="body" class="event-form">
         <new v-bind:session="editedSession"
@@ -13,10 +13,10 @@
       <div slot="footer"></div>
     </modal>
     <h3 class="toolbar-1">
-      <span class="title">📅 SESSIONS</span>
-      <span class="link" v-on:click="switchEdit(false)" v-if="edit">Cancel</span>
-      <span class="link" v-on:click="switchEdit(true)" v-else>Edit</span>
-      <span class="link" v-on:click="addSession">Add</span>
+      <span class="title icon-calendar">SESSIONS</span>
+      <span class="link icon-cancel" v-on:click="switchEdit(false)" v-if="edit">Cancel</span>
+      <span class="link icon-edit" v-on:click="switchEdit(true)" v-else>Edit</span>
+      <span class="link icon-add" v-on:click="addSession">Add</span>
       <span v-bind:class="{
                     link: true,
                     arrow: true,
@@ -35,7 +35,7 @@
             <label
               v-bind:style="{ color: session.closed? 'var(--deactivated-color)' : 'var(--ok-color)' }"
             >
-              <span v-if="session.closed === 1">🔒</span>
+              <span class="icon-lock" v-if="session.closed === 1"></span>
               {{ session.name }}
             </label>
             <div>
@@ -49,22 +49,22 @@
           <div class="icon"
                v-if="edit"
           >
-            <span class="link"
+            <span class="link icon-edit"
                   v-if="session.closed === 0"
                   v-on:click="addSession(session)">Edit</span>
-            <span class="error link"
+            <span class="error link icon-delete"
                   v-if="session.closed === 0"
                   v-on:click="deleteSession(session)">Delete</span>
-            <span class="link"
+            <span class="link icon-unlock"
                   title="Close session"
                   style="color:var(--deactivated-color);"
                   v-if="session.closed === 0"
                   v-on:click="updateSessionStatus(session, 1)"
-            >🔓</span>
-            <span class="link"
+            ></span>
+            <span class="link icon-lock"
                   title="Open session" style="color:var(--deactivated-color);"
                   v-if="session.closed === 1"
-                  v-on:click="updateSessionStatus(session, 0)">🔒</span>
+                  v-on:click="updateSessionStatus(session, 0)"></span>
           </div>
         </div>
         <div class="ellapsed dashed-background"

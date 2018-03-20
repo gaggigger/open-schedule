@@ -27,8 +27,9 @@
         <button
           type="submit"
           v-on:click="login($event)"
+          class="icon-unlock"
         >
-          🔓 {{ s_login }}
+          {{ s_login }}
         </button>
       </form>
     </div>

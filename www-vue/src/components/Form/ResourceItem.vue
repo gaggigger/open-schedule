@@ -64,7 +64,7 @@ export default {
         .then(apiColumn => Promise.all([
           Http.request(apiColumn, 'GET'),
           Http.request('/resources/' + this.resource + '/lnk', 'GET', {
-            id: this.id,
+            id: this.id || -1,
             resource_name: this.resourceLnk,
             type: this.type
           })

@@ -161,11 +161,12 @@ CREATE TABLE `os_lnk_resources_items` (
   `resources_id` int(11) NOT NULL,
   `sessions_id` int(11) NOT NULL,
   `resource_name` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  UNIQUE KEY `os_lnk_resources_items_UN` (`parent_id`,`resources_id`,`sessions_id`,`resource_name`),
   KEY `os_lnk_resources_items_os_sessions_FK` (`sessions_id`),
   KEY `os_lnk_resources_items_os_resources_items_parent_id_FK` (`parent_id`),
   KEY `os_lnk_resources_items_os_resources_items_resources_id_FK` (`resources_id`),
-  CONSTRAINT `os_lnk_resources_items_os_resources_items_parent_id_FK` FOREIGN KEY (`parent_id`) REFERENCES `os_resources_items` (`id`),
-  CONSTRAINT `os_lnk_resources_items_os_resources_items_resources_id_FK` FOREIGN KEY (`resources_id`) REFERENCES `os_resources_items` (`id`),
+  CONSTRAINT `os_lnk_parent_id_resources_items_os_resources_items_FK` FOREIGN KEY (`parent_id`) REFERENCES `os_resources_items` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `os_lnk_resource_id_resources_items_os_resources_items_FK` FOREIGN KEY (`resources_id`) REFERENCES `os_resources_items` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `os_lnk_resources_items_os_sessions_FK` FOREIGN KEY (`sessions_id`) REFERENCES `os_sessions` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -176,7 +177,6 @@ CREATE TABLE `os_lnk_resources_items` (
 
 LOCK TABLES `os_lnk_resources_items` WRITE;
 /*!40000 ALTER TABLE `os_lnk_resources_items` DISABLE KEYS */;
-INSERT INTO `os_lnk_resources_items` VALUES (3,2,1,'groups'),(3,2,1,'groups'),(3,2,1,'groups'),(3,2,1,'groups'),(3,2,1,'groups'),(4,2,1,'promotions');
 /*!40000 ALTER TABLE `os_lnk_resources_items` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -455,7 +455,7 @@ CREATE TABLE `os_resources_items` (
   KEY `os_resources_items_os_resources_FK` (`resource`,`sessions_id`),
   CONSTRAINT `os_resources_items_os_resources_FK` FOREIGN KEY (`resource`, `sessions_id`) REFERENCES `os_resources` (`name`, `sessions_id`),
   CONSTRAINT `os_resources_items_os_sessions_FK` FOREIGN KEY (`sessions_id`) REFERENCES `os_sessions` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -464,7 +464,7 @@ CREATE TABLE `os_resources_items` (
 
 LOCK TABLES `os_resources_items` WRITE;
 /*!40000 ALTER TABLE `os_resources_items` DISABLE KEYS */;
-INSERT INTO `os_resources_items` VALUES (1,'rooms','{\"code\": \"S001\", \"name\": \"Salle 1\", \"picture\": \"https://firebasestorage.googleapis.com/v0/b/formation-tz.appspot.com/o/openschedule%2F7ad420bf-7610-4e33-ad70-145075ac0cb7?alt=media&token=ada29f8b-e993-4a02-9e29-341f4395c497\", \"capacity\": \"500\"}','2018-03-11 13:09:46','2018-03-11 13:09:46','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(2,'students','{\"name\": \"Solofo\", \"birth\": \"1983-12-22\", \"email\": \"sdqsdqsd@azeaz.com\", \"lastname\": \"Hery\", \"matricule\": \"MS001\"}','2018-03-11 13:10:20','2018-03-11 13:10:20','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',41,1),(3,'groups','{\"name\": \"Group 1\", \"groupid\": \"G1\"}','2018-03-11 13:11:02','2018-03-11 13:11:02','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(4,'promotions','{\"name\": \"Promotion 001\", \"classid\": \"P001\"}','2018-03-11 13:11:15','2018-03-11 13:11:15','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(5,'lectures','{\"code\": \"MLG\", \"name\": \"Malagasy\", \"color\": \"#ff0017\"}','2018-03-11 13:11:32','2018-03-11 13:11:32','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(6,'students','{\"name\": \"TEST\", \"birth\": \"2018-03-01\", \"email\": \"test@gmail.com\", \"lastname\": \"aaa\", \"matricule\": \"MMS02\"}','2018-03-11 14:38:12','2018-03-11 14:38:12','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',42,1),(7,'teachers','{\"name\": \"Test\", \"email\": \"azeaze@gmail.com\", \"grade\": [\"LCN\", \"MTR\", \"MSR\", \"DEA\"], \"lastname\": \"test\", \"matricule\": \"10\"}','2018-03-12 22:03:35','2018-03-12 22:03:35','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',43,1),(8,'teachers','{\"name\": \"zeazeaz\", \"email\": \"zeazeazeazea@opopo.vom\", \"grade\": [\"MTR\", \"MSR\", \"DEA\", \"ING\"], \"lastname\": \"eazeaze\", \"matricule\": \"qzzeazeaze\", \"hourly_rate\": \"123\"}','2018-03-12 22:40:16','2018-03-12 22:40:16','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',44,1),(9,'promotions','{\"name\": \"Promotion 2\", \"classid\": \"P002\"}','2018-03-16 16:09:16','2018-03-16 16:09:16','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(10,'groups','{\"name\": \"G10\", \"groupid\": \"G10\"}','2018-03-16 16:52:18','2018-03-16 16:52:18','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(11,'students','{\"name\": \"Test\", \"birth\": \"2018-03-14\", \"email\": \"qsdqsd@sdqsd.com\", \"lastname\": \"test\", \"matricule\": \"001\"}','2018-03-16 19:06:01','2018-03-16 19:06:01','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',45,1),(12,'students','{\"name\": \"dtest\", \"birth\": \"2018-03-08\", \"email\": \"azeazeq@gmail.com\", \"lastname\": \"dsetset\", \"matricule\": \"dTest\"}','2018-03-18 20:44:12','2018-03-18 20:44:12','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',46,1),(13,'schoolbus','{\"groupid\": \"SB1\"}','2018-03-18 22:31:33','2018-03-18 22:31:33','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(14,'rooms','{\"code\": \"A1\", \"name\": \"A1\", \"capacity\": \"10\"}','2018-03-19 17:52:34','2018-03-19 17:52:34','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(15,'schoolbus','{\"groupid\": \"SB3\"}','2018-03-19 18:40:07','2018-03-19 18:40:07','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(16,'groups','{\"name\": \"1\", \"groupid\": \"1\"}','2018-03-19 21:00:12','2018-03-19 21:00:12','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(17,'groups','{\"name\": \"2\", \"groupid\": \"2\"}','2018-03-19 21:00:17','2018-03-19 21:00:17','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(18,'groups','{\"name\": \"3\", \"groupid\": \"3\"}','2018-03-19 21:00:24','2018-03-19 21:00:24','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(19,'groups','{\"name\": \"4\", \"groupid\": \"4\"}','2018-03-19 21:00:29','2018-03-19 21:00:29','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(20,'groups','{\"name\": \"5\", \"groupid\": \"5\"}','2018-03-19 21:00:33','2018-03-19 21:00:33','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(21,'groups','{\"name\": \"6\", \"groupid\": \"6\"}','2018-03-19 21:00:38','2018-03-19 21:00:38','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(22,'groups','{\"name\": \"7\", \"groupid\": \"7\"}','2018-03-19 21:00:42','2018-03-19 21:00:42','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(23,'groups','{\"name\": \"8\", \"groupid\": \"8\"}','2018-03-19 21:00:47','2018-03-19 21:00:47','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(24,'groups','{\"name\": \"9\", \"groupid\": \"9\"}','2018-03-19 21:00:53','2018-03-19 21:00:53','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(25,'groups','{\"name\": \"10\", \"groupid\": \"10\"}','2018-03-19 21:00:58','2018-03-19 21:00:58','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(26,'groups','{\"name\": \"11\", \"groupid\": \"11\"}','2018-03-19 21:01:04','2018-03-19 21:01:04','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1);
+INSERT INTO `os_resources_items` VALUES (40,'schoolbus','{\"groupid\": \"01\"}','2018-03-20 13:37:59','2018-03-20 13:37:59','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(42,'schoolbus','{\"groupid\": \"03\"}','2018-03-20 13:38:05','2018-03-20 13:38:05','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(44,'schoolbus','{\"groupid\": \"05\"}','2018-03-20 13:38:11','2018-03-20 13:38:11','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1);
 /*!40000 ALTER TABLE `os_resources_items` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -689,7 +689,7 @@ CREATE TABLE `os_sessions` (
   `roles` json DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -698,7 +698,7 @@ CREATE TABLE `os_sessions` (
 
 LOCK TABLES `os_sessions` WRITE;
 /*!40000 ALTER TABLE `os_sessions` DISABLE KEYS */;
-INSERT INTO `os_sessions` VALUES (1,'2017-11-01','2018-11-01',NULL,0,'College year 2017-2018','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_create\": [\"ROLE_ADMIN\"]}',NULL);
+INSERT INTO `os_sessions` VALUES (1,'2017-11-01','2018-11-01',NULL,0,'College year 2017-2018','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_create\": [\"ROLE_ADMIN\"]}',NULL),(2,'2018-03-01','2018-03-28',NULL,0,'Test','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"], \"can_create\": \"roles\"}',1);
 /*!40000 ALTER TABLE `os_sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -722,7 +722,7 @@ CREATE TABLE `os_users` (
   PRIMARY KEY (`id`),
   KEY `os_users_username_IDX` (`username`) USING BTREE,
   KEY `os_users_active_IDX` (`active`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -731,7 +731,7 @@ CREATE TABLE `os_users` (
 
 LOCK TABLES `os_users` WRITE;
 /*!40000 ALTER TABLE `os_users` DISABLE KEYS */;
-INSERT INTO `os_users` VALUES (32,'{}',1,'2017-11-11 23:31:45','2018-03-20 09:46:52','2018-03-20 09:46:52','admin','*4ACFE3202A5FF5CF467898FC58AAB1D615029441','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]'),(40,'{}',0,'2018-03-10 22:07:37','2018-03-10 22:07:37',NULL,'dsdf@gmail.com','$6$db4bf40c85073497$MTePInRFH9xK5IEf280v2dljZHJScYisBP9rbvnfyxfnDBhf1k96fu23hMtuginqfNiPvOjm8MUPS1di1JCJc0','[\"ROLE_USER\", \"ROLE_TEACHERS\"]'),(41,'{}',0,'2018-03-11 13:10:20','2018-03-11 13:10:20',NULL,'solofo@gmail.com','$6$7432d26b709ba249$R9qxFzASfv5ug6y9s607ABCCqEqfABhh86P86Uwq/GLf42/fvtEPeRyRSuuPbyBVBIDTlufeCLE1FPn3B7.uN0','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(42,'{}',0,'2018-03-11 14:38:12','2018-03-11 14:38:12',NULL,'test@gmail.com','$6$fb4794dace36a021$dwyaYcjm6lGu5kqbGSoDjYJANY2L/XlapRqQ4llOGXxaAnLXB/2hTRaaRKGIqTZJItCWFRITUCw.NzjruzmWh0','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(43,'{}',0,'2018-03-12 22:03:35','2018-03-12 22:03:35',NULL,'seser@gmail.com','$6$cce5a4a32523b68f$Z8I1yZaKRiQaYDU5Bzu35QMafNX.mw8/6jsWv9CgR6Glee3z8RFT1Xq1dcTVwoa3G5CHlC7NyHDfQIRrK5xac0','[\"ROLE_USER\", \"ROLE_TEACHERS\"]'),(44,'{}',0,'2018-03-12 22:40:16','2018-03-12 22:40:16',NULL,'zeazeazeazea@opopo.vom','$6$ac6fb4495e450512$.aA040n2CEjHDe4fn2K/UIRk7oK0TidGv2rgdDmIATeiwCgWrFp/42A.4aWoF.lhDzfNEPQlwl.lEpSiEIyUn0','[\"ROLE_USER\", \"ROLE_TEACHERS\"]'),(45,'{}',0,'2018-03-16 19:06:01','2018-03-16 19:06:01',NULL,'qsdqsd@sdqsd.com','$6$00b91be5259a6af7$zloFaPfl359M10AgIyts6W82yyyjhTGUvoEEnoFh.95v9IYR42A6et2.Dnqxc7BcmGK3tlEDa3YMW9nRugibZ0','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(46,'{}',0,'2018-03-18 20:44:12','2018-03-18 20:44:12',NULL,'azeazeq@gmail.com','$6$2d15f98a59809c30$N14ewuW/yD77FOaZg5zp3go6iN1kGtQgKpyjhp3c16hsENZaK1KvHyuxdcKhOMJYyihrrPrvJdAyQ1tRkVCXd/','[\"ROLE_USER\", \"ROLE_STUDENTS\"]');
+INSERT INTO `os_users` VALUES (32,'{}',1,'2017-11-11 23:31:45','2018-03-20 12:37:04','2018-03-20 12:37:04','admin','*4ACFE3202A5FF5CF467898FC58AAB1D615029441','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]'),(40,'{}',0,'2018-03-10 22:07:37','2018-03-10 22:07:37',NULL,'dsdf@gmail.com','$6$db4bf40c85073497$MTePInRFH9xK5IEf280v2dljZHJScYisBP9rbvnfyxfnDBhf1k96fu23hMtuginqfNiPvOjm8MUPS1di1JCJc0','[\"ROLE_USER\", \"ROLE_TEACHERS\"]'),(41,'{}',0,'2018-03-11 13:10:20','2018-03-11 13:10:20',NULL,'solofo@gmail.com','$6$7432d26b709ba249$R9qxFzASfv5ug6y9s607ABCCqEqfABhh86P86Uwq/GLf42/fvtEPeRyRSuuPbyBVBIDTlufeCLE1FPn3B7.uN0','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(42,'{}',0,'2018-03-11 14:38:12','2018-03-11 14:38:12',NULL,'test@gmail.com','$6$fb4794dace36a021$dwyaYcjm6lGu5kqbGSoDjYJANY2L/XlapRqQ4llOGXxaAnLXB/2hTRaaRKGIqTZJItCWFRITUCw.NzjruzmWh0','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(43,'{}',0,'2018-03-12 22:03:35','2018-03-12 22:03:35',NULL,'seser@gmail.com','$6$cce5a4a32523b68f$Z8I1yZaKRiQaYDU5Bzu35QMafNX.mw8/6jsWv9CgR6Glee3z8RFT1Xq1dcTVwoa3G5CHlC7NyHDfQIRrK5xac0','[\"ROLE_USER\", \"ROLE_TEACHERS\"]'),(44,'{}',0,'2018-03-12 22:40:16','2018-03-12 22:40:16',NULL,'zeazeazeazea@opopo.vom','$6$ac6fb4495e450512$.aA040n2CEjHDe4fn2K/UIRk7oK0TidGv2rgdDmIATeiwCgWrFp/42A.4aWoF.lhDzfNEPQlwl.lEpSiEIyUn0','[\"ROLE_USER\", \"ROLE_TEACHERS\"]'),(45,'{}',0,'2018-03-16 19:06:01','2018-03-16 19:06:01',NULL,'qsdqsd@sdqsd.com','$6$00b91be5259a6af7$zloFaPfl359M10AgIyts6W82yyyjhTGUvoEEnoFh.95v9IYR42A6et2.Dnqxc7BcmGK3tlEDa3YMW9nRugibZ0','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(46,'{}',0,'2018-03-18 20:44:12','2018-03-18 20:44:12',NULL,'azeazeq@gmail.com','$6$2d15f98a59809c30$N14ewuW/yD77FOaZg5zp3go6iN1kGtQgKpyjhp3c16hsENZaK1KvHyuxdcKhOMJYyihrrPrvJdAyQ1tRkVCXd/','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(47,'{}',0,'2018-03-20 12:00:41','2018-03-20 12:00:41',NULL,'azaze@azeaze.com','$6$478194b3c8167127$FlLMg5CWk8t00NIA3gWZAApX6i7/jVsCfEb6bltYNpjy7iG5Ui4JUiI.k7QtgGCExeMZy/XwGxV/Ur3sJOUuM1','[\"ROLE_USER\", \"ROLE_STUDENTS\"]');
 /*!40000 ALTER TABLE `os_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -853,6 +853,7 @@ CREATE TABLE `os_users_pending` (
 
 LOCK TABLES `os_users_pending` WRITE;
 /*!40000 ALTER TABLE `os_users_pending` DISABLE KEYS */;
+INSERT INTO `os_users_pending` VALUES (47,'azaze@azeaze.com','2018-03-20 12:00:41','$6$478194b3c8167127$FlLMg5CWk8t00NIA3gWZAApX6i7/jVsCfEb6bltYNpjy7iG5Ui4JUiI.k7QtgGCExeMZy/XwGxV/Ur3sJOUuM1','bc47e84322e3675d7010b9a341266487e36fc1b4c3f18b8093305818486afc31',0,NULL);
 /*!40000 ALTER TABLE `os_users_pending` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -1240,13 +1241,55 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `os_delete_resources_data` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE  PROCEDURE `os_delete_resources_data`(query JSON)
+BEGIN
+	DECLARE roles JSON default '[]';
+	DECLARE sessions INT default 0;
+	DECLARE i INT DEFAULT 0;
+
+	SET roles = os_get_json_roles(query); 
+	SET @swhere = os_allowed_reading_roles(roles, 'roles');
+	SET sessions = os_get_json_string(query , 'sessions');
+	set @sessions = sessions;
+
+	WHILE i < JSON_LENGTH(query->'$.ids') DO
+		SET @query = CONCAT(
+			' DELETE FROM os_resources_items ',
+			' WHERE '
+			' (', os_allowed_writing_roles(roles, 'roles') , ' )'
+			' AND sessions_id = ? '
+			' AND id = ? '
+		);
+		SET @ids = JSON_EXTRACT(query->'$.ids',CONCAT('$[',i,']'));
+		PREPARE stmt FROM @query;
+		EXECUTE stmt USING @sessions, @ids;
+		DEALLOCATE PREPARE stmt;
+
+	    SELECT i + 1 INTO i;
+	END WHILE;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `os_delete_sessions` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1283,6 +1326,7 @@ BEGIN
 	);
 	PREPARE stmt FROM @querystring;
 	EXECUTE stmt USING @id;
+	DEALLOCATE PREPARE stmt;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1348,7 +1392,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1370,7 +1414,7 @@ BEGIN
 	);
 	PREPARE stmt FROM @query;
 	EXECUTE stmt USING @module, @sessions;
-
+	DEALLOCATE PREPARE stmt;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1381,9 +1425,9 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1404,6 +1448,7 @@ BEGIN
 	);
 	PREPARE stmt FROM @query;
 	EXECUTE stmt USING @sessions;
+	DEALLOCATE PREPARE stmt;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1416,7 +1461,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1437,6 +1482,7 @@ BEGIN
 
     PREPARE stmt FROM @query;
     EXECUTE stmt USING @resource, @sessions;
+	DEALLOCATE PREPARE stmt;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1447,9 +1493,9 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1472,7 +1518,7 @@ BEGIN
 		);
 	    PREPARE stmt FROM @query;
 	    EXECUTE stmt USING @queryparam, @sessions;
-    
+		DEALLOCATE PREPARE stmt;    
 	ELSEIF NOT os_is_json_null(JSON_EXTRACT(query, '$.ids'))  THEN
 		set @queryparam = os_get_json_string(query , 'ids');
 	    set @query = CONCAT(
@@ -1482,7 +1528,7 @@ BEGIN
 		);
 	    PREPARE stmt FROM @query;
 	    EXECUTE stmt USING @queryparam, @sessions;
-		
+		DEALLOCATE PREPARE stmt;		
     END IF;
 
 END ;;
@@ -1495,9 +1541,9 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1518,6 +1564,7 @@ BEGIN
 
     PREPARE stmt FROM @query;
     EXECUTE stmt USING @resource, @sessions;
+	DEALLOCATE PREPARE stmt;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1528,9 +1575,9 @@ DELIMITER ;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8 */ ;
-/*!50003 SET character_set_results = utf8 */ ;
-/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET character_set_client  = utf8mb4 */ ;
+/*!50003 SET character_set_results = utf8mb4 */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1553,6 +1600,7 @@ BEGIN
 	);	
 	PREPARE stmt FROM @query;
 	EXECUTE stmt USING @sessions;
+	DEALLOCATE PREPARE stmt;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1613,7 +1661,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1646,6 +1694,7 @@ BEGIN
 	);
 	PREPARE stmt FROM @query;
 	EXECUTE stmt;
+	DEALLOCATE PREPARE stmt;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1658,7 +1707,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1679,6 +1728,7 @@ BEGIN
 
     PREPARE stmt FROM 'SELECT id,params as attributes,username,roles FROM os_users WHERE username = ? AND (password = ENCRYPT(?, password) OR password = PASSWORD(?)) AND active = 1';
     EXECUTE stmt USING @u, @p, @p;
+	DEALLOCATE PREPARE stmt;
     
     UPDATE os_users SET last_connection = now() WHERE username = @u;
 END ;;
@@ -1693,7 +1743,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1716,6 +1766,8 @@ BEGIN
 	);
 	PREPARE stmt FROM @query;
 	EXECUTE stmt;
+	DEALLOCATE PREPARE stmt;
+
 	if (@items_roles is null) then
     	SIGNAL SQLSTATE '45000'
  		SET MESSAGE_TEXT = 'no_role_allowed';			
@@ -1737,7 +1789,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1775,7 +1827,7 @@ BEGIN
 	
 	PREPARE stmt FROM @query;
 	EXECUTE stmt;
-	
+	DEALLOCATE PREPARE stmt;
 	
 	if (@parent_roles is null) then
     	SIGNAL SQLSTATE '45000'
@@ -1799,6 +1851,7 @@ BEGIN
 		
 		PREPARE stmt FROM 'INSERT INTO os_resources_items (resource, params, roles, sessions_id) values (?, ?, ?, ?)';
 		EXECUTE stmt USING @r, @d, @parent_roles, @ss;
+		DEALLOCATE PREPARE stmt;
 		
 		SET @lid = last_insert_id();
 		SELECT * FROM os_resources_items WHERE id = @lid;
@@ -1808,6 +1861,7 @@ BEGIN
 		SET @d = JSON_REMOVE(@d, '$.id');
 		PREPARE stmt FROM 'UPDATE os_resources_items SET params = ? WHERE id = ?';
 		EXECUTE stmt USING @d, @did;
+		DEALLOCATE PREPARE stmt;
 		
 		SELECT * FROM os_resources_items WHERE id = @did;
 	end if;
@@ -1824,7 +1878,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1841,12 +1895,13 @@ BEGIN
 	if os_is_json_null(mdata->'$.uuid') then
 		PREPARE stmt FROM 'INSERT INTO os_modules_data (module, data, roles, sessions_id) values (?, ?, ?, ?)';
 		EXECUTE stmt USING @module, @mdata, @roles, @sessions;
-
+		DEALLOCATE PREPARE stmt;
 		SELECT * FROM os_modules_data WHERE uuid = @last_modules_uuid;
 	else
 		SET @uuid = JSON_UNQUOTE(mdata->'$.uuid');		
 		PREPARE stmt FROM 'UPDATE os_modules_data SET data = ? WHERE uuid = ?';
 		EXECUTE stmt USING @mdata, @uuid;
+		DEALLOCATE PREPARE stmt;
 	end if;
 END ;;
 DELIMITER ;
@@ -1860,7 +1915,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1884,6 +1939,7 @@ BEGIN
 	);
 	PREPARE stmt FROM @query;
 	EXECUTE stmt;
+	DEALLOCATE PREPARE stmt;
 	if (@items_roles is null) then
     	SIGNAL SQLSTATE '45000'
  		SET MESSAGE_TEXT = 'no_role_allowed';			
@@ -1953,7 +2009,7 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
@@ -1998,6 +2054,7 @@ BEGIN
 	if os_is_json_null(data->'$.id') then
 		PREPARE stmt FROM 'INSERT INTO os_sessions (name, date_start, date_end, closed, roles, parent_id) values (?, ?, ?, ?, ?, ?)';
 		EXECUTE stmt USING @name, @date_start, @date_end, @closed, @sroles, @parent_id;
+		DEALLOCATE PREPARE stmt;
 		
 		SET @lid = last_insert_id();
 		SELECT * FROM os_sessions WHERE id = @lid;
@@ -2006,6 +2063,7 @@ BEGIN
 		SET @did = JSON_UNQUOTE(data->'$.id');
 		PREPARE stmt FROM 'UPDATE os_sessions SET name = ?, date_start = ?, date_end = ?, closed = ?, parent_id = ? WHERE id = ?';
 		EXECUTE stmt USING @name, @date_start, @date_end, @closed, @parent_id, @did;
+		DEALLOCATE PREPARE stmt;
 		
 		IF @closed = '1' AND (@parent_id IS NULL OR @parent_id = ' OR @parent_id = 0') THEN
 			PREPARE stmt FROM 'UPDATE os_sessions SET closed = ? WHERE parent_id = ?';
@@ -2030,4 +2088,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-20 10:29:12
+-- Dump completed on 2018-03-20 13:40:14
