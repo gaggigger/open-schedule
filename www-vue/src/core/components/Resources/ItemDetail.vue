@@ -20,10 +20,9 @@
 
 <script>
 import {VueTabs, VTab} from 'vue-nav-tabs'
-import ItemForm from '@/components/Resources/Form'
-import ItemCalendar from '@/components/Resources/Calendar'
-import Http from '@/services/Http'
-// import 'vue-nav-tabs/themes/vue-tabs.css'
+import ItemForm from './Form.vue'
+import ItemCalendar from './Calendar.vue'
+import Http from '../../services/Http'
 
 export default {
   name: 'ResourcesForm',

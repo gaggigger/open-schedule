@@ -1,4 +1,4 @@
-import Config from '../../../api-nj/config'
+import Config from '../../../../api-nj/config'
 
 const FileStorage = {
   init () {

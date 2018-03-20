@@ -21,8 +21,8 @@
 </template>
 <script>
 import uuidv4 from 'uuid/v4'
-import FileStorage from '@/services/FileStorage'
-import Notification from '@/services/Notification'
+import FileStorage from '../../services/FileStorage'
+import Notification from '../../services/Notification'
 
 export default {
   name: 'dd-image',

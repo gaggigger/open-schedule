@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueCookie from 'vue-cookie'
-import TokenStorage from '@/services/TokenStorage'
+import TokenStorage from './TokenStorage'
 
 Vue.use(VueCookie)
 

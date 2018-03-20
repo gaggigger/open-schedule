@@ -33,7 +33,7 @@
 </template>
 
 <script>
-import Http from '@/services/Http'
+import Http from '../../services/Http'
 
 export default {
   name: 'ItemList',
@@ -108,7 +108,7 @@ export default {
 </script>
 <style scoped>
   table {
-    min-width: 50%;
+    min-width: 100%;
   }
   @media screen and (max-width: 950px) {
     table {

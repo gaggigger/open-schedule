@@ -1,4 +1,4 @@
-import Http from '@/services/Http'
+import Http from './Http'
 
 const Period = {
   loadPeriod (parameters = {}) {

@@ -1,24 +1,31 @@
 <template>
   <div>
     <modal v-if="showModal" @ok="saveEvent" @cancel="showModal = false">
-      <h3 slot="header">Edit event</h3>
+      <h3 slot="header"></h3>
       <div slot="body" class="event-form">
-        <div>
-          <label>Date start</label>
-          <input type="datetime-local" v-model="modal.start" required />
-        </div>
-        <div>
-          <label>Date end</label>
-          <input type="datetime-local" v-model="modal.end" required />
-        </div>
-        <div>
-          <label>Title</label>
-          <input type="text" class="calendar-autofocus" v-model="modal.title" required autofocus />
-        </div>
-        <div>
-          <label>Description</label>
-          <textarea rows="5" v-model="modal.description"></textarea>
-        </div>
+        <vue-tabs>
+          <v-tab title="Event information">
+            <div>
+              <label>Date start</label>
+              <input type="datetime-local" v-model="modal.start" required />
+            </div>
+            <div>
+              <label>Date end</label>
+              <input type="datetime-local" v-model="modal.end" required />
+            </div>
+            <div>
+              <label>Title</label>
+              <input type="text" class="calendar-autofocus" v-model="modal.title" required autofocus />
+            </div>
+            <div>
+              <label>Description</label>
+              <textarea rows="5" v-model="modal.description"></textarea>
+            </div>
+          </v-tab>
+          <v-tab title="Linked items">
+            Ehe
+          </v-tab>
+        </vue-tabs>
       </div>
     </modal>
     <div class="calendar-container">
@@ -28,14 +35,17 @@
 </template>
 <script>
 import { FullCalendar } from 'vue-full-calendar'
-import Http from '@/services/Http'
-import Modal from '@/components/Form/Modal'
+import Http from '../../services/Http'
+import Modal from '../Form/Modal.vue'
+import {VueTabs, VTab} from 'vue-nav-tabs'
 
 export default {
   name: 'calendar',
   components: {
     FullCalendar,
-    Modal
+    Modal,
+    VueTabs,
+    VTab
   },
   data () {
     return {
@@ -97,15 +107,24 @@ export default {
   },
   watch: {
     showModal (val) {
-      if (val) window.setTimeout(() => document.querySelector('.calendar-autofocus').focus(), 100)
-      else {
+      if (val) {
+        window.setTimeout(() => {
+          try {
+            document.querySelector('.calendar-autofocus').focus()
+          } catch (e) {
+            // do no thing
+          }
+        }, 100)
+      } else {
         this.modal = {}
       }
     }
   },
   methods: {
     getItems () {
-      return Http.request('/modules/calendar/data', 'GET')
+      return Http.request('/modules/calendar/data', 'GET', {
+        id: this.id
+      })
     },
     newEvent (start, end) {
       this.showModal = true
@@ -149,6 +168,9 @@ export default {
 }
 </script>
 <style scoped>
+  .event-form {
+    min-height: 50vh;
+  }
   input, textarea {
     width: calc(100% - 15px);
     resize: none;

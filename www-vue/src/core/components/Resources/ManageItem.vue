@@ -15,8 +15,8 @@
 </template>
 
 <script>
-import ItemList from '@/components/Resources/ItemList'
-import Http from '@/services/Http'
+import ItemList from './ItemList.vue'
+import Http from '../../services/Http'
 
 export default {
   name: 'ResourcesItem',
@@ -39,6 +39,10 @@ export default {
       this.selectedItems = selection.slice(0)
     },
     deleteItem () {
+      if (this.selectedItems.length === 0) {
+        alert('Please select the rows to delete')
+        return false
+      }
       if (!confirm('Do you want to delete selected items?')) {
         return false
       }

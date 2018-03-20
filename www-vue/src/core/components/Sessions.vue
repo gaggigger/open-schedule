@@ -82,11 +82,11 @@
 
 <script>
 import moment from 'moment'
-import New from './Sessions/New'
-import PeriodService from '@/services/Period'
-import Period from './Sessions/Period'
-import Notification from '@/services/Notification'
-import Modal from '@/components/Form/Modal'
+import New from './Sessions/New.vue'
+import PeriodService from '../services/Period'
+import Period from './Sessions/Period.vue'
+import Notification from '../services/Notification'
+import Modal from './Form/Modal.vue'
 
 export default {
   name: 'Session',

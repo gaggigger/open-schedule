@@ -207,7 +207,7 @@ CREATE TABLE `os_modules_data` (
 
 LOCK TABLES `os_modules_data` WRITE;
 /*!40000 ALTER TABLE `os_modules_data` DISABLE KEYS */;
-INSERT INTO `os_modules_data` VALUES ('1ac953b9-26ef-11e8-84a1-1866da0d8409','calendar','{\"id\": \"1\", \"uuid\": \"1ac953b9-26ef-11e8-84a1-1866da0d8409\", \"detail\": {\"end\": \"2018-03-15T09:00\", \"start\": \"2018-03-15T07:45\"}, \"resource\": \"rooms\"}','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]','2018-03-13 21:48:22','2018-03-13 21:48:22',1),('401b5f75-26ed-11e8-84a1-1866da0d8409','calendar','{\"id\": \"1\", \"uuid\": \"401b5f75-26ed-11e8-84a1-1866da0d8409\", \"detail\": {\"end\": \"2018-03-13T08:15\", \"start\": \"2018-03-13T06:30\"}, \"resource\": \"rooms\"}','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]','2018-03-13 21:35:05','2018-03-13 21:35:05',1),('78694805-26ef-11e8-84a1-1866da0d8409','calendar','{\"id\": \"1\", \"uuid\": \"78694805-26ef-11e8-84a1-1866da0d8409\", \"detail\": {\"end\": \"2018-03-16T20:50\", \"uuid\": \"78694805-26ef-11e8-84a1-1866da0d8409\", \"start\": \"2018-03-16T20:45\", \"title\": \"Test _\"}, \"resource\": \"rooms\"}','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]','2018-03-13 21:50:59','2018-03-13 21:50:59',1),('8a0ce27f-26ed-11e8-84a1-1866da0d8409','calendar','{\"id\": \"1\", \"uuid\": \"8a0ce27f-26ed-11e8-84a1-1866da0d8409\", \"detail\": {\"end\": \"2018-03-16T09:30\", \"start\": \"2018-03-16T07:30\"}, \"resource\": \"rooms\"}','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]','2018-03-13 21:37:10','2018-03-13 21:37:10',1),('f9f6d239-2b4e-11e8-a8f2-1866da0d8409','calendar','{\"id\": \"1\", \"detail\": {\"end\": \"2018-03-17T08:45\", \"uuid\": \"d21e294a-26e4-11e8-84a1-1866da0d8409\", \"start\": \"2018-03-17T08:15\"}, \"resource\": \"rooms\"}','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]','2018-03-19 11:24:43','2018-03-19 11:24:43',1),('faa609ce-2b4e-11e8-a8f2-1866da0d8409','calendar','{\"date\": \"2018-03-08T07:45:00\"}','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]','2018-03-19 11:24:44','2018-03-19 11:24:44',1);
+INSERT INTO `os_modules_data` VALUES ('05e94929-2c45-11e8-adea-1866da0d8409','calendar','{\"id\": \"46\", \"uuid\": null, \"detail\": {\"end\": \"2018-03-22T07:30\", \"uuid\": null, \"start\": \"2018-03-22T06:30\", \"title\": \"Test\"}, \"resource\": \"students\"}','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]','2018-03-20 16:45:59','2018-03-20 16:45:59',1),('14a7b6b5-2c45-11e8-adea-1866da0d8409','calendar','{\"id\": \"46\", \"uuid\": null, \"detail\": {\"end\": \"2018-03-22T07:30\", \"uuid\": null, \"start\": \"2018-03-22T06:30\", \"title\": \"Test\"}, \"resource\": \"students\"}','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]','2018-03-20 16:46:24','2018-03-20 16:46:24',1),('14dd7cbd-2c45-11e8-adea-1866da0d8409','calendar','{\"id\": \"46\", \"uuid\": null, \"detail\": {\"end\": \"2018-03-22T07:30\", \"uuid\": null, \"start\": \"2018-03-22T06:30\", \"title\": \"Test\"}, \"resource\": \"students\"}','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]','2018-03-20 16:46:24','2018-03-20 16:46:24',1),('14f8fb24-2c45-11e8-adea-1866da0d8409','calendar','{\"id\": \"46\", \"uuid\": null, \"detail\": {\"end\": \"2018-03-22T07:30\", \"uuid\": null, \"start\": \"2018-03-22T06:30\", \"title\": \"Test\"}, \"resource\": \"students\"}','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]','2018-03-20 16:46:25','2018-03-20 16:46:25',1),('1586b681-2c45-11e8-adea-1866da0d8409','calendar','{\"id\": \"46\", \"uuid\": null, \"detail\": {\"end\": \"2018-03-22T07:30\", \"uuid\": null, \"start\": \"2018-03-22T06:30\", \"title\": \"Test\"}, \"resource\": \"students\"}','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]','2018-03-20 16:46:26','2018-03-20 16:46:26',1),('15dd1e83-2c45-11e8-adea-1866da0d8409','calendar','{\"id\": \"46\", \"uuid\": null, \"detail\": {\"end\": \"2018-03-22T07:30\", \"uuid\": null, \"start\": \"2018-03-22T06:30\", \"title\": \"Test\"}, \"resource\": \"students\"}','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]','2018-03-20 16:46:26','2018-03-20 16:46:26',1),('17392a93-2c3e-11e8-adea-1866da0d8409','calendar','{\"id\": \"46\", \"uuid\": \"17392a93-2c3e-11e8-adea-1866da0d8409\", \"detail\": {\"end\": \"2018-03-22T08:15\", \"uuid\": \"17392a93-2c3e-11e8-adea-1866da0d8409\", \"start\": \"2018-03-22T06:45\", \"title\": \"Testo\"}, \"resource\": \"students\"}','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]','2018-03-20 15:56:22','2018-03-20 15:56:22',1),('7177e5a0-2c60-11e8-adea-1866da0d8409','calendar','{\"id\": \"46\", \"uuid\": \"7177e5a0-2c60-11e8-adea-1866da0d8409\", \"detail\": {\"end\": \"2018-03-21T07:15\", \"uuid\": \"7177e5a0-2c60-11e8-adea-1866da0d8409\", \"start\": \"2018-03-21T07:00\", \"title\": \"ooo\"}, \"resource\": \"students\"}','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]','2018-03-20 20:02:16','2018-03-20 20:02:16',1);
 /*!40000 ALTER TABLE `os_modules_data` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -455,7 +455,7 @@ CREATE TABLE `os_resources_items` (
   KEY `os_resources_items_os_resources_FK` (`resource`,`sessions_id`),
   CONSTRAINT `os_resources_items_os_resources_FK` FOREIGN KEY (`resource`, `sessions_id`) REFERENCES `os_resources` (`name`, `sessions_id`),
   CONSTRAINT `os_resources_items_os_sessions_FK` FOREIGN KEY (`sessions_id`) REFERENCES `os_sessions` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -464,7 +464,7 @@ CREATE TABLE `os_resources_items` (
 
 LOCK TABLES `os_resources_items` WRITE;
 /*!40000 ALTER TABLE `os_resources_items` DISABLE KEYS */;
-INSERT INTO `os_resources_items` VALUES (40,'schoolbus','{\"groupid\": \"01\"}','2018-03-20 13:37:59','2018-03-20 13:37:59','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(42,'schoolbus','{\"groupid\": \"03\"}','2018-03-20 13:38:05','2018-03-20 13:38:05','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(44,'schoolbus','{\"groupid\": \"05\"}','2018-03-20 13:38:11','2018-03-20 13:38:11','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1);
+INSERT INTO `os_resources_items` VALUES (40,'schoolbus','{\"groupid\": \"01\"}','2018-03-20 13:37:59','2018-03-20 13:37:59','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(42,'schoolbus','{\"groupid\": \"03\"}','2018-03-20 13:38:05','2018-03-20 13:38:05','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(44,'schoolbus','{\"groupid\": \"05\"}','2018-03-20 13:38:11','2018-03-20 13:38:11','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',NULL,1),(46,'students','{\"name\": \"Bob\", \"birth\": \"2018-12-31\", \"email\": \"bob@gmail.com\", \"lastname\": \"Alice\", \"matricule\": \"001\"}','2018-03-20 15:02:58','2018-03-20 15:02:58','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_DE\"], \"can_write\": [\"ROLE_ADMIN\"]}',48,1);
 /*!40000 ALTER TABLE `os_resources_items` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -722,7 +722,7 @@ CREATE TABLE `os_users` (
   PRIMARY KEY (`id`),
   KEY `os_users_username_IDX` (`username`) USING BTREE,
   KEY `os_users_active_IDX` (`active`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -731,7 +731,7 @@ CREATE TABLE `os_users` (
 
 LOCK TABLES `os_users` WRITE;
 /*!40000 ALTER TABLE `os_users` DISABLE KEYS */;
-INSERT INTO `os_users` VALUES (32,'{}',1,'2017-11-11 23:31:45','2018-03-20 12:37:04','2018-03-20 12:37:04','admin','*4ACFE3202A5FF5CF467898FC58AAB1D615029441','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]'),(40,'{}',0,'2018-03-10 22:07:37','2018-03-10 22:07:37',NULL,'dsdf@gmail.com','$6$db4bf40c85073497$MTePInRFH9xK5IEf280v2dljZHJScYisBP9rbvnfyxfnDBhf1k96fu23hMtuginqfNiPvOjm8MUPS1di1JCJc0','[\"ROLE_USER\", \"ROLE_TEACHERS\"]'),(41,'{}',0,'2018-03-11 13:10:20','2018-03-11 13:10:20',NULL,'solofo@gmail.com','$6$7432d26b709ba249$R9qxFzASfv5ug6y9s607ABCCqEqfABhh86P86Uwq/GLf42/fvtEPeRyRSuuPbyBVBIDTlufeCLE1FPn3B7.uN0','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(42,'{}',0,'2018-03-11 14:38:12','2018-03-11 14:38:12',NULL,'test@gmail.com','$6$fb4794dace36a021$dwyaYcjm6lGu5kqbGSoDjYJANY2L/XlapRqQ4llOGXxaAnLXB/2hTRaaRKGIqTZJItCWFRITUCw.NzjruzmWh0','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(43,'{}',0,'2018-03-12 22:03:35','2018-03-12 22:03:35',NULL,'seser@gmail.com','$6$cce5a4a32523b68f$Z8I1yZaKRiQaYDU5Bzu35QMafNX.mw8/6jsWv9CgR6Glee3z8RFT1Xq1dcTVwoa3G5CHlC7NyHDfQIRrK5xac0','[\"ROLE_USER\", \"ROLE_TEACHERS\"]'),(44,'{}',0,'2018-03-12 22:40:16','2018-03-12 22:40:16',NULL,'zeazeazeazea@opopo.vom','$6$ac6fb4495e450512$.aA040n2CEjHDe4fn2K/UIRk7oK0TidGv2rgdDmIATeiwCgWrFp/42A.4aWoF.lhDzfNEPQlwl.lEpSiEIyUn0','[\"ROLE_USER\", \"ROLE_TEACHERS\"]'),(45,'{}',0,'2018-03-16 19:06:01','2018-03-16 19:06:01',NULL,'qsdqsd@sdqsd.com','$6$00b91be5259a6af7$zloFaPfl359M10AgIyts6W82yyyjhTGUvoEEnoFh.95v9IYR42A6et2.Dnqxc7BcmGK3tlEDa3YMW9nRugibZ0','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(46,'{}',0,'2018-03-18 20:44:12','2018-03-18 20:44:12',NULL,'azeazeq@gmail.com','$6$2d15f98a59809c30$N14ewuW/yD77FOaZg5zp3go6iN1kGtQgKpyjhp3c16hsENZaK1KvHyuxdcKhOMJYyihrrPrvJdAyQ1tRkVCXd/','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(47,'{}',0,'2018-03-20 12:00:41','2018-03-20 12:00:41',NULL,'azaze@azeaze.com','$6$478194b3c8167127$FlLMg5CWk8t00NIA3gWZAApX6i7/jVsCfEb6bltYNpjy7iG5Ui4JUiI.k7QtgGCExeMZy/XwGxV/Ur3sJOUuM1','[\"ROLE_USER\", \"ROLE_STUDENTS\"]');
+INSERT INTO `os_users` VALUES (32,'{}',1,'2017-11-11 23:31:45','2018-03-20 12:37:04','2018-03-20 12:37:04','admin','*4ACFE3202A5FF5CF467898FC58AAB1D615029441','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]'),(40,'{}',0,'2018-03-10 22:07:37','2018-03-10 22:07:37',NULL,'dsdf@gmail.com','$6$db4bf40c85073497$MTePInRFH9xK5IEf280v2dljZHJScYisBP9rbvnfyxfnDBhf1k96fu23hMtuginqfNiPvOjm8MUPS1di1JCJc0','[\"ROLE_USER\", \"ROLE_TEACHERS\"]'),(41,'{}',0,'2018-03-11 13:10:20','2018-03-11 13:10:20',NULL,'solofo@gmail.com','$6$7432d26b709ba249$R9qxFzASfv5ug6y9s607ABCCqEqfABhh86P86Uwq/GLf42/fvtEPeRyRSuuPbyBVBIDTlufeCLE1FPn3B7.uN0','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(42,'{}',0,'2018-03-11 14:38:12','2018-03-11 14:38:12',NULL,'test@gmail.com','$6$fb4794dace36a021$dwyaYcjm6lGu5kqbGSoDjYJANY2L/XlapRqQ4llOGXxaAnLXB/2hTRaaRKGIqTZJItCWFRITUCw.NzjruzmWh0','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(43,'{}',0,'2018-03-12 22:03:35','2018-03-12 22:03:35',NULL,'seser@gmail.com','$6$cce5a4a32523b68f$Z8I1yZaKRiQaYDU5Bzu35QMafNX.mw8/6jsWv9CgR6Glee3z8RFT1Xq1dcTVwoa3G5CHlC7NyHDfQIRrK5xac0','[\"ROLE_USER\", \"ROLE_TEACHERS\"]'),(44,'{}',0,'2018-03-12 22:40:16','2018-03-12 22:40:16',NULL,'zeazeazeazea@opopo.vom','$6$ac6fb4495e450512$.aA040n2CEjHDe4fn2K/UIRk7oK0TidGv2rgdDmIATeiwCgWrFp/42A.4aWoF.lhDzfNEPQlwl.lEpSiEIyUn0','[\"ROLE_USER\", \"ROLE_TEACHERS\"]'),(45,'{}',0,'2018-03-16 19:06:01','2018-03-16 19:06:01',NULL,'qsdqsd@sdqsd.com','$6$00b91be5259a6af7$zloFaPfl359M10AgIyts6W82yyyjhTGUvoEEnoFh.95v9IYR42A6et2.Dnqxc7BcmGK3tlEDa3YMW9nRugibZ0','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(46,'{}',0,'2018-03-18 20:44:12','2018-03-18 20:44:12',NULL,'azeazeq@gmail.com','$6$2d15f98a59809c30$N14ewuW/yD77FOaZg5zp3go6iN1kGtQgKpyjhp3c16hsENZaK1KvHyuxdcKhOMJYyihrrPrvJdAyQ1tRkVCXd/','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(47,'{}',0,'2018-03-20 12:00:41','2018-03-20 12:00:41',NULL,'azaze@azeaze.com','$6$478194b3c8167127$FlLMg5CWk8t00NIA3gWZAApX6i7/jVsCfEb6bltYNpjy7iG5Ui4JUiI.k7QtgGCExeMZy/XwGxV/Ur3sJOUuM1','[\"ROLE_USER\", \"ROLE_STUDENTS\"]'),(48,'{}',0,'2018-03-20 15:02:58','2018-03-20 15:02:58',NULL,'bob@gmail.com','$6$6250023582975041$NPFYIeStqs3gryECA0Qh7tfqIBRxBEHpm3ee67BJFszxisusVSN1eMvtLWwJFHeaBHXBN7XfrTBMDpjEa8mDA1','[\"ROLE_USER\", \"ROLE_STUDENTS\"]');
 /*!40000 ALTER TABLE `os_users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -853,7 +853,7 @@ CREATE TABLE `os_users_pending` (
 
 LOCK TABLES `os_users_pending` WRITE;
 /*!40000 ALTER TABLE `os_users_pending` DISABLE KEYS */;
-INSERT INTO `os_users_pending` VALUES (47,'azaze@azeaze.com','2018-03-20 12:00:41','$6$478194b3c8167127$FlLMg5CWk8t00NIA3gWZAApX6i7/jVsCfEb6bltYNpjy7iG5Ui4JUiI.k7QtgGCExeMZy/XwGxV/Ur3sJOUuM1','bc47e84322e3675d7010b9a341266487e36fc1b4c3f18b8093305818486afc31',0,NULL);
+INSERT INTO `os_users_pending` VALUES (47,'azaze@azeaze.com','2018-03-20 12:00:41','$6$478194b3c8167127$FlLMg5CWk8t00NIA3gWZAApX6i7/jVsCfEb6bltYNpjy7iG5Ui4JUiI.k7QtgGCExeMZy/XwGxV/Ur3sJOUuM1','bc47e84322e3675d7010b9a341266487e36fc1b4c3f18b8093305818486afc31',0,NULL),(48,'bob@gmail.com','2018-03-20 15:02:58','$6$6250023582975041$NPFYIeStqs3gryECA0Qh7tfqIBRxBEHpm3ee67BJFszxisusVSN1eMvtLWwJFHeaBHXBN7XfrTBMDpjEa8mDA1','e87fc518d31aaf78cb647ffba7c598c150d3d5f6734984069be2b569ff5185b4',0,NULL);
 /*!40000 ALTER TABLE `os_users_pending` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -1159,18 +1159,17 @@ DELIMITER ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
 /*!50003 SET character_set_client  = utf8mb4 */ ;
 /*!50003 SET character_set_results = utf8mb4 */ ;
-/*!50003 SET collation_connection  = utf8mb4_unicode_ci */ ;
+/*!50003 SET collation_connection  = utf8mb4_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE  FUNCTION `os_is_json_null`(mdata VARCHAR(255)) RETURNS tinyint(1)
 BEGIN
-	IF (mdata is null OR mdata = '' OR mdata = CAST('null' AS JSON)) then
-		return TRUE;
+	IF (mdata is null OR mdata = '' OR mdata = 'null' OR mdata = CAST('null' AS JSON)) then
+		return 1;
 	ELSE	
-		return FALSE;
+		return 0;
 	END IF;
-
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1400,21 +1399,51 @@ CREATE  PROCEDURE `os_get_modules_data`(query JSON)
 BEGIN
 	DECLARE roles JSON default '[]';
 	DECLARE sessions INT default 0;
+	DECLARE dataId INT default 0;
 
 	SET roles = os_get_json_roles(query); 
+	set dataId = query->'$.id';
 	SET sessions = os_get_json_string(query , 'sessions');
 	SET @sessions = sessions;	
 	SET @module = JSON_UNQUOTE(query->'$.module');
+	
+	IF @module = 'calendar' COLLATE utf8mb4_unicode_ci THEN
+		set @query = CONCAT(
+			'SELECT JSON_SET(md.data->''$.detail'', ''$.uuid'', md.uuid, ''$.id'', md.data->''$.id'') as data FROM os_modules_data md ',
+			' WHERE md.module = ? AND md.sessions_id = ? AND md.data->''$.detail'' IS NOT NULL '
+		);
+		if not os_is_json_null(dataId) then
+			set @query = CONCAT(@query,
+				' AND JSON_UNQUOTE(md.data->''$.id'') = ', dataId			
+			);
+		end if;
+		set @query = CONCAT('( ', @query, ' )');
+		set @query = CONCAT(@query,
+			' UNION ',
+			'(',		
+			' 	SELECT JSON_SET(md.data->''$.detail'', ''$.uuid'', md.uuid, ''$.id'', md.data->''$.id'') as data',
+			' 	FROM os_modules_data md ',
+			' 	JOIN os_lnk_resources_items lri ON JSON_UNQUOTE(md.data->''$.id'') = lri.parent_id ', 
+			' 	WHERE md.module = ? AND md.sessions_id = ? AND md.data->''$.detail'' IS NOT NULL ',
+			' 	AND lri.resources_id = ', dataId,			
+			')'		
+		);
+		PREPARE stmt FROM @query;
+		EXECUTE stmt USING @module, @sessions, @module, @sessions;
+		DEALLOCATE PREPARE stmt;
+	ELSE
+		set @query = CONCAT(
+			'SELECT JSON_SET(md.data->''$.detail'', ''$.uuid'', md.uuid, ''$.id'', md.data->''$.id'') as data FROM os_modules_data md ',
+			' WHERE ',
+			' md.module = ? ',
+			' AND md.sessions_id = ? ',
+			' AND md.data->''$.detail'' IS NOT NULL'
+		);
+		PREPARE stmt FROM @query;
+		EXECUTE stmt USING @module, @sessions;
+		DEALLOCATE PREPARE stmt;
+	END IF;
 
-	set @query = CONCAT(
-		'SELECT JSON_SET(data->''$.detail'', ''$.uuid'', uuid) as data FROM os_modules_data WHERE ',
-		' module = ? ',
-		' AND sessions_id = ? ',
-		' AND data->''$.detail'' IS NOT NULL'
-	);
-	PREPARE stmt FROM @query;
-	EXECUTE stmt USING @module, @sessions;
-	DEALLOCATE PREPARE stmt;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -2088,4 +2117,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-20 13:40:14
+-- Dump completed on 2018-03-20 20:47:59

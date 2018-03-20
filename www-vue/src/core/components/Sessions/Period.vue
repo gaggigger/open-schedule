@@ -57,10 +57,10 @@
   </div>
 </template>
 <script>
-import New from './New'
+import New from './New.vue'
 import moment from 'moment'
-import PeriodService from '@/services/Period'
-import Modal from '@/components/Form/Modal'
+import PeriodService from '../../services/Period'
+import Modal from '../Form/Modal.vue'
 
 export default {
   name: 'sessionPeriod',

@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import AppMenu from './components/AppMenu.vue'
-import Loading from './components/Loading.vue'
+import AppMenu from './core/components/AppMenu.vue'
+import Loading from './core/components/Loading.vue'
 // import Firebase from 'firebase'
 
 export default {

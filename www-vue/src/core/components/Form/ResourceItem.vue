@@ -11,7 +11,7 @@
     </modal>
     <div class="toolbar-1">
       <div class="title">
-        <span class="link" v-on:click="showModal = true">Edit</span>
+        <span class="link icon-edit" v-on:click="showModal = true">Edit</span>
         <ul>
           <li v-for="dt in dataList"
               v-bind:key="dt.id"
@@ -27,9 +27,9 @@
   </div>
 </template>
 <script>
-import Http from '@/services/Http'
-import Modal from '@/components/Form/Modal'
-import ItemList from '@/components/Resources/ItemList'
+import Http from '../../services/Http'
+import Modal from './Modal.vue'
+import ItemList from '../Resources/ItemList.vue'
 
 export default {
   name: 'resource-item',

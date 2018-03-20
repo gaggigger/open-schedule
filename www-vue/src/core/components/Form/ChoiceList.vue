@@ -16,7 +16,7 @@
   </div>
 </template>
 <script>
-import Http from '@/services/Http'
+import Http from '../../services/Http'
 
 export default {
   name: 'choice-list',

@@ -47,10 +47,10 @@
 </template>
 
 <script>
-import Http from '@/services/Http'
-import DdImage from '@/components/Form/DdImage'
-import ChoiceList from '@/components/Form/ChoiceList'
-import ResourceItem from '@/components/Form/ResourceItem'
+import Http from '../../services/Http'
+import DdImage from '../Form/DdImage.vue'
+import ChoiceList from '../Form/ChoiceList.vue'
+import ResourceItem from '../Form/ResourceItem.vue'
 
 export default {
   name: 'ResourcesForm',
