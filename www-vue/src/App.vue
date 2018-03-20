@@ -412,13 +412,13 @@ export default {
     font-size: 0.8em;
   }
   /** Icon **/
-  .icon-add::before       { content: '🆕 '; }
-  .icon-delete::before    { content: '🗑️ '; }
-  .icon-back::before      { content: '🔙 '; }
-  .icon-edit::before      { content: '📝 '; }
-  .icon-cancel::before    { content: '🗙 '; }
-  .icon-calendar::before  { content: '📅 '; }
-  .icon-unlock::before    { content: '🔓 '; }
-  .icon-lock::before      { content: '🔒 '; }
-  .icon-ok::before        { content: '✔ '; }
+  .icon-add::before       { content: '🆕 ';  white-space: nowrap; }
+  .icon-delete::before    { content: '🗑️ ';   white-space: nowrap; }
+  .icon-back::before      { content: '🔙 ';  white-space: nowrap; }
+  .icon-edit::before      { content: '📝 ';  white-space: nowrap; }
+  .icon-cancel::before    { content: '🗙 ';  white-space: nowrap; }
+  .icon-calendar::before  { content: '📅 ';  white-space: nowrap; }
+  .icon-unlock::before    { content: '🔓 ';  white-space: nowrap; }
+  .icon-lock::before      { content: '🔒 ';  white-space: nowrap; }
+  .icon-ok::before        { content: '✔ ';  white-space: nowrap; }
 </style>
