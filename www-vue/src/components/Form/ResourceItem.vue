@@ -5,12 +5,12 @@
       <div slot="body" class="item-list">
         <item-list v-bind:resource="resourceLnk"
                    v-bind:defaultSelection="selectedItems"
-                   v-on:itemSelected="itemSelected"
+                   v-on:selectionChanged="selectionChanged"
         ></item-list>
       </div>
     </modal>
     <div class="toolbar-1">
-      <span class="title">
+      <div class="title">
         <span class="link" v-on:click="showModal = true">Edit</span>
         <ul>
           <li v-for="dt in dataList"
@@ -22,7 +22,7 @@
             </span>
           </li>
         </ul>
-      </span>
+      </div>
     </div>
   </div>
 </template>
@@ -70,34 +70,23 @@ export default {
           })
         ]))
         .then(([columns, data]) => {
-          this.dataColumn = columns
-          this.dataList = data
-        })
-      /*
-      Http.request('/resources/' + this.resource + '/lnk', 'GET', {
-        id: this.id,
-        resource_name: this.resourceLnk,
-        type: this.type
-      })
-        .then(response => {
-          console.log(response)
-          response.map(item => {
+          [this.dataColumn, this.dataList, this.selectedItems] = [columns.filter(item => item.grid_column), data, []]
+          data.forEach(item => {
             this.selectedItems.push(item.id)
           })
         })
-        */
     },
     saveEvent () {
       Http.request('/resources/' + this.resource + '/lnk', 'POST', {
         id: this.id,
         parents: this.selectedItems
       })
-        .then(response => {
+        .then(() => {
           this.showModal = false
           this.loadLIst()
         })
     },
-    itemSelected (id = null, selection = []) {
+    selectionChanged (selection = []) {
       this.selectedItems = selection.slice(0)
     }
   }

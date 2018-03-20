@@ -60,13 +60,16 @@ export default {
       selection: []
     }
   },
+  watch: {
+    selection () {
+      this.$emit('selectionChanged', this.selection)
+    }
+  },
   created () {
     this.selection = this.defaultSelection.slice(0)
     Http.request('/resources/' + this.resource, 'GET')
       .then(response => {
-        this.features = response.features
-        this.apiColumns = response.grid.columns
-        this.apiData = response.grid.data
+        [this.features, this.apiColumns, this.apiData] = [response.features, response.grid.columns, response.grid.data]
         return true
       })
       .then(() => Promise.all([
