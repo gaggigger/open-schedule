@@ -42,7 +42,7 @@
                 v-if="period.closed === 0"
                 v-on:click="updatePeriodStatus(period, 1)"
           ></span>
-          <span class="link icon-unlock"
+          <span class="link icon-lock"
                 title="Open period" style="color:var(--deactivated-color);"
                 v-if="period.closed === 1"
                 v-on:click="updatePeriodStatus(period, 0)"></span>
