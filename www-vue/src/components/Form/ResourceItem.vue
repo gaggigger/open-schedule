@@ -12,9 +12,16 @@
     <div class="toolbar-1">
       <span class="title">
         <span class="link" v-on:click="showModal = true">Edit</span>
-        <item-list v-bind:resource="resourceLnk"
-                   v-bind:itemSelected="selectedItems"
-        ></item-list>
+        <ul>
+          <li v-for="dt in dataList"
+              v-bind:key="dt.id"
+          >
+            <span v-for="column in dataColumn"
+                v-bind:key="column.name">
+                {{ dt[column.name] }}
+            </span>
+          </li>
+        </ul>
       </span>
     </div>
   </div>
@@ -40,22 +47,46 @@ export default {
     return {
       // resourceName: this.field.link.resource,
       showModal: false,
-      selectedItems: []
+      selectedItems: [],
+      dataColumn: [],
+      dataList: []
     }
   },
   created () {
-    Http.request('/resources/' + this.resource + '/lnk', 'GET', {
-      id: this.id,
-      resource_name: this.resourceLnk,
-      type: this.type
-    })
-      .then(response => {
-        response.map(item => {
-          this.selectedItems.push(item.id)
-        })
-      })
+    this.loadLIst()
   },
   methods: {
+    loadLIst () {
+      Http.request('/resources/' + this.resourceLnk, 'GET')
+        .then(response => {
+          return response.grid.columns
+        })
+        .then(apiColumn => Promise.all([
+          Http.request(apiColumn, 'GET'),
+          Http.request('/resources/' + this.resource + '/lnk', 'GET', {
+            id: this.id,
+            resource_name: this.resourceLnk,
+            type: this.type
+          })
+        ]))
+        .then(([columns, data]) => {
+          this.dataColumn = columns
+          this.dataList = data
+        })
+      /*
+      Http.request('/resources/' + this.resource + '/lnk', 'GET', {
+        id: this.id,
+        resource_name: this.resourceLnk,
+        type: this.type
+      })
+        .then(response => {
+          console.log(response)
+          response.map(item => {
+            this.selectedItems.push(item.id)
+          })
+        })
+        */
+    },
     saveEvent () {
       Http.request('/resources/' + this.resource + '/lnk', 'POST', {
         id: this.id,
@@ -63,6 +94,7 @@ export default {
       })
         .then(response => {
           this.showModal = false
+          this.loadLIst()
         })
     },
     itemSelected (id = null, selection = []) {

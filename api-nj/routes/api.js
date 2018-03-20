@@ -232,7 +232,9 @@ router.post('/resources/:item/lnk', function(req, res) {
 });
 router.get('/resources/:item/lnk', function(req, res) {
     Recources.getLnk(req.connectedUser.roles, req.query).then(rows => {
-        res.send(rows);
+        res.send(
+            rows.map(row => JSON.parse(row.data))
+        );
     }).catch(err => UHandlers.handleError(res, 500, err));
 });
 

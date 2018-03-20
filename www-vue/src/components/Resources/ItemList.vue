@@ -96,6 +96,11 @@ export default {
   table {
     min-width: 50%;
   }
+  @media screen and (max-width: 950px) {
+    table {
+      width: 100%;
+    }
+  }
   table td, table th {
     border: 1px solid var(--third-color);
     margin: 0;

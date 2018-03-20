@@ -12,8 +12,10 @@
       <div
         v-bind:key="field.name"
         v-for="field in columns">
-        {{ field.label }} (<i>{{ field.type }}</i>)
-        <span class="error" v-if="field.mandatory">*</span>
+        <div>
+          {{ field.label }} (<i>{{ field.type }}</i>)
+          <span class="error" v-if="field.mandatory">*</span>
+        </div>
         <div v-if="field.type == 'resources_items'">
           <resource-item v-bind:resourceLnk="field.link.resource"
                          v-bind:resource="item"
@@ -37,7 +39,6 @@
           <input v-bind:type="field.type"
                  v-model="itemData[field.name]"
                  v-bind:required="field.mandatory"
-                 autofocus
           />
         </div>
       </div>
@@ -91,7 +92,11 @@ export default {
         }, {})
         // Autofocus first input
         window.setTimeout(_ => {
-          document.querySelector('.formitem-container input:not([type=hidden]):first-child').focus()
+          try {
+            document.querySelector('.formitem-container input:not([type=hidden])').focus()
+          } catch (e) {
+            // do no thing
+          }
         }, 100)
       })
   },
