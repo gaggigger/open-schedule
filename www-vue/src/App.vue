@@ -412,7 +412,7 @@ export default {
     font-size: 0.8em;
   }
   /** Icon **/
-  .icon-add::before  { content: '🆕 ';  white-space: nowrap; }
+  .icon-add::before   { content: '🆕 ';  white-space: nowrap; }
   .icon-delete::before { content: '🗑️ ';   white-space: nowrap; }
   .icon-back::before { content: '🔙 ';  white-space: nowrap; }
   .icon-edit::before { content: '📝 ';  white-space: nowrap; }
