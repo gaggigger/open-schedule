@@ -412,13 +412,13 @@ export default {
     font-size: 0.8em;
   }
   /** Icon **/
-  .icon-add::before       { content: '🆕 ';  white-space: nowrap; }
-  .icon-delete::before    { content: '🗑️ ';   white-space: nowrap; }
-  .icon-back::before      { content: '🔙 ';  white-space: nowrap; }
-  .icon-edit::before      { content: '📝 ';  white-space: nowrap; }
-  .icon-cancel::before    { content: '🗙 ';  white-space: nowrap; }
-  .icon-calendar::before  { content: '📅 ';  white-space: nowrap; }
-  .icon-unlock::before    { content: '🔓 ';  white-space: nowrap; }
-  .icon-lock::before      { content: '🔒 ';  white-space: nowrap; }
-  .icon-ok::before        { content: '✔ ';  white-space: nowrap; }
+  .icon-add::before { content: '🆕 ';  white-space: nowrap; }
+  .icon-delete::before { content: '🗑️ ';   white-space: nowrap; }
+  .icon-back::before { content: '🔙 ';  white-space: nowrap; }
+  .icon-edit::before { content: '📝 ';  white-space: nowrap; }
+  .icon-cancel::before { content: '🗙 ';  white-space: nowrap; }
+  .icon-calendar::before { content: '📅 ';  white-space: nowrap; }
+  .icon-unlock::before { content: '🔓 ';  white-space: nowrap; }
+  .icon-lock::before { content: '🔒 ';  white-space: nowrap; }
+  .icon-ok::before { content: '✔ ';  white-space: nowrap; }
 </style>
