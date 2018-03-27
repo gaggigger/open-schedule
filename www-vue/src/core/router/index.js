@@ -1,4 +1,5 @@
 import Index from '../components/Index.vue'
+import About from '../components/About.vue'
 import Login from '../components/Login.vue'
 import Logout from '../components/Logout.vue'
 import Sessions from '../components/Sessions.vue'
@@ -12,6 +13,10 @@ export default [
     path: '/',
     name: 'index',
     component: Index
+  }, {
+    path: '/about',
+    name: 'about',
+    component: About
   }, {
     path: '/login',
     name: 'login',

@@ -1,6 +1,14 @@
 <template>
   <div>
     <h1>Welcome to the OpenSchedule project !</h1>
+    <footer>
+      <router-link
+        href="#"
+        to="/about"
+      >
+        About
+      </router-link>
+    </footer>
   </div>
 </template>
 
