@@ -30,6 +30,7 @@
 import Http from '../../services/Http'
 import Modal from './Modal.vue'
 import ItemList from '../Resources/ItemList.vue'
+import Notification from '../../services/Notification'
 
 export default {
   name: 'resource-item',
@@ -77,8 +78,13 @@ export default {
         })
     },
     saveEvent () {
+      if (this.id === undefined) {
+        Notification.error('Please save resource (autosave) before linking with another resource.')
+        return false
+      }
       Http.request('/resources/' + this.resource + '/lnk', 'POST', {
         id: this.id,
+        r_name: this.resourceLnk,
         parents: this.selectedItems
       })
         .then(() => {

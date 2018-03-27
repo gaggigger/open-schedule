@@ -13,7 +13,7 @@
         v-bind:key="field.name"
         v-for="field in columns">
         <div>
-          {{ field.label }} (<i>{{ field.type }}</i>)
+          <span>{{ field.label }}</span>
           <span class="error" v-if="field.mandatory">*</span>
         </div>
         <div v-if="field.type == 'resources_items'">
@@ -122,6 +122,7 @@ export default {
         }).then(response => {
           this.saving = false
           this.itemData = Object.assign(response, this.itemData)
+          if (this.itemData.id) this.id = this.itemData.id
         }).catch(() => {
           this.saving = true
         })

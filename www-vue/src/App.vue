@@ -3,7 +3,7 @@
     <app-menu></app-menu>
     <!--img src="./assets/logo.png"-->
     <div class="container">
-      <router-view/>
+      <router-view :key="$route.fullPath" />
     </div>
     <div class="offline-message" v-if="!online">
       ⚠️ You lost internet connection !
@@ -179,6 +179,11 @@ export default {
     background-image: -o-linear-gradient(top, var(--first-color), var(--second-color));
     background-image: linear-gradient(to bottom, var(--first-color), var(--second-color));
     text-decoration: none;
+  }
+  .color-cell {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
   }
   /** Sheet style **/
   .sheet {

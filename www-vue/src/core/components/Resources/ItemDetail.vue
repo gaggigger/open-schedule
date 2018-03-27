@@ -6,7 +6,7 @@
         {{ item }}
       </span>
     </h3>
-    <vue-tabs>
+    <vue-tabs @tab-change="handleTabChange">
       <v-tab v-bind:title="feature.name"
              v-for="feature in features"
              v-bind:key="feature.name"
@@ -46,7 +46,13 @@ export default {
       })
   },
   methods: {
-
+    handleTabChange (tabIndex, newTab, oldTab) {
+      try {
+        newTab.$children[0].reload()
+      } catch (e) {
+        // dnt
+      }
+    }
   }
 }
 </script>

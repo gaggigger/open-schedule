@@ -123,7 +123,7 @@ export default {
   methods: {
     getItems () {
       return Http.request('/modules/calendar/data', 'GET', {
-        id: this.id
+        id: this.id ? this.id : 0
       })
     },
     newEvent (start, end) {
@@ -163,6 +163,11 @@ export default {
         this.modal = {}
         this.$refs.modulecalendar.$emit('refetch-events')
       })
+    },
+    reload () {
+      setTimeout(() => {
+        this.$refs.modulecalendar.$emit('refetch-events')
+      }, 100)
     }
   }
 }

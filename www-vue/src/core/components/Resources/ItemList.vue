@@ -21,8 +21,10 @@
             <td v-for="column in columns"
                   v-bind:key="column.name">
               <span class="link"
-                    v-on:click="selectItem(dt.id)">
-                {{ dt[column.name] }}
+                    v-on:click="selectItem(dt.id)"
+                    v-html="toColor(dt[column.name])"
+              >
+
               </span>
             </td>
           </tr>
@@ -69,14 +71,23 @@ export default {
     selection () {
       this.$emit('selectionChanged', this.selection)
     },
-    reload () {
-      this.loadList()
+    reload: {
+      handler: 'loadList',
+      immediate: true
     }
   },
+  /*
   created () {
     this.loadList()
   },
+  */
   methods: {
+    toColor (value) {
+      if (/^#[0-9a-f]{6}$/i.test(value)) {
+        return '<span class="color-cell" style="background-color:' + value + '">&nbsp;</span>'
+      }
+      return value
+    },
     loadList () {
       this.selection = this.defaultSelection.slice(0)
       Http.request('/resources/' + this.resource, 'GET')
