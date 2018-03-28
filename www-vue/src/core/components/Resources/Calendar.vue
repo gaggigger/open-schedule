@@ -100,6 +100,20 @@ export default {
             }))
           })
         },
+        eventRender: (event, element) => {
+          element.append('<span class="calendar-remove-event icon-delete"></span>')
+          element.find('.calendar-remove-event').click(e => {
+            e.preventDefault()
+            e.stopPropagation()
+            this.removeEvent(event)
+          })
+          /*
+          element.querySelector('.calendar-remove-event').addEventListener('click', e => {
+            e.preventDefault()
+            e.stopPropagation()
+          })
+          */
+        },
         eventClick: (event, jsEvent, view) => {
           this.newEvent(event.start, event.end)
           this.modal.uuid = event.uuid
@@ -155,6 +169,9 @@ export default {
       if (end) this.modal.end = end.format('YYYY-MM-DD[T]HH:mm')
       else this.modal.end = null
     },
+    removeEvent (event) {
+      this.$refs.modulecalendar.$emit('remove-event', event)
+    },
     saveEvent (event = null) {
       try {
         for (const item of document.querySelectorAll('.event-form input, .event-form textarea')) {
@@ -172,7 +189,7 @@ export default {
 
       Http.request('/modules/calendar/data', 'PUT', {
         data: {
-          id: this.id,
+          id: event ? event.id : this.id,
           uuid: uuid,
           resource: this.item,
           detail: this.modal

@@ -429,6 +429,16 @@ export default {
   div.fc-row.fc-widget-header > table > thead th * {
     font-size: 0.8em;
   }
+  .calendar-remove-event {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 10;
+    cursor: pointer;
+  }
+  .calendar-remove-event {
+    color: var(--error-color);
+  }
   /** Icon **/
   .icon-add::before { content: '🆕 ';  white-space: nowrap; }
   .icon-delete::before { content: '🗑️ ';   white-space: nowrap; }
