@@ -1,6 +1,9 @@
 <template>
   <div class="item-container">
     <div>
+      <input type="text" placeholder="Search..." v-model="search" />
+    </div>
+    <div>
       <table cellpadding="0" cellspacing="0">
         <thead>
           <tr>
@@ -12,7 +15,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="dt in data"
+          <tr v-for="dt in filteredItems"
                v-bind:key="dt.id"
           >
             <th>
@@ -59,12 +62,18 @@ export default {
   },
   data () {
     return {
+      search: '',
       features: [],
       apiColumns: null,
       apiData: null,
       data: [],
       columns: [],
       selection: []
+    }
+  },
+  computed: {
+    filteredItems () {
+      return this.data.filter(item => Object.values(item).join('-').toLowerCase().indexOf(this.search.toLowerCase()) > -1)
     }
   },
   watch: {
@@ -130,5 +139,9 @@ export default {
     border: 1px solid var(--third-color);
     margin: 0;
     padding: 0.2em 0.5em;
+  }
+  input {
+    width: calc(100% - 4em);
+    margin: 1em;
   }
 </style>

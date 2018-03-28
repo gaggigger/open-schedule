@@ -27,6 +27,7 @@ const FileStorage = {
   },
 
   remove (path) {
+    this.init()
     const storage = window.firebase.storage().ref()
     return storage.child(path).delete()
   }
