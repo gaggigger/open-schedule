@@ -38,6 +38,8 @@ import { FullCalendar } from 'vue-full-calendar'
 import Http from '../../services/Http'
 import Modal from '../Form/Modal.vue'
 import {VueTabs, VTab} from 'vue-nav-tabs'
+import Color from '../../services/Color'
+import Brain from '../../services/Brain'
 
 export default {
   name: 'calendar',
@@ -78,7 +80,24 @@ export default {
 
         events: (start, end, timezone, callback) => {
           this.getItems().then(response => {
-            callback(response)
+            callback(response.map(item => {
+              if (item.backgroundColor) {
+                // Calcul de la couleur du texte suivant le contrast avec la couleur du fond
+                const rgb = Color.hexRgb(item.backgroundColor)
+                item.textColor = Brain.CustomtextColor({
+                  r: rgb.red,
+                  g: rgb.green,
+                  b: rgb.blue
+                })
+                // Couleur de la bordure en fonction du contraste
+                if (item.textColor === 'black') {
+                  item.borderColor = Color.ColorLuminance(item.backgroundColor, -0.5)
+                } else {
+                  item.borderColor = Color.ColorLuminance(item.backgroundColor, 0.5)
+                }
+              }
+              return item
+            }))
           })
         },
         eventClick: (event, jsEvent, view) => {
@@ -166,7 +185,7 @@ export default {
     },
     reload () {
       setTimeout(() => {
-        this.$refs.modulecalendar.$emit('refetch-events')
+        this.$refs.modulecalendar.$emit('rerender-events')
       }, 100)
     }
   }

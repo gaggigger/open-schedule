@@ -134,6 +134,7 @@ export default {
   fieldset > legend {
     font-weight: bold;
   }
+
   input {
     padding: 0.5em;
     height: 2em;
@@ -141,18 +142,35 @@ export default {
     background: #fafafa;
     transition: 0.2s ease-in-out;
   }
+  input[type] {
+    color: var(--maintext-color);
+    margin: 0;
+    padding: .25rem .5rem;
+    outline: none;
+    border: none;
+    background: bottom left linear-gradient(var(--third-color), var(--third-color)) no-repeat, bottom center linear-gradient(var(--third-color), var(--third-color)) repeat-x, bottom right linear-gradient(var(--third-color), var(--third-color)) no-repeat;
+    background-size: 1px 6px, 1px 1px, 1px 6px;
+  }
+  input[type]:hover, input[type]:focus {
+    background: bottom left linear-gradient(var(--first-color), var(--first-color)) no-repeat, bottom center linear-gradient(var(--first-color), var(--first-color)) repeat-x, bottom right linear-gradient(var(--first-color), var(--first-color)) no-repeat;
+    background-size: 1px 6px, 1px 1px, 1px 6px;
+  }
+  input:invalid, textarea:invalid {
+    background: bottom left linear-gradient(var(--error-color), var(--error-color)) no-repeat, bottom center linear-gradient(var(--error-color), var(--error-color)) repeat-x, bottom right linear-gradient(var(--error-color), var(--error-color)) no-repeat;
+    background-size: 1px 6px, 1px 1px, 1px 6px;
+  }
+  /*
   input:focus {
     outline: 0;
     background: var(--second-color);
   }
-  input:invalid, textarea:invalid {
-    border: 1px solid var(--error-color);
-  }
+
   input[type] {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
   }
+  */
   button {
     margin-top: 0.5em;
     padding: 0.5em 0.1em;
@@ -179,11 +197,6 @@ export default {
     background-image: -o-linear-gradient(top, var(--first-color), var(--second-color));
     background-image: linear-gradient(to bottom, var(--first-color), var(--second-color));
     text-decoration: none;
-  }
-  .color-cell {
-    display: inline-block;
-    width: 100%;
-    height: 100%;
   }
   /** Sheet style **/
   .sheet {

@@ -27,7 +27,6 @@
                     v-on:click="selectItem(dt.id)"
                     v-html="toColor(dt[column.name])"
               >
-
               </span>
             </td>
           </tr>
@@ -93,7 +92,7 @@ export default {
   methods: {
     toColor (value) {
       if (/^#[0-9a-f]{6}$/i.test(value)) {
-        return '<span class="color-cell" style="background-color:' + value + '">&nbsp;</span>'
+        return '<span class="color-cell" style="background-color:' + value + '">&nbsp;&nbsp;&nbsp;</span>'
       }
       return value
     },

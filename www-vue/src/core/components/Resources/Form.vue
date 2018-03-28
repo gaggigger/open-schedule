@@ -10,6 +10,7 @@
       v-on:input="autoSave">
       <legend>{{ group }}</legend>
       <div
+        class="item"
         v-bind:key="field.name"
         v-for="field in columns">
         <div>
@@ -143,5 +144,8 @@ export default {
   }
   .save-sucess {
     color: var(--ok-color);
+  }
+  .item {
+    margin-bottom: 1em;
   }
 </style>

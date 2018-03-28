@@ -16,10 +16,11 @@
           <li v-for="dt in dataList"
               v-bind:key="dt.id"
           >
-            <span v-for="column in dataColumn"
-                v-bind:key="column.name">
-                {{ dt[column.name] }}
-            </span>
+            <span class="spaced-span"
+                  v-for="column in dataColumn"
+                  v-bind:key="column.name"
+                  v-html="toColor(dt[column.name])"
+            ></span>
           </li>
         </ul>
       </div>
@@ -57,6 +58,12 @@ export default {
     this.loadLIst()
   },
   methods: {
+    toColor (value) {
+      if (/^#[0-9a-f]{6}$/i.test(value)) {
+        return '<span class="color-cell" style="background-color:' + value + '">&nbsp;&nbsp;&nbsp;</span>'
+      }
+      return value
+    },
     loadLIst () {
       Http.request('/resources/' + this.resourceLnk, 'GET')
         .then(response => {
@@ -102,5 +109,8 @@ export default {
   .item-list {
     height: 60vh;
     overflow-y: auto;
+  }
+  .spaced-span {
+    margin: 0 0.5em;
   }
 </style>
