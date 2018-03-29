@@ -6,6 +6,7 @@
       <b>{{ event.title }}</b>
       <div>
         On {{ format(event.start) }}
+        <br />
         Duration {{ duration(event.start, event.end) }}h
       </div>
       <pre v-if="event.description">
@@ -60,7 +61,6 @@ export default {
             }
             return 0
           })
-        console.log(this.eventList)
       })
     }
   }

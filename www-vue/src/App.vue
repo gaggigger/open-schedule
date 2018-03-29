@@ -90,7 +90,7 @@ export default {
     color: var(--maintext-color);
   }
   #app .container {
-    padding: 4em 0.5em;
+    padding: 3.5em 0.5em;
   }
   @media screen and (max-width: 470px) {
     #app .container {

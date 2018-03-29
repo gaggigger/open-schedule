@@ -1,7 +1,9 @@
 <template>
   <div>
-    <section class="container">
-      <article></article>
+    <section class="index-container">
+      <article>
+        <calibre></calibre>
+      </article>
       <article>
         <event-list module="calendar"></event-list>
       </article>
@@ -19,11 +21,12 @@
 
 <script>
 import EventList from './Resources/EventList.vue'
+import Calibre from './Calibre/Calibre.vue'
 
 export default {
   name: 'Index',
   components: {
-    EventList
+    EventList, Calibre
   },
   data () {
     return {
@@ -34,15 +37,33 @@ export default {
 </script>
 
 <style scoped>
-  .container {
+  .index-container {
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-gap: 1em;
   }
-  .container > article {
+  .index-container > article {
     padding: 1em 0.5em;
   }
-  .container > article:last-child {
+  .index-container > article:last-child {
     border-left: 1px solid var(--second-color);
+  }
+  @media screen and (max-width: 600px) {
+    .index-container {
+      grid-template-columns: 1fr;
+    }
+    .index-container > article:last-child {
+      border-left-width: 0;
+      grid-row: 1/2;
+    }
+    .index-container > article {
+      border-width: 0;
+      border-bottom: 1px solid var(--second-color);
+    }
+  }
+  footer {
+    padding: 1em;
+    width: 100%;
+    color: var(--second-color);
   }
 </style>

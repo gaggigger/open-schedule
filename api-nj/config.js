@@ -18,5 +18,9 @@ module.exports = {
         'storageBucket': 'gs://formation-tz.appspot.com',
         'messagingSenderId': '604798803445'
     },
-    'firebaseDatabase': 'members'
+    'firebaseDatabase': 'members',
+    'calibre': {
+        'url': 'http://localhost:3080/',
+        'database': '/home/solofo/Calibre Library/metadata.db'
+    }
 };
