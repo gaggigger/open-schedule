@@ -5,9 +5,9 @@
          v-bind:key="event.uuid">
       <b>{{ event.title }}</b>
       <div>
-        On {{ format(event.start) }}
+        <span class="icon-clock"></span>{{ format(event.start) }}
         <br />
-        Duration {{ duration(event.start, event.end) }}h
+        <span class="icon-timer-clock"></span>{{ duration(event.start, event.end) }}h
       </div>
       <pre v-if="event.description">
         {{ event.description }}

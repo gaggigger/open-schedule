@@ -450,4 +450,6 @@ export default {
   .icon-lock::before { content: '🔒 ';  white-space: nowrap; }
   .icon-ok::before { content: '✔ ';  white-space: nowrap; }
   .icon-book::before { content: '📖 ';  white-space: nowrap; }
+  .icon-clock::before { content: '🕔 ';  white-space: nowrap; }
+  .icon-timer-clock::before { content: '⌛ ';  white-space: nowrap; }
 </style>
