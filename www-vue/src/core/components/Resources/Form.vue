@@ -13,7 +13,7 @@
         class="item"
         v-bind:key="field.name"
         v-for="field in columns">
-        <div>
+        <div v-if="columns.length > 1">
           <span>{{ field.label }}</span>
           <span class="error" v-if="field.mandatory">*</span>
         </div>
