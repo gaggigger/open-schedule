@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/calibre', function(req, res) {
     sqlite.open(config.calibre.database).then(db => {
-        return db.all('SELECT * FROM books ORDER BY last_modified')
+        return db.all('SELECT * FROM books ORDER BY last_modified DESC')
     }).then(response => {
         res.send(response);
     }).catch(err => UHandlers.handleError(res, 401, err))
