@@ -1,15 +1,14 @@
 <template>
   <div class="item-container">
-    <h3 class="toolbar-2">
+    <h3 class="title">
       <span class="link icon-back" v-on:click="$router.go(-1)"></span>
-      <span class="link icon-add" v-on:click="addItem()">Add</span>
-      <span class="link icon-delete" v-on:click="deleteItem()">Delete selected</span>
-      <span class="title">{{ item }}</span>
+      {{ item }}
     </h3>
-    <header class="toolbar-1">
-      <span>&nbsp;</span>
+    <header class="toolbar-2">
+      <span class="link icon-add" v-on:click="addItem()">Add</span>
       <span class="link icon-upload">Import</span>
       <span class="link icon-download">Export</span>
+      <span class="link icon-delete" v-on:click="deleteItem()">Delete selected</span>
     </header>
     <item-list v-bind:resource="item"
                v-on:itemSelected="addItem"

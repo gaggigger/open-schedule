@@ -12,19 +12,25 @@
       </div>
       <div slot="footer"></div>
     </modal>
-    <h3 class="toolbar-1">
+    <h3 class="title">
       <span class="title icon-calendar">SESSIONS</span>
-      <span class="link icon-cancel" v-on:click="switchEdit(false)" v-if="edit">Cancel</span>
-      <span class="link icon-edit" v-on:click="switchEdit(true)" v-else>Edit</span>
-      <span class="link icon-add" v-on:click="addSession">Add</span>
-      <span v-bind:class="{
-                    link: true,
-                    arrow: true,
-                    'arrow-left': !display_period,
-                    'arrow-bottom': display_period
-                  }"
-            v-on:click="display_period = !display_period"></span>
     </h3>
+    <header class="toolbar-1">
+      <div>
+        <span class="link icon-cancel" v-on:click="switchEdit(false)" v-if="edit">Cancel</span>
+        <span class="link icon-edit" v-on:click="switchEdit(true)" v-else>Edit</span>
+        <span class="link icon-add" v-on:click="addSession">Add</span>
+      </div>
+      <div>
+        <span v-bind:class="{
+                      link: true,
+                      arrow: true,
+                      'arrow-left': !display_period,
+                      'arrow-bottom': display_period
+                    }"
+              v-on:click="display_period = !display_period"></span>
+      </div>
+    </header>
     <div v-bind:key="session.id"
          v-for="session in sessions"
          class="main-container shadow"

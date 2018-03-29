@@ -107,6 +107,9 @@ export default {
       padding-top: 8em;
     }
   }
+  header {
+    margin-bottom: 1em;
+  }
   a, .link {
     color: var(--first-color);
     text-decoration: none;
@@ -364,9 +367,10 @@ export default {
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
-    width: 2em;
-    height: 2em;
-    line-height: 2em;
+    width: 30px;
+    max-width: 30px;
+    height: 30px;
+    line-height: 30px;
     text-align: center;
     font-weight: bold;
     cursor: pointer;

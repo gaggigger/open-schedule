@@ -1,16 +1,16 @@
 <template>
   <div class="item-container">
-    <div>
+    <div class="search">
       <input type="text" placeholder="Search..." v-model="search" />
     </div>
     <div>
-      <table cellpadding="0" cellspacing="0">
+      <table>
         <thead>
           <tr>
             <th></th>
             <th v-for="column in columns"
                   v-bind:key="column.name">
-              {{ column.name.toUpperCase() }}
+              {{ column.label.toUpperCase() }}
             </th>
           </tr>
         </thead>
@@ -128,6 +128,8 @@ export default {
 <style scoped>
   table {
     min-width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
   }
   @media screen and (max-width: 950px) {
     table {
@@ -135,12 +137,27 @@ export default {
     }
   }
   table td, table th {
+    text-align: left;
     border: 1px solid var(--third-color);
     margin: 0;
     padding: 0.2em 0.5em;
   }
-  input[type=text] {
+  table th:first-child {
+    width: 0.2em;
+  }
+  table thead tr {
+    background-color: var(--second-color);
+  }
+  table tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+  }
+  input {
+    margin: 0;
+    padding: 0;
+  }
+  .search input {
     width: calc(100% - 4em);
     margin: 1em;
+    padding: .25em .5em;
   }
 </style>
