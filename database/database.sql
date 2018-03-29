@@ -208,7 +208,7 @@ CREATE TABLE `os_modules_data` (
 
 LOCK TABLES `os_modules_data` WRITE;
 /*!40000 ALTER TABLE `os_modules_data` DISABLE KEYS */;
-INSERT INTO `os_modules_data` VALUES ('4fec2d68-3328-11e8-a21e-1866da0d8409','calendar','{\"uuid\": null, \"detail\": {\"end\": \"2018-03-31T12:00\", \"uuid\": null, \"start\": \"2018-03-31T09:00\", \"title\": \"H4MN\", \"description\": \"Présentation projet\"}, \"resource\": \"promotions\", \"resource_id\": \"55\"}','[\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]','2018-03-29 11:08:06','2018-03-29 11:08:06',1);
+INSERT INTO `os_modules_data` VALUES ('1bc10c79-333a-11e8-a21e-1866da0d8409','calendar','{\"uuid\": \"1bc10c79-333a-11e8-a21e-1866da0d8409\", \"detail\": {\"end\": \"2018-03-29T14:45\", \"start\": \"2018-03-29T06:45\", \"title\": \"Rest\", \"description\": null}, \"resource\": \"promotions\", \"resource_id\": \"55\"}','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]}','2018-03-29 13:15:30','2018-03-29 13:15:30',1),('4fec2d68-3328-11e8-a21e-1866da0d8409','calendar','{\"uuid\": \"4fec2d68-3328-11e8-a21e-1866da0d8409\", \"detail\": {\"end\": \"2018-03-31T12:00\", \"uuid\": \"4fec2d68-3328-11e8-a21e-1866da0d8409\", \"start\": \"2018-03-31T09:00\", \"title\": \"H4MN\", \"description\": \"Présentation projet\"}, \"resource\": \"promotions\", \"resource_id\": \"55\"}','{\"can_read\": [\"ROLE_ADMIN\", \"ROLE_USER\", \"ROLE_STUDENTS\"]}','2018-03-29 11:08:06','2018-03-29 11:08:06',1);
 /*!40000 ALTER TABLE `os_modules_data` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
@@ -456,7 +456,7 @@ CREATE TABLE `os_resources_items` (
   KEY `os_resources_items_os_resources_FK` (`resource`,`sessions_id`),
   CONSTRAINT `os_resources_items_os_resources_FK` FOREIGN KEY (`resource`, `sessions_id`) REFERENCES `os_resources` (`name`, `sessions_id`),
   CONSTRAINT `os_resources_items_os_sessions_FK` FOREIGN KEY (`sessions_id`) REFERENCES `os_sessions` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1397,7 +1397,7 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE  PROCEDURE `os_get_modules_data`(query JSON)
-BEGIN
+proc_module_data:BEGIN
 	DECLARE roles JSON default '[]';
 	DECLARE sessions INT default 0;
 	DECLARE dataId INT default 0;
@@ -1407,7 +1407,25 @@ BEGIN
 	SET sessions = os_get_json_string(query , 'sessions');
 	SET @sessions = sessions;	
 	SET @module = JSON_UNQUOTE(query->'$.module');
+	set @swhere = os_allowed_reading_roles(roles, 'roles');
 	
+	IF NOT os_is_json_null(query->'$.getallmodule') THEN
+		set @query = CONCAT(
+			'SELECT ',
+			' JSON_SET(md.data->''$.detail'', ''$.uuid'', md.uuid, ''$.resource_id'', md.data->''$.resource_id'') as data',
+			' FROM os_modules_data md ',
+			' WHERE md.module = ? ',
+			' AND md.sessions_id = ? ',
+			' AND md.data->''$.detail'' IS NOT NULL ',
+			' AND (', @swhere, ' )'
+		);	
+		PREPARE stmt FROM @query;
+		EXECUTE stmt USING @module, @sessions;
+		DEALLOCATE PREPARE stmt;
+		LEAVE proc_module_data;
+		
+	END IF;
+
 	IF @module = 'calendar' COLLATE utf8mb4_unicode_ci THEN
 		set @query = CONCAT(
 			'SELECT ',
@@ -1926,6 +1944,7 @@ DELIMITER ;;
 CREATE  PROCEDURE `os_set_modules_data`(query JSON)
 BEGIN
 	DECLARE mdata JSON default null;
+	DECLARE mroles JSON default '{}';
 	
 	SET @module = os_get_json_string(query , 'module');
 	SET mdata = CAST(os_get_json_string(query , 'data') as JSON);
@@ -1933,15 +1952,18 @@ BEGIN
 	SET @roles = os_get_json_roles(query);	
 	SET @mdata = mdata;
 
+	SET mroles = JSON_INSERT(mroles, '$.can_read', query->'$.roles');
+	SET @mroles = mroles;
+
 	if os_is_json_null(mdata->'$.uuid') then
 		PREPARE stmt FROM 'INSERT INTO os_modules_data (module, data, roles, sessions_id) values (?, ?, ?, ?)';
-		EXECUTE stmt USING @module, @mdata, @roles, @sessions;
+		EXECUTE stmt USING @module, @mdata, @mroles, @sessions;
 		DEALLOCATE PREPARE stmt;
 		SELECT * FROM os_modules_data WHERE uuid = @last_modules_uuid;
 	else
 		SET @uuid = JSON_UNQUOTE(mdata->'$.uuid');		
-		PREPARE stmt FROM 'UPDATE os_modules_data SET data = ? WHERE uuid = ?';
-		EXECUTE stmt USING @mdata, @uuid;
+		PREPARE stmt FROM 'UPDATE os_modules_data SET data = ?, roles = ? WHERE uuid = ?';
+		EXECUTE stmt USING @mdata, @mroles, @uuid;
 		DEALLOCATE PREPARE stmt;
 	end if;
 END ;;
@@ -2130,4 +2152,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-03-29 11:10:44
+-- Dump completed on 2018-03-29 13:45:00
