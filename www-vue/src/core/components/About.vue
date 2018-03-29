@@ -72,7 +72,7 @@
         <img src="https://firebase.google.com/_static/7a342985d6/images/firebase/lockup.png" />
       </a>
     </div>
-    <div class="partner">
+    <div class="partner text">
       <a href="https://calibre-ebook.com/" target="__blank">
         Calibre - ebook managment
       </a>
