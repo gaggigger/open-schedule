@@ -1,10 +1,10 @@
 <template>
   <div>
     <section class="index-container">
-      <article>
+      <article v-if="isLogged()">
         <calibre></calibre>
       </article>
-      <article>
+      <article v-if="isLogged()">
         <event-list module="calendar"></event-list>
       </article>
     </section>
@@ -22,6 +22,7 @@
 <script>
 import EventList from './Resources/EventList.vue'
 import Calibre from './Calibre/Calibre.vue'
+import Auth from '../services/Auth'
 
 export default {
   name: 'Index',
@@ -31,6 +32,11 @@ export default {
   data () {
     return {
 
+    }
+  },
+  methods: {
+    isLogged () {
+      return Auth.isLogged()
     }
   }
 }
