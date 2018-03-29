@@ -54,7 +54,7 @@ export default {
       item: this.$route.params.item,
       id: this.$route.params.id,
       showModal: false,
-      modal: {},
+      modal: this.defaultModalData(),
       config: {
         header: {
           left: 'prev,next today',
@@ -107,12 +107,6 @@ export default {
             e.stopPropagation()
             this.removeEvent(event)
           })
-          /*
-          element.querySelector('.calendar-remove-event').addEventListener('click', e => {
-            e.preventDefault()
-            e.stopPropagation()
-          })
-          */
         },
         eventClick: (event, jsEvent, view) => {
           this.newEvent(event.start, event.end)
@@ -149,14 +143,22 @@ export default {
           }
         }, 100)
       } else {
-        this.modal = {}
+        this.modal = this.defaultModalData()
       }
     }
   },
   methods: {
+    defaultModalData () {
+      return {
+        start: null,
+        end: null,
+        title: null,
+        description: null
+      }
+    },
     getItems () {
       return Http.request('/modules/calendar/data', 'GET', {
-        id: this.id ? this.id : 0
+        resource_id: this.id ? this.id : 0
       })
     },
     newEvent (start, end) {
@@ -183,20 +185,22 @@ export default {
       let uuid = this.modal.uuid
       if (event !== null) {
         uuid = event.uuid
+        Object.keys(this.modal).forEach(key => {
+          if (event[key] !== undefined) this.modal[key] = event[key]
+        })
         this.modal.start = event.start.format('YYYY-MM-DD[T]HH:mm')
         this.modal.end = event.end.format('YYYY-MM-DD[T]HH:mm')
       }
-
       Http.request('/modules/calendar/data', 'PUT', {
         data: {
-          id: event ? event.id : this.id,
+          resource_id: event ? event.resource_id : this.id,
           uuid: uuid,
           resource: this.item,
           detail: this.modal
         }
       }).then(response => {
         this.showModal = false
-        this.modal = {}
+        this.modal = this.defaultModalData()
         this.$refs.modulecalendar.$emit('refetch-events')
       })
     },

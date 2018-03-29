@@ -139,7 +139,7 @@ export default {
     margin: 0;
     padding: 0.2em 0.5em;
   }
-  input {
+  input[type=text] {
     width: calc(100% - 4em);
     margin: 1em;
   }

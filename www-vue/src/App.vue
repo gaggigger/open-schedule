@@ -419,8 +419,8 @@ export default {
     border-radius: 50%;
     border-width: 6px;
     border-style: solid;
-    border-color: var(--first-color) transparent var(--first-color) transparent;
-    animation: lds-dual-ring 1.2s linear infinite;
+    border-color: var(--second-color) transparent var(--third-color) transparent;
+    animation: lds-dual-ring 0.5s linear infinite;
     position: absolute;
     top: calc(50% - 25px);
     left: calc(50% - 25px);
