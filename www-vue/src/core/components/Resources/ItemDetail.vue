@@ -12,7 +12,11 @@
              v-bind:key="feature.name"
       >
         <item-form v-if="feature.component === 'app-resource-info'"></item-form>
-        <item-calendar v-if="feature.component === 'app-resource-calendar'"></item-calendar>
+        <item-calendar v-else-if="feature.component === 'app-resource-calendar'"></item-calendar>
+        <item-print v-else-if="feature.component === 'app-resource-print'"
+                    v-bind:feature="feature"
+        ></item-print>
+        <div v-else>The feature {{ feature.component }} is in progress ...</div>
       </v-tab>
     </vue-tabs>
   </div>
@@ -22,6 +26,7 @@
 import {VueTabs, VTab} from 'vue-nav-tabs'
 import ItemForm from './Form.vue'
 import ItemCalendar from './Calendar.vue'
+import ItemPrint from '../Print/Print.vue'
 import Http from '../../services/Http'
 
 export default {
@@ -30,7 +35,8 @@ export default {
     VueTabs,
     VTab,
     ItemForm,
-    ItemCalendar
+    ItemCalendar,
+    ItemPrint
   },
   data () {
     return {

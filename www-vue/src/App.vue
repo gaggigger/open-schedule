@@ -452,4 +452,6 @@ export default {
   .icon-book::before { content: '📖 ';  white-space: nowrap; }
   .icon-clock::before { content: '🕔 ';  white-space: nowrap; }
   .icon-timer-clock::before { content: '⌛ ';  white-space: nowrap; }
+  .icon-upload::before { content: '⇑ ';  white-space: nowrap; }
+  .icon-download::before { content: '⇓ ';  white-space: nowrap; }
 </style>
