@@ -449,4 +449,5 @@ export default {
   .icon-unlock::before { content: '🔓 ';  white-space: nowrap; }
   .icon-lock::before { content: '🔒 ';  white-space: nowrap; }
   .icon-ok::before { content: '✔ ';  white-space: nowrap; }
+  .icon-book::before { content: '📖 ';  white-space: nowrap; }
 </style>

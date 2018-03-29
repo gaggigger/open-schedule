@@ -1,6 +1,6 @@
 <template>
   <article>
-    <h3>Future events</h3>
+    <h3 class="icon-calendar">Future events</h3>
     <div v-for="event in eventList"
          v-bind:key="event.uuid">
       <b>{{ event.title }}</b>

@@ -1,6 +1,6 @@
 <template>
   <article>
-    <h3>Recent ebooks</h3>
+    <h3 class="icon-book">Recent ebooks</h3>
     <ul>
       <li class="book"
            v-for="book in books"
