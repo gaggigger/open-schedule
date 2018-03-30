@@ -7,7 +7,7 @@
       <div>
         <span class="icon-clock"></span>{{ format(event.start) }}
         <br />
-        <span class="icon-timer-clock"></span>{{ duration(event.start, event.end) }}h
+        <span class="icon-timer-clock"></span>{{ duration(event.start, event.end) }}
       </div>
       <pre v-if="event.description">
         {{ event.description }}
@@ -44,8 +44,7 @@ export default {
       return moment(date, 'YYYY-MM-DD[T]HH:mm').format('LLLL')
     },
     duration (start, end) {
-      return moment.duration(moment(end, 'YYYY-MM-DD[T]HH:mm').diff(moment(start, 'YYYY-MM-DD[T]HH:mm')))
-        .asHours()
+      return moment.duration(moment(end, 'YYYY-MM-DD[T]HH:mm').diff(moment(start, 'YYYY-MM-DD[T]HH:mm'))).humanize()
     },
     loadList () {
       return Http.request('/modules/calendar/data', 'GET', {
