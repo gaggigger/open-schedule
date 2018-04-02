@@ -26,7 +26,7 @@
 </template>
 <script>
 export default {
-  name: 'modal',
+  name: 'Modal',
   methods: {
     clickWrapper ($event) {
       if ($event.target.classList.contains('modal-wrapper')) {

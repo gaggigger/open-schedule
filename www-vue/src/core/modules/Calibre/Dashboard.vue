@@ -19,7 +19,7 @@
 <script>
 import Http from '../../services/Http'
 import Config from '../../../../../api-nj/config'
-import Loading from '../Loading/Index.vue'
+import Loading from '../../components/Loading/Index.vue'
 
 export default {
   name: 'CalibreDashboard',

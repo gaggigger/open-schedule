@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import ItemList from './ItemList.vue'
+import ItemList from './List.vue'
 import Http from '../../services/Http'
 
 export default {

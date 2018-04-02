@@ -59,11 +59,11 @@
 <script>
 import New from './New.vue'
 import moment from 'moment'
-import PeriodService from '../../services/Period'
-import Modal from '../Form/Modal.vue'
+import PeriodService from './services/Period'
+import Modal from '../../components/Modal/Index.vue'
 
 export default {
-  name: 'sessionPeriod',
+  name: 'SessionPeriod',
   components: {
     New,
     Modal

@@ -1,7 +1,6 @@
 <template>
   <nav>
     <router-link to="/" href="#">🏠 OpenSchedule</router-link>
-
     <router-link
       href="#"
       :data-icon="menu.path"
@@ -11,16 +10,14 @@
     >
       {{ menu.name }}
     </router-link>
-
-    <!--router-link to="login"  href="#">👤 Login</router-link>
-    <a href="#" v-on:click="logout()">🚶 Logout</a-->
   </nav>
 </template>
 
 <script>
-import Http from '../services/Http'
+import Http from '../../services/Http'
 
 export default {
+  name: 'MenuVerticalMenu',
   data () {
     return {
       menus: []

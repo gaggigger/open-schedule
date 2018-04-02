@@ -25,7 +25,7 @@ import FileStorage from '../../services/FileStorage'
 import Notification from '../../services/Notification'
 
 export default {
-  name: 'dd-image',
+  name: 'ImageUpload',
   props: [
     'uri'
   ],

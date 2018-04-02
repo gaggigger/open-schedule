@@ -37,12 +37,12 @@
 </template>
 
 <script>
-import Http from '../services/Http'
-import Auth from '../services/Auth'
-import Notification from '../services/Notification'
+import Http from '../../services/Http'
+import Auth from '../../services/Auth'
+import Notification from '../../services/Notification'
 
 export default {
-  name: 'Login',
+  name: 'LoginLogin',
   data () {
     return {
       s_username: 'Username',

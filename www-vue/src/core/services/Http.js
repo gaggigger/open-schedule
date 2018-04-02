@@ -1,8 +1,8 @@
 import Auth from './Auth'
 import Config from '../../../../api-nj/config'
 import Notification from './Notification'
-import Loading from '../components/Loading.vue'
-import Period from '../services/Period'
+import Loading from '../components/Loading/LoadingBar.vue'
+import Period from '../modules/Session/services/Period'
 
 const Http = function () {
   const baseUrl = Config.apiUrl

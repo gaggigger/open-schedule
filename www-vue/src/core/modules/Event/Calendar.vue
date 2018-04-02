@@ -36,13 +36,13 @@
 <script>
 import { FullCalendar } from 'vue-full-calendar'
 import Http from '../../services/Http'
-import Modal from '../Form/Modal.vue'
+import Modal from '../../components/Modal/Index.vue'
 import {VueTabs, VTab} from 'vue-nav-tabs'
 import Color from '../../services/Color'
 import Brain from '../../services/Brain'
 
 export default {
-  name: 'calendar',
+  name: 'EventCalendar',
   components: {
     FullCalendar,
     Modal,

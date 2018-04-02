@@ -29,12 +29,12 @@
 </template>
 <script>
 import Http from '../../services/Http'
-import Modal from './Modal.vue'
-import ItemList from '../Resources/ItemList.vue'
+import Modal from '../../components/Modal/Index.vue'
+import ItemList from './List.vue'
 import Notification from '../../services/Notification'
 
 export default {
-  name: 'resource-item',
+  name: 'ResourceSimpleList',
   components: {
     Modal,
     ItemList

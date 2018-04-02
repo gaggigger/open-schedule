@@ -25,7 +25,7 @@
 <script>
 import {VueTabs, VTab} from 'vue-nav-tabs'
 import ItemForm from './Form.vue'
-import ItemCalendar from './Calendar.vue'
+import ItemCalendar from '../Event/Calendar.vue'
 import ItemPrint from '../Print/Print.vue'
 import Http from '../../services/Http'
 

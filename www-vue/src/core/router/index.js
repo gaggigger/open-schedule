@@ -1,18 +1,18 @@
-import Index from '../components/Index.vue'
-import About from '../components/About.vue'
-import Login from '../components/Login.vue'
-import Logout from '../components/Logout.vue'
-import Sessions from '../components/Sessions.vue'
-import Resources from '../components/Resources.vue'
-import ResourcesManageItem from '../components/Resources/ManageItem.vue'
-import ResourcesItemDetail from '../components/Resources/ItemDetail.vue'
-import ResourcesForm from '../components/Resources/Form.vue'
+import Home from '../modules/Home/Index.vue'
+import About from '../modules/About/Index.vue'
+import Login from '../modules/Login/Login.vue'
+import Logout from '../modules/Login/Logout.vue'
+import Session from '../modules/Session/Index.vue'
+import Resources from '../modules/Resource/Index.vue'
+import ResourceManageList from '../modules/Resource/ManageList.vue'
+import ResourceDetails from '../modules/Resource/Details.vue'
+import ResourceForm from '../modules/Resource/Form.vue'
 
 export default [
   {
     path: '/',
     name: 'index',
-    component: Index
+    component: Home
   }, {
     path: '/about',
     name: 'about',
@@ -28,22 +28,22 @@ export default [
   }, {
     path: '/session',
     name: 'session',
-    component: Sessions
+    component: Session
   }, {
     path: '/resources',
     name: 'resources',
     component: Resources
   }, {
     path: '/resources/:item',
-    name: 'resources_item',
-    component: ResourcesManageItem
+    name: 'resource_managelist',
+    component: ResourceManageList
   }, {
     path: '/resources/:item/detail/:id?',
-    name: 'resources_detail',
-    component: ResourcesItemDetail
+    name: 'resource_details',
+    component: ResourceDetails
   }, {
     path: '/resources/:item/form/:id?',
-    name: 'resources_form_edit',
-    component: ResourcesForm
+    name: 'resource_index',
+    component: ResourceForm
   }
 ]

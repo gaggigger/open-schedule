@@ -16,10 +16,10 @@
 </template>
 
 <script>
-import Http from '../services/Http'
+import Http from '../../services/Http'
 
 export default {
-  name: 'Resources',
+  name: 'Resource',
   data () {
     return {
       resources: []

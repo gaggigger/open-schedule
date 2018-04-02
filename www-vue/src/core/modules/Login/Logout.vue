@@ -3,10 +3,10 @@
 </template>
 
 <script>
-import Auth from '../services/Auth'
+import Auth from '../../services/Auth'
 
 export default {
-  name: 'Logout',
+  name: 'LoginLogout',
   created () {
     Auth.logOff()
     this.$router.push('/')

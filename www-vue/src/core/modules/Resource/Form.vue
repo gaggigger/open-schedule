@@ -18,16 +18,16 @@
           <span class="error" v-if="field.mandatory">*</span>
         </div>
         <div v-if="field.type == 'resources_items'">
-          <resource-item v-bind:resourceLnk="field.link.resource"
+          <simple-list v-bind:resourceLnk="field.link.resource"
                          v-bind:resource="item"
                          v-bind:type="field.link.type"
                          v-bind:id="id"
-          ></resource-item>
+          ></simple-list>
         </div>
         <div v-else-if="field.type == 'picture'">
-          <dd-image
+          <ImageUpload
             v-bind:uri="itemData[field.name]"
-            v-on:imgChange="changeItem(itemData, field.name, ...arguments)"></dd-image>
+            v-on:imgChange="changeItem(itemData, field.name, ...arguments)"></ImageUpload>
         </div>
         <div v-else-if="field.type == 'choicelist'" class="choicelist">
           <choice-list
@@ -49,16 +49,16 @@
 
 <script>
 import Http from '../../services/Http'
-import DdImage from '../Form/DdImage.vue'
-import ChoiceList from '../Form/ChoiceList.vue'
-import ResourceItem from '../Form/ResourceItem.vue'
+import ImageUpload from '../../components/ImageUpload/Index.vue'
+import ChoiceList from './ChoiceList.vue'
+import SimpleList from './SimpleList.vue'
 
 export default {
-  name: 'ResourcesForm',
+  name: 'ResourceForm',
   components: {
-    DdImage,
+    ImageUpload,
     ChoiceList,
-    ResourceItem
+    SimpleList
   },
   data () {
     return {

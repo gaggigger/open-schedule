@@ -19,7 +19,7 @@
 import Http from '../../services/Http'
 
 export default {
-  name: 'choice-list',
+  name: 'ResourceChoiceList',
   props: [
     'clname',
     'selection'

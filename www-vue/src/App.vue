@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <app-menu></app-menu>
+    <vertical-menu></vertical-menu>
     <!--img src="./assets/logo.png"-->
     <div class="container">
       <router-view :key="$route.fullPath" />
@@ -8,20 +8,20 @@
     <div class="offline-message" v-if="!online">
       ⚠️ You lost internet connection !
     </div>
-    <loading ref="app-loading"></loading>
+    <app-loading ref="app-loading"></app-loading>
     <vue-snotify></vue-snotify>
   </div>
 </template>
 
 <script>
-import AppMenu from './core/components/AppMenu.vue'
-import Loading from './core/components/Loading.vue'
+import VerticalMenu from './core/components/Menu/VerticalMenu.vue'
+import AppLoading from './core/components/Loading/LoadingBar.vue'
 // import Firebase from 'firebase'
 
 export default {
   name: 'App',
   components: {
-    AppMenu, Loading
+    VerticalMenu, AppLoading
   },
   created () {
     /*
@@ -415,23 +415,6 @@ export default {
     background-color: var(--first-color);
   }
   /** Loading **/
-  .loading {
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-    position: relative;
-  }
-  .loading::after {
-    content: "";
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    border-width: 6px;
-    border-style: solid;
-    border-color: var(--second-color) transparent var(--third-color) transparent;
-    animation: lds-dual-ring 0.5s linear infinite;
-    position: absolute;
-  }
   .loading1::after {
     content: " ";
     display: block;

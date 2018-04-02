@@ -20,9 +20,9 @@
 </template>
 
 <script>
-import EventDashboard from '../modules/Event/Dashboard.vue'
-import CalibreDashboard from '../modules/Calibre/Dashboard.vue'
-import Auth from '../services/Auth'
+import EventDashboard from '../Event/Dashboard.vue'
+import CalibreDashboard from '../Calibre/Dashboard.vue'
+import Auth from '../../services/Auth'
 
 export default {
   name: 'Index',
@@ -69,7 +69,7 @@ export default {
   }
   footer {
     padding: 1em;
-    width: 100%;
+    width: calc(100% - 2em);
     color: var(--second-color);
   }
 </style>

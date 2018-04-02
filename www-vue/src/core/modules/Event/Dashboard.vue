@@ -21,10 +21,10 @@
 <script>
 import Http from '../../services/Http'
 import moment from 'moment'
-import Loading from '../Loading/Index.vue'
+import Loading from '../../components/Loading/Index.vue'
 
 export default {
-  name: 'EventList',
+  name: 'EventDashboard',
   components: {
     Loading
   },

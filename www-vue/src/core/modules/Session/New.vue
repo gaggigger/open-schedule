@@ -39,7 +39,7 @@
 import Http from '../../services/Http'
 
 export default {
-  name: 'new-session',
+  name: 'SessionNew',
   props: [
     'session'
   ],

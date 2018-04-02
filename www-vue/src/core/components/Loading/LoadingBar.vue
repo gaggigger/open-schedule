@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'Loading',
+  name: 'LoadingLoadingBar',
   data () {
     return {
       HttpCounter: 0
