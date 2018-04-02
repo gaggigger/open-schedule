@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'LoadingLoadingBar',
+  name: 'Loading',
   data () {
     return {
       HttpCounter: 0
@@ -17,23 +17,29 @@ export default {
       try {
         window.AppVue.$children[0].$refs['app-loading']._increase()
       } catch (e) {
-        // raf
+        setTimeout(() => {
+          this.increase()
+        }, 100)
       }
     },
     decrease () {
       try {
         window.AppVue.$children[0].$refs['app-loading']._decrease()
       } catch (e) {
-        // raf
+        setTimeout(() => {
+          this.decrease()
+        }, 100)
       }
     },
     _increase () {
-      let i = this.HttpCounter
-      this.HttpCounter = Math.max(0, ++i)
+      ++this.HttpCounter
+      // let i = this.HttpCounter
+      // this.HttpCounter = Math.max(0, ++i)
     },
     _decrease () {
-      let i = this.HttpCounter
-      this.HttpCounter = Math.max(0, --i)
+      --this.HttpCounter
+      // let i = this.HttpCounter
+      // this.HttpCounter = Math.max(0, --i)
     }
   }
 }
@@ -43,23 +49,25 @@ export default {
   .loading {
     position: fixed;
     bottom: 0;
-    right: 0;
+    right: 1rem;
     z-index: 1000;
   }
   .loading-bar {
-    padding-left: 1em;
     display: inline-block;
+    font-size: 0.8em;
+    padding: 0.2em 1em;
+    color: white;
+    font-weight: bold;
     width: 25%;
     min-width: 150px;
-    height: 1em;
     border: 1px solid var(--second-color);
     -webkit-border-radius: 1em;
     -moz-border-radius: 1em;
     border-radius: 1em;
     background: linear-gradient(-45deg, var(--maintext-color), var(--third-color), var(--second-color), var(--first-color));
     background-size: 400% 400%;
-    -webkit-animation: Gradient 4s ease infinite;
-    -moz-animation: Gradient 4s ease infinite;
-    animation: Gradient 2s ease infinite;
+    -webkit-animation: Gradient 1s ease infinite;
+    -moz-animation: Gradient 1s ease infinite;
+    animation: Gradient 1s ease infinite;
   }
 </style>
