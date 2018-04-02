@@ -415,6 +415,23 @@ export default {
     background-color: var(--first-color);
   }
   /** Loading **/
+  .loading {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    position: relative;
+  }
+  .loading::after {
+    content: "";
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border-width: 6px;
+    border-style: solid;
+    border-color: var(--second-color) transparent var(--third-color) transparent;
+    animation: lds-dual-ring 0.5s linear infinite;
+    position: absolute;
+  }
   .loading1::after {
     content: " ";
     display: block;

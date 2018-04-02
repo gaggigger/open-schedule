@@ -2,10 +2,10 @@
   <div>
     <section class="index-container">
       <article v-if="isLogged()">
-        <calibre></calibre>
+        <calibre-dashboard></calibre-dashboard>
       </article>
       <article v-if="isLogged()">
-        <event-list module="calendar"></event-list>
+        <event-dashboard module="calendar"></event-dashboard>
       </article>
     </section>
     <footer>
@@ -20,14 +20,14 @@
 </template>
 
 <script>
-import EventList from './Resources/EventList.vue'
-import Calibre from './Calibre/Calibre.vue'
+import EventDashboard from '../modules/Event/Dashboard.vue'
+import CalibreDashboard from '../modules/Calibre/Dashboard.vue'
 import Auth from '../services/Auth'
 
 export default {
   name: 'Index',
   components: {
-    EventList, Calibre
+    EventDashboard, CalibreDashboard
   },
   data () {
     return {

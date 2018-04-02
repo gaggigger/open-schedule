@@ -1,7 +1,9 @@
 <template>
   <article>
     <h3 class="icon-calendar">Future events</h3>
+    <loading v-if="!loaded"></loading>
     <div v-for="event in eventList"
+         v-if="loaded"
          v-bind:key="event.uuid">
       <b>{{ event.title }}</b>
       <div>
@@ -19,9 +21,13 @@
 <script>
 import Http from '../../services/Http'
 import moment from 'moment'
+import Loading from '../Loading/Index.vue'
 
 export default {
   name: 'EventList',
+  components: {
+    Loading
+  },
   props: {
     module: {
       type: String,
@@ -30,6 +36,7 @@ export default {
   },
   data () {
     return {
+      loaded: false,
       eventList: []
     }
   },
@@ -50,6 +57,7 @@ export default {
       return Http.request('/modules/calendar/data', 'GET', {
         getallmodule: this.module
       }).then(response => {
+        this.loaded = true
         this.eventList = response
           .filter(item => moment().isSameOrBefore(moment(item.end, 'YYYY-MM-DD[T]HH:mm')))
           .sort((a, b) => {
