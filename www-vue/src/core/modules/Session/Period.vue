@@ -16,9 +16,11 @@
       <span class="title">Periods</span>
       <span class="link icon-add" v-on:click="addPeriod">Add</span>
     </h3>
+    <loading v-if="!loaded"></loading>
     <div v-bind:key="period.id"
          class="period"
          v-for="period in periods"
+         v-if="loaded"
     >
       <div class="label toolbar-1">
         <div>
@@ -61,18 +63,21 @@ import New from './New.vue'
 import moment from 'moment'
 import PeriodService from './services/Period'
 import Modal from '../../components/Modal/Index.vue'
+import Loading from '../../components/Loading/Index.vue'
 
 export default {
   name: 'SessionPeriod',
   components: {
     New,
-    Modal
+    Modal,
+    Loading
   },
   props: [
     'sessionId'
   ],
   data () {
     return {
+      loaded: false,
       showModal: false,
       editedPeriod: null,
       periods: []
@@ -83,9 +88,11 @@ export default {
   },
   methods: {
     loadPeriod () {
+      this.loaded = false
       PeriodService.loadPeriod({
         parent_id: this.sessionId
       }).then(response => {
+        this.loaded = true
         this.periods = response
       })
     },

@@ -31,9 +31,11 @@
               v-on:click="display_period = !display_period"></span>
       </div>
     </header>
+    <loading v-if="!loaded"></loading>
     <div v-bind:key="session.id"
          v-for="session in sessions"
          class="main-container shadow"
+         v-if="loaded"
     >
       <div class="session-container">
         <div class="session-label toolbar-1">
@@ -93,16 +95,19 @@ import PeriodService from './services/Period'
 import Period from './Period.vue'
 import Notification from '../../services/Notification'
 import Modal from '../../components/Modal/Index.vue'
+import Loading from '../../components/Loading/Index.vue'
 
 export default {
   name: 'Session',
   components: {
     New,
     Period,
-    Modal
+    Modal,
+    Loading
   },
   data () {
     return {
+      loaded: false,
       showModal: false,
       edit: false,
       display_period: false,
@@ -115,9 +120,16 @@ export default {
   },
   methods: {
     loadSession () {
+      this.loaded = false
       PeriodService.loadPeriod()
-        .then(response => { this.sessions = response })
-        .catch(error => { Notification.error(error) })
+        .then(response => {
+          this.loaded = true
+          this.sessions = response
+        })
+        .catch(error => {
+          this.loaded = true
+          Notification.error(error)
+        })
     },
     addSession (session = null) {
       this.showModal = true

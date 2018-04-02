@@ -6,10 +6,12 @@
         {{ item }}
       </span>
     </h3>
+    <loading v-if="!loaded"></loading>
     <vue-tabs @tab-change="handleTabChange">
       <v-tab v-bind:title="feature.name"
              v-for="feature in features"
              v-bind:key="feature.name"
+             v-if="loaded"
       >
         <item-form v-if="feature.component === 'app-resource-info'"></item-form>
         <item-calendar v-else-if="feature.component === 'app-resource-calendar'"></item-calendar>
@@ -28,6 +30,7 @@ import ItemForm from './Form.vue'
 import ItemCalendar from '../Event/Calendar.vue'
 import ItemPrint from '../Print/Print.vue'
 import Http from '../../services/Http'
+import Loading from '../../components/Loading/Index.vue'
 
 export default {
   name: 'ResourcesForm',
@@ -36,18 +39,22 @@ export default {
     VTab,
     ItemForm,
     ItemCalendar,
-    ItemPrint
+    ItemPrint,
+    Loading
   },
   data () {
     return {
+      loaded: false,
       item: this.$route.params.item,
       id: this.$route.params.id,
       features: []
     }
   },
   created () {
+    this.loaded = false
     Http.request('/resources/' + this.item, 'GET')
       .then(response => {
+        this.loaded = true
         this.features = response.features
       })
   },

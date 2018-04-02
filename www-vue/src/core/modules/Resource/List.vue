@@ -3,7 +3,8 @@
     <div class="search">
       <input type="text" placeholder="Search..." v-model="search" />
     </div>
-    <div>
+    <loading v-if="!loaded"></loading>
+    <div v-if="loaded">
       <table>
         <thead>
           <tr>
@@ -38,9 +39,13 @@
 
 <script>
 import Http from '../../services/Http'
+import Loading from '../../components/Loading/Index.vue'
 
 export default {
   name: 'ResourceList',
+  components: {
+    Loading
+  },
   props: {
     resource: {
       type: String,
@@ -61,6 +66,7 @@ export default {
   },
   data () {
     return {
+      loaded: false,
       search: '',
       features: [],
       apiColumns: null,
@@ -97,6 +103,7 @@ export default {
       return value
     },
     loadList () {
+      this.loaded = false
       this.selection = this.defaultSelection.slice(0)
       Http.request('/resources/' + this.resource, 'GET')
         .then(response => {
@@ -108,6 +115,7 @@ export default {
           Http.request(this.apiData, 'GET')
         ]))
         .then(([columns, data]) => {
+          this.loaded = true
           this.columns = columns.filter(item => item.grid_column)
           this.data = data
         })
