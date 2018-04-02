@@ -97,15 +97,18 @@ router.get('/menu', function(req, res) {
 
         // Login menu
         if(req.connectedUser) {
-            menu.push({
-                name : req.connectedUser.username,
-                path : '/user',
-                icon : 'glyphicon glyphicon-user'
-            }, {
-                name : 'Logout',
-                path : '/logout',
-                icon : 'glyphicon glyphicon-log-out'
-            });
+            menu.push(
+                /*{
+                    name : req.connectedUser.username,
+                    path : '/user',
+                    icon : 'glyphicon glyphicon-user'
+                },*/
+                {
+                    name : `Logout (${req.connectedUser.username})`,
+                    path : '/logout',
+                    icon : 'glyphicon glyphicon-log-out'
+                }
+            );
         }else {
             menu.push({
                 name : 'Login',
