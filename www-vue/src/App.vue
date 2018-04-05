@@ -129,10 +129,6 @@ export default {
     -moz-border-radius: 5px;
     border-radius: 5px;
     margin: 1em 0;
-    padding: 2em 1em;
-    -moz-box-shadow:    inset 0px 0px 8px 2px var(--second-color);
-    -webkit-box-shadow: inset 0px 0px 8px 2px var(--second-color);
-    box-shadow:         inset 0px 0px 8px 2px var(--second-color);
   }
   fieldset > legend {
     font-weight: bold;

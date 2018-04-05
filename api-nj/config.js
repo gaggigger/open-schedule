@@ -5,8 +5,8 @@ module.exports = {
         'dirver': 'mysql',
         'host': 'localhost',
         'database': 'openschedule',
-        'user': 'solofo',
-        'password': 'solofo',
+        'user': 'root',
+        'password': 'root',
         'port': 3306
     },
     'apiUrl': 'http://localhost:3000/api',
@@ -21,6 +21,6 @@ module.exports = {
     'firebaseDatabase': 'members',
     'calibre': {
         'url': 'http://localhost:3080/',
-        'database': '/home/solofo/Calibre Library/metadata.db'
+        'database': '/home/solofo/Documents/calibre/metadata.db'
     }
 };

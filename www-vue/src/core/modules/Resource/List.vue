@@ -78,7 +78,9 @@ export default {
   },
   computed: {
     filteredItems () {
-      return this.data.filter(item => Object.values(item).join('-').toLowerCase().indexOf(this.search.toLowerCase()) > -1)
+      const data = this.data.filter(item => Object.values(item).join('-').toLowerCase().indexOf(this.search.toLowerCase()) > -1)
+      this.$store.dispatch('SetResourceListData', data)
+      return data
     }
   },
   watch: {
@@ -117,6 +119,10 @@ export default {
         .then(([columns, data]) => {
           this.loaded = true
           this.columns = columns.filter(item => item.grid_column)
+
+          this.$store.dispatch('SetResourceListColumn', this.columns)
+          this.$store.dispatch('SetResourceListData', data)
+
           this.data = data
         })
     },

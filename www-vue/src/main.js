@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import moment from 'moment'
 import Snotify, { SnotifyPosition } from 'vue-snotify'
+import store from './core/services/VuexStore'
 
 Vue.config.productionTip = false
 
@@ -18,6 +19,7 @@ Vue.use(Snotify, {
 window.AppVue = new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   data () {
     return {

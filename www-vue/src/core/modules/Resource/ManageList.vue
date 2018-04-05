@@ -7,7 +7,13 @@
     <header class="toolbar-2">
       <span class="link icon-add" v-on:click="addItem()">Add</span>
       <span class="link icon-upload">Import</span>
-      <span class="link icon-download">Export</span>
+      <download-excel
+        class="link icon-download"
+        :data="$store.getters.ResourceListData"
+        :fields="resourceListColumn"
+        type="csv"
+        name="filename.csv"
+      >Export</download-excel>
       <span class="link icon-delete" v-on:click="deleteItem()">Delete selected</span>
     </header>
     <item-list v-bind:resource="item"
@@ -21,17 +27,32 @@
 <script>
 import ItemList from './List.vue'
 import Http from '../../services/Http'
+import DownloadExcel from 'vue-json-excel'
 
 export default {
   name: 'ResourcesItem',
   components: {
-    ItemList
+    ItemList,
+    DownloadExcel
   },
   data () {
     return {
       item: this.$route.params.item,
       selectedItems: [],
-      reloadList: true
+      reloadList: true,
+      json_meta: [
+        [
+          {
+            'key': 'charset',
+            'value': 'utf-8'
+          }
+        ]
+      ]
+    }
+  },
+  computed: {
+    resourceListColumn () {
+      return this.$store.getters.ResourceListColumn
     }
   },
   methods: {
