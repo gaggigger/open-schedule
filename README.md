@@ -15,5 +15,3 @@ Then deploy the dist
 
 ## Database procedures
 `get_resources(): ind<int>, name<string>, params<json string: icon<string>, name<string>, path<string>>, position<int>`
-
-
