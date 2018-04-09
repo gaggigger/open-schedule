@@ -12,8 +12,11 @@
         :data="$store.getters.ResourceListData"
         :fields="resourceListColumn"
         type="csv"
-        name="filename.csv"
+        name="resource.csv"
       >Export</download-excel>
+      <!--
+      <xls-csv-parser :columns="columns" @on-validate="onValidate" :help="help" lang="en"></xls-csv-parser>
+      -->
       <span class="link icon-delete" v-on:click="deleteItem()">Delete selected</span>
     </header>
     <item-list v-bind:resource="item"
@@ -28,12 +31,14 @@
 import ItemList from './List.vue'
 import Http from '../../services/Http'
 import DownloadExcel from 'vue-json-excel'
+import { XlsCsvParser } from 'vue-xls-csv-parser'
 
 export default {
   name: 'ResourcesItem',
   components: {
     ItemList,
-    DownloadExcel
+    DownloadExcel,
+    XlsCsvParser
   },
   data () {
     return {
@@ -47,7 +52,15 @@ export default {
             'value': 'utf-8'
           }
         ]
-      ]
+      ],
+      columns: [
+        { name: 'Student login', value: 'login' },
+        { name: 'Student firstname', value: 'firstname' },
+        { name: 'Student lastname', value: 'lastname' },
+        { name: 'Other', value: 'other', isOptional: true }
+      ],
+      results: null,
+      help: 'Necessary columns are: login, firstname and lastname'
     }
   },
   computed: {
