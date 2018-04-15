@@ -13,7 +13,7 @@
         href="#"
         to="/about"
       >
-        Credit
+        Credits
       </router-link>
     </footer>
   </div>
